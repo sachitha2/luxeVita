@@ -132,7 +132,7 @@ public class BookingReceiptActivity extends AppCompatActivity {
         sb.append("Amount: ").append(String.format(Locale.getDefault(), "$%.2f", totalAmount)).append("\n");
         sb.append("Issued At: ").append(created).append("\n");
         sb.append("\n");
-        sb.append("Thank you for choosing EcoStay.");
+        sb.append("Thank you for choosing Luxe Vista Resort.");
         return sb.toString();
     }
 }

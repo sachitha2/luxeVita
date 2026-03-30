@@ -1,13 +1,18 @@
 package com.example.ecostay.ui;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -36,6 +41,10 @@ public class AdminRoomsActivity extends AppCompatActivity {
     private TextView tvEmptyState;
     private AdminRoomTypeAdapter adapter;
     private List<RoomTypeEntity> roomTypes = new ArrayList<>();
+
+    @Nullable
+    private Uri pendingImageUri;
+    private ActivityResultLauncher<String> imagePickerLauncher;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +75,15 @@ public class AdminRoomsActivity extends AppCompatActivity {
         rvRooms.setLayoutManager(new LinearLayoutManager(this));
         rvRooms.setAdapter(adapter);
         btnAdd.setOnClickListener(v -> showUpsertDialog(null));
+
+        imagePickerLauncher = registerForActivityResult(
+                new ActivityResultContracts.GetContent(),
+                uri -> {
+                    if (uri != null) {
+                        pendingImageUri = uri;
+                    }
+                }
+        );
         loadRooms();
     }
 
@@ -87,15 +105,42 @@ public class AdminRoomsActivity extends AppCompatActivity {
         TextInputEditText etDescription = dialogView.findViewById(R.id.etAdminRoomDescription);
         TextInputEditText etPrice = dialogView.findViewById(R.id.etAdminRoomPrice);
         TextInputEditText etTotalRooms = dialogView.findViewById(R.id.etAdminRoomInventory);
-        TextInputEditText etImageRef = dialogView.findViewById(R.id.etAdminRoomImageRef);
+        ImageView ivPreview = dialogView.findViewById(R.id.ivAdminRoomPreview);
+        Button btnSelectImage = dialogView.findViewById(R.id.btnAdminSelectRoomImage);
+
+        pendingImageUri = null;
 
         if (existing != null) {
             etName.setText(existing.name);
             etDescription.setText(existing.description);
             etPrice.setText(String.valueOf(existing.pricePerNight));
             etTotalRooms.setText(String.valueOf(existing.totalRooms));
-            etImageRef.setText(existing.imageRef == null ? "" : existing.imageRef);
+            if (existing.imageRef != null && !existing.imageRef.trim().isEmpty()) {
+                try {
+                    Uri uri = Uri.parse(existing.imageRef);
+                    if ("content".equals(uri.getScheme()) || "file".equals(uri.getScheme())) {
+                        ivPreview.setImageURI(uri);
+                        pendingImageUri = uri;
+                    } else {
+                        int fallbackRes = R.drawable.room_default;
+                        int imageRes = dialogView.getContext().getResources()
+                                .getIdentifier(existing.imageRef, "drawable", dialogView.getContext().getPackageName());
+                        ivPreview.setImageResource(imageRes != 0 ? imageRes : fallbackRes);
+                    }
+                } catch (Exception e) {
+                    ivPreview.setImageResource(R.drawable.room_default);
+                }
+            } else {
+                ivPreview.setImageResource(R.drawable.room_default);
+            }
+        } else {
+            ivPreview.setImageResource(R.drawable.room_default);
         }
+
+        btnSelectImage.setOnClickListener(v -> {
+            imagePickerLauncher.launch("image/*");
+            // actual ImageView update occurs when saving, using pendingImageUri
+        });
 
         AlertDialog dialog = new AlertDialog.Builder(this)
                 .setTitle(existing == null ? R.string.admin_add_room : R.string.admin_edit_room)
@@ -109,7 +154,6 @@ public class AdminRoomsActivity extends AppCompatActivity {
             String description = etDescription.getText() == null ? "" : etDescription.getText().toString().trim();
             String priceRaw = etPrice.getText() == null ? "" : etPrice.getText().toString().trim();
             String totalRoomsRaw = etTotalRooms.getText() == null ? "" : etTotalRooms.getText().toString().trim();
-            String imageRef = etImageRef.getText() == null ? "" : etImageRef.getText().toString().trim();
 
             if (name.isEmpty() || description.isEmpty() || priceRaw.isEmpty() || totalRoomsRaw.isEmpty()) {
                 Toast.makeText(this, R.string.admin_room_validation_error, Toast.LENGTH_SHORT).show();
@@ -145,7 +189,11 @@ public class AdminRoomsActivity extends AppCompatActivity {
             target.description = description;
             target.pricePerNight = price;
             target.totalRooms = totalRooms;
-            target.imageRef = imageRef.isEmpty() ? "room_default" : imageRef;
+            if (pendingImageUri != null) {
+                target.imageRef = pendingImageUri.toString();
+            } else if (target.imageRef == null || target.imageRef.trim().isEmpty()) {
+                target.imageRef = "room_default";
+            }
 
             dbExecutor.execute(() -> {
                 if (existing == null) {

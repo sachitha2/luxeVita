@@ -1,5 +1,6 @@
 package com.example.ecostay.ui.adapters;
 
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,9 +50,23 @@ public class RoomTypeAdapter extends RecyclerView.Adapter<RoomTypeAdapter.RoomTy
         holder.tvDescription.setText(item.description);
         holder.tvPrice.setText("$" + item.pricePerNight + " / night");
         int fallbackRes = R.drawable.room_default;
-        int imageRes = holder.itemView.getContext().getResources()
-                .getIdentifier(item.imageRef == null ? "" : item.imageRef, "drawable", holder.itemView.getContext().getPackageName());
-        holder.ivRoomImage.setImageResource(imageRes != 0 ? imageRes : fallbackRes);
+
+        if (item.imageRef != null && !item.imageRef.trim().isEmpty()) {
+            try {
+                Uri uri = Uri.parse(item.imageRef);
+                if ("content".equals(uri.getScheme()) || "file".equals(uri.getScheme())) {
+                    holder.ivRoomImage.setImageURI(uri);
+                } else {
+                    int imageRes = holder.itemView.getContext().getResources()
+                            .getIdentifier(item.imageRef, "drawable", holder.itemView.getContext().getPackageName());
+                    holder.ivRoomImage.setImageResource(imageRes != 0 ? imageRes : fallbackRes);
+                }
+            } catch (Exception e) {
+                holder.ivRoomImage.setImageResource(fallbackRes);
+            }
+        } else {
+            holder.ivRoomImage.setImageResource(fallbackRes);
+        }
 
         holder.card.setOnClickListener(v -> listener.onRoomClicked(item));
     }
