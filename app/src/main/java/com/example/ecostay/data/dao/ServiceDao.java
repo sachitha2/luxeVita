@@ -1,8 +1,10 @@
 package com.example.ecostay.data.dao;
 
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import com.example.ecostay.data.entity.ServiceEntity;
 
@@ -19,6 +21,15 @@ public interface ServiceDao {
 
     @Insert
     long[] insertAll(ServiceEntity... services);
+
+    @Insert
+    long insert(ServiceEntity service);
+
+    @Update
+    void update(ServiceEntity service);
+
+    @Delete
+    void delete(ServiceEntity service);
 
     @Query("SELECT * FROM services WHERE id = :id LIMIT 1")
     ServiceEntity findById(long id);

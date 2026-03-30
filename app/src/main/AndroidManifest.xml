@@ -53,6 +53,15 @@
         <activity
             android:name=".ui.BookingReceiptActivity"
             android:exported="false" />
+        <activity
+            android:name=".ui.AdminDashboardActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.AdminBookingManagementActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.AdminServicesActivity"
+            android:exported="false" />
     </application>
 
 </manifest>

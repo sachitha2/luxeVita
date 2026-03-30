@@ -15,8 +15,10 @@ import android.widget.TextView;
 import com.example.ecostay.data.EcoStayDatabase;
 import com.example.ecostay.data.dao.UserDao;
 import com.example.ecostay.data.entity.UserEntity;
+import com.example.ecostay.security.AdminConfig;
 import com.example.ecostay.security.PasswordUtils;
 import com.example.ecostay.session.SessionManager;
+import com.example.ecostay.ui.AdminDashboardActivity;
 import com.example.ecostay.ui.HomeActivity;
 import com.example.ecostay.util.ValidationUtils;
 
@@ -34,6 +36,19 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if (SessionManager.isAdmin(this)) {
+            startActivity(new Intent(this, AdminDashboardActivity.class));
+            finish();
+            return;
+        }
+
+        if (SessionManager.getUserId(this) != null) {
+            startActivity(new Intent(this, HomeActivity.class));
+            finish();
+            return;
+        }
+
         setContentView(R.layout.activity_main);
 
         EcoStayDatabase database = EcoStayDatabase.getInstance(this);
@@ -128,6 +143,14 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
             } else {
+                if (AdminConfig.ADMIN_EMAIL.equalsIgnoreCase(email) && AdminConfig.ADMIN_PASSWORD.equals(password)) {
+                    SessionManager.saveAdminSession(MainActivity.this, AdminConfig.ADMIN_EMAIL);
+                    Intent intent = new Intent(MainActivity.this, AdminDashboardActivity.class);
+                    startActivity(intent);
+                    finish();
+                    return;
+                }
+
                 setSubmitLoading(btnSubmit, true, false);
                 // Login flow.
                 String safeEmail = email;

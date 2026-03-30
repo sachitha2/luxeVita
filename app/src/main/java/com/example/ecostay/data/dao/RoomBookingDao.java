@@ -46,6 +46,9 @@ public interface RoomBookingDao {
     @Query("SELECT * FROM room_bookings WHERE id = :bookingId AND user_id = :userId LIMIT 1")
     RoomBookingEntity findByIdForUser(long bookingId, long userId);
 
+    @Query("SELECT * FROM room_bookings WHERE id = :bookingId LIMIT 1")
+    RoomBookingEntity findById(long bookingId);
+
     @Query(
             "SELECT * FROM room_bookings " +
                     "WHERE user_id = :userId " +
@@ -57,5 +60,16 @@ public interface RoomBookingDao {
                     "created_at_epoch_millis DESC"
     )
     List<RoomBookingEntity> getManagedByUser(long userId, String status, String sortBy);
+
+    @Query(
+            "SELECT * FROM room_bookings " +
+                    "WHERE (:status = 'ALL' OR status = :status) " +
+                    "ORDER BY " +
+                    "CASE WHEN :sortBy = 'created_asc' THEN created_at_epoch_millis END ASC, " +
+                    "CASE WHEN :sortBy = 'checkin_asc' THEN start_date_epoch_day END ASC, " +
+                    "CASE WHEN :sortBy = 'checkin_desc' THEN start_date_epoch_day END DESC, " +
+                    "created_at_epoch_millis DESC"
+    )
+    List<RoomBookingEntity> getAllManaged(String status, String sortBy);
 }
 

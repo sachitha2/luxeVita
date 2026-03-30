@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/EcoStay.ScreenRoot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/EcoStay.PageContainer"
+        tools:context=".ui.AdminBookingManagementActivity">
+
+        <TextView
+            android:id="@+id/tvAdminManageBookingsTitle"
+            style="@style/EcoStay.Title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/admin_manage_bookings_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvAdminManageBookingsSubtitle"
+            style="@style/EcoStay.Subtitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:text="@string/admin_manage_bookings_subtitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvAdminManageBookingsTitle" />
+
+        <LinearLayout
+            android:id="@+id/adminBookingTabs"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal"
+            android:weightSum="2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvAdminManageBookingsSubtitle">
+
+            <Button
+                android:id="@+id/btnAdminManageRoomsTab"
+                style="@style/EcoStay.SecondaryButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/manage_bookings_rooms" />
+
+            <Button
+                android:id="@+id/btnAdminManageServicesTab"
+                style="@style/EcoStay.SecondaryButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_weight="1"
+                android:text="@string/manage_bookings_services" />
+        </LinearLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilAdminManageBookingSearch"
+            style="@style/EcoStay.TextField"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/adminBookingTabs">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etAdminManageBookingSearch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/manage_bookings_search_hint" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Spinner
+            android:id="@+id/spAdminManageBookingStatus"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            app:layout_constraintEnd_toStartOf="@id/spAdminManageBookingSort"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tilAdminManageBookingSearch" />
+
+        <Spinner
+            android:id="@+id/spAdminManageBookingSort"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toEndOf="@id/spAdminManageBookingStatus"
+            app:layout_constraintTop_toTopOf="@id/spAdminManageBookingStatus" />
+
+        <Button
+            android:id="@+id/btnAdminManageBookingApplyFilters"
+            style="@style/EcoStay.SecondaryButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/action_apply_filters"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/spAdminManageBookingStatus" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvAdminManageBookings"
+            android:layout_width="0dp"
+            android:layout_height="420dp"
+            android:layout_marginTop="12dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnAdminManageBookingApplyFilters" />
+
+        <TextView
+            android:id="@+id/tvAdminManageBookingsEmpty"
+            style="@style/EcoStay.Subtitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/manage_bookings_empty"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnAdminManageBookingApplyFilters" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

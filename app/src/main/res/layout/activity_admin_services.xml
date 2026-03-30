@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/EcoStay.ScreenRoot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/EcoStay.PageContainer"
+        tools:context=".ui.AdminServicesActivity">
+
+        <TextView
+            android:id="@+id/tvAdminServicesTitle"
+            style="@style/EcoStay.Title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/admin_manage_services_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/btnAdminAddService"
+            style="@style/EcoStay.PrimaryButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:text="@string/admin_add_service"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvAdminServicesTitle" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvAdminServices"
+            android:layout_width="0dp"
+            android:layout_height="480dp"
+            android:layout_marginTop="12dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnAdminAddService" />
+
+        <TextView
+            android:id="@+id/tvAdminServicesEmptyState"
+            style="@style/EcoStay.Subtitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/services_empty"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnAdminAddService" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
