@@ -1,0 +1,35 @@
+@startuml
+left to right direction
+
+actor Guest as guest
+
+rectangle "EcoStay App" {
+  usecase "Register" as ucRegister
+  usecase "Log in" as ucLogin
+  usecase "Browse & filter rooms" as ucBrowseRooms
+  usecase "Book a room" as ucBookRoom
+  usecase "Browse/choose services" as ucBrowseServices
+  usecase "Reserve a service date" as ucReserveService
+  usecase "View offers & attractions" as ucOffers
+  usecase "Edit profile preferences" as ucProfile
+  usecase "View booking history" as ucHistory
+  usecase "Receive notifications" as ucNotify
+}
+
+guest --> ucRegister
+guest --> ucLogin
+guest --> ucBrowseRooms
+guest --> ucBookRoom
+guest --> ucBrowseServices
+guest --> ucReserveService
+guest --> ucOffers
+guest --> ucProfile
+guest --> ucHistory
+guest --> ucNotify
+
+ucBookRoom .> ucBrowseRooms : <<include>>
+ucReserveService .> ucBrowseServices : <<include>>
+ucHistory .> ucProfile : <<include>>
+
+@enduml
+

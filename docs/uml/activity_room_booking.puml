@@ -1,0 +1,24 @@
+@startuml
+start
+:Open Rooms screen (RoomsActivity);
+:Select room type + optional date range;
+:Tap a room card;
+:Open booking screen (RoomBookingActivity);
+:Pick start date and end date;
+
+if (Date range valid?) then (yes)
+  :Query RoomBookingDao for overlapping confirmed bookings;
+  if (Available inventory > 0?) then (yes)
+    :Insert RoomBookingEntity (CONFIRMED);
+    :Schedule WorkManager one-time reminder;
+    :Show success + return;
+  else (no)
+    :Show "No availability" message;
+  endif
+else (no)
+  :Show input validation error;
+endif
+
+stop
+@enduml
+

@@ -1,0 +1,44 @@
+@startuml
+
+skinparam classAttributeIconSize 0
+
+class "UserEntity" as User
+class "RoomTypeEntity" as RoomType
+class "RoomBookingEntity" as RoomBooking
+class "ServiceEntity" as Service
+class "ServiceBookingEntity" as ServiceBooking
+class "OfferEntity" as Offer
+class "AttractionEntity" as Attraction
+
+class "EcoStayDatabase (RoomDatabase)" as DB
+class "RoomTypeDao" as RoomTypeDao
+class "UserDao" as UserDao
+class "RoomBookingDao" as RoomBookingDao
+class "ServiceDao" as ServiceDao
+class "ServiceBookingDao" as ServiceBookingDao
+class "OfferDao" as OfferDao
+class "AttractionDao" as AttractionDao
+
+class "BookingReminderWorker" as Worker
+class "PromotionWorker" as PromoWorker
+
+DB --> UserDao
+DB --> RoomTypeDao
+DB --> RoomBookingDao
+DB --> ServiceDao
+DB --> ServiceBookingDao
+DB --> OfferDao
+DB --> AttractionDao
+
+User ||--o{ RoomBooking : books
+RoomType ||--o{ RoomBooking : booked room type
+User ||--o{ ServiceBooking : reserves
+Service ||--o{ ServiceBooking : reserved service
+
+Offer -- Attraction : shown in concierge screen
+
+Worker ..> RoomBooking : reminder
+PromoWorker ..> Offer : uses offers (conceptually)
+
+@enduml
+

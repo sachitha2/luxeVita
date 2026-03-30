@@ -1,0 +1,79 @@
+@startuml
+
+entity "users" as users {
+  *id : PK
+  --
+  email : UNIQUE
+  password_hash
+  password_salt
+  preferredRoomTypeId
+  maxBudget
+  travelStartDateEpochDay
+  travelEndDateEpochDay
+}
+
+entity "room_types" as room_types {
+  *id : PK
+  --
+  name
+  description
+  price_per_night
+  totalRooms
+  imageRef
+}
+
+entity "room_bookings" as room_bookings {
+  *id : PK
+  --
+  user_id : FK
+  room_type_id : FK
+  start_date_epoch_day
+  end_date_epoch_day
+  status
+  created_at_epoch_millis
+}
+
+entity "services" as services {
+  *id : PK
+  --
+  name
+  category
+  description
+  price
+}
+
+entity "service_bookings" as service_bookings {
+  *id : PK
+  --
+  user_id : FK
+  service_id : FK
+  booking_date_epoch_day
+  status
+  created_at_epoch_millis
+}
+
+entity "offers" as offers {
+  *id : PK
+  --
+  title
+  description
+  valid_from_epoch_day
+  valid_to_epoch_day
+}
+
+entity "attractions" as attractions {
+  *id : PK
+  --
+  title
+  description
+  location
+}
+
+users ||--o{ room_bookings
+room_types ||--o{ room_bookings
+
+users ||--o{ service_bookings
+services ||--o{ service_bookings
+
+@enduml
+
