@@ -1,5 +1,6 @@
 package com.example.ecostay.ui.adapters;
 
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,9 +51,22 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.ServiceV
         holder.tvPrice.setText("$" + item.price + "");
         holder.tvDescription.setText(item.description);
         int fallbackRes = R.drawable.service_default;
-        int imageRes = holder.itemView.getContext().getResources()
-                .getIdentifier(item.imageRef == null ? "" : item.imageRef, "drawable", holder.itemView.getContext().getPackageName());
-        holder.ivServiceImage.setImageResource(imageRes != 0 ? imageRes : fallbackRes);
+        if (item.imageRef != null && !item.imageRef.trim().isEmpty()) {
+            try {
+                Uri uri = Uri.parse(item.imageRef);
+                if ("content".equals(uri.getScheme()) || "file".equals(uri.getScheme())) {
+                    holder.ivServiceImage.setImageURI(uri);
+                } else {
+                    int imageRes = holder.itemView.getContext().getResources()
+                            .getIdentifier(item.imageRef, "drawable", holder.itemView.getContext().getPackageName());
+                    holder.ivServiceImage.setImageResource(imageRes != 0 ? imageRes : fallbackRes);
+                }
+            } catch (Exception e) {
+                holder.ivServiceImage.setImageResource(fallbackRes);
+            }
+        } else {
+            holder.ivServiceImage.setImageResource(fallbackRes);
+        }
 
         holder.card.setOnClickListener(v -> listener.onServiceClicked(item));
     }

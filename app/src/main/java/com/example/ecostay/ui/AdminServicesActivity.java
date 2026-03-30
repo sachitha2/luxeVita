@@ -1,15 +1,20 @@
 package com.example.ecostay.ui;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -39,6 +44,11 @@ public class AdminServicesActivity extends AppCompatActivity {
     private TextView tvEmptyState;
     private AdminServiceAdapter adapter;
     private List<ServiceEntity> services = new ArrayList<>();
+    @Nullable
+    private Uri pendingImageUri;
+    @Nullable
+    private ImageView activePreviewImageView;
+    private ActivityResultLauncher<String[]> imagePickerLauncher;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +78,26 @@ public class AdminServicesActivity extends AppCompatActivity {
         rvServices.setLayoutManager(new LinearLayoutManager(this));
         rvServices.setAdapter(adapter);
 
+        imagePickerLauncher = registerForActivityResult(
+                new ActivityResultContracts.OpenDocument(),
+                uri -> {
+                    if (uri != null) {
+                        pendingImageUri = uri;
+                        try {
+                            getContentResolver().takePersistableUriPermission(
+                                    uri,
+                                    Intent.FLAG_GRANT_READ_URI_PERMISSION
+                            );
+                        } catch (SecurityException ignored) {
+                            // URI may already be persisted by the system/provider.
+                        }
+                        if (activePreviewImageView != null) {
+                            activePreviewImageView.setImageURI(uri);
+                        }
+                    }
+                }
+        );
+
         btnAdd.setOnClickListener(v -> showUpsertDialog(null));
         loadServices();
     }
@@ -90,6 +120,10 @@ public class AdminServicesActivity extends AppCompatActivity {
         Spinner spCategory = dialogView.findViewById(R.id.spAdminServiceCategory);
         TextInputEditText etDescription = dialogView.findViewById(R.id.etAdminServiceDescription);
         TextInputEditText etPrice = dialogView.findViewById(R.id.etAdminServicePrice);
+        ImageView ivPreview = dialogView.findViewById(R.id.ivAdminServicePreview);
+        Button btnSelectImage = dialogView.findViewById(R.id.btnAdminSelectServiceImage);
+        pendingImageUri = null;
+        activePreviewImageView = ivPreview;
 
         ArrayAdapter<String> categoryAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, CATEGORIES);
         categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -105,7 +139,30 @@ public class AdminServicesActivity extends AppCompatActivity {
                     break;
                 }
             }
+
+            if (existing.imageRef != null && !existing.imageRef.trim().isEmpty()) {
+                try {
+                    Uri uri = Uri.parse(existing.imageRef);
+                    if ("content".equals(uri.getScheme()) || "file".equals(uri.getScheme())) {
+                        ivPreview.setImageURI(uri);
+                        pendingImageUri = uri;
+                    } else {
+                        int fallbackRes = R.drawable.service_default;
+                        int imageRes = dialogView.getContext().getResources()
+                                .getIdentifier(existing.imageRef, "drawable", dialogView.getContext().getPackageName());
+                        ivPreview.setImageResource(imageRes != 0 ? imageRes : fallbackRes);
+                    }
+                } catch (Exception e) {
+                    ivPreview.setImageResource(R.drawable.service_default);
+                }
+            } else {
+                ivPreview.setImageResource(R.drawable.service_default);
+            }
+        } else {
+            ivPreview.setImageResource(R.drawable.service_default);
         }
+
+        btnSelectImage.setOnClickListener(v -> imagePickerLauncher.launch(new String[]{"image/*"}));
 
         AlertDialog dialog = new AlertDialog.Builder(this)
                 .setTitle(existing == null ? R.string.admin_add_service : R.string.admin_edit_service)
@@ -138,6 +195,11 @@ public class AdminServicesActivity extends AppCompatActivity {
             target.category = category;
             target.description = description;
             target.price = price;
+            if (pendingImageUri != null) {
+                target.imageRef = pendingImageUri.toString();
+            } else if (target.imageRef == null || target.imageRef.trim().isEmpty()) {
+                target.imageRef = "service_default";
+            }
 
             dbExecutor.execute(() -> {
                 if (existing == null) {
@@ -147,11 +209,13 @@ public class AdminServicesActivity extends AppCompatActivity {
                 }
                 runOnUiThread(() -> {
                     dialog.dismiss();
+                    activePreviewImageView = null;
                     loadServices();
                 });
             });
         }));
 
+        dialog.setOnDismissListener(d -> activePreviewImageView = null);
         dialog.show();
     }
 

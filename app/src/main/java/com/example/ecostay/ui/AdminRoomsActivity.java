@@ -44,7 +44,9 @@ public class AdminRoomsActivity extends AppCompatActivity {
 
     @Nullable
     private Uri pendingImageUri;
-    private ActivityResultLauncher<String> imagePickerLauncher;
+    @Nullable
+    private ImageView activePreviewImageView;
+    private ActivityResultLauncher<String[]> imagePickerLauncher;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,10 +79,22 @@ public class AdminRoomsActivity extends AppCompatActivity {
         btnAdd.setOnClickListener(v -> showUpsertDialog(null));
 
         imagePickerLauncher = registerForActivityResult(
-                new ActivityResultContracts.GetContent(),
+                new ActivityResultContracts.OpenDocument(),
                 uri -> {
                     if (uri != null) {
                         pendingImageUri = uri;
+                        try {
+                            getContentResolver().takePersistableUriPermission(
+                                    uri,
+                                    Intent.FLAG_GRANT_READ_URI_PERMISSION
+                            );
+                        } catch (SecurityException ignored) {
+                            // URI may already be persisted by the system/provider.
+                        }
+
+                        if (activePreviewImageView != null) {
+                            activePreviewImageView.setImageURI(uri);
+                        }
                     }
                 }
         );
@@ -109,6 +123,7 @@ public class AdminRoomsActivity extends AppCompatActivity {
         Button btnSelectImage = dialogView.findViewById(R.id.btnAdminSelectRoomImage);
 
         pendingImageUri = null;
+        activePreviewImageView = ivPreview;
 
         if (existing != null) {
             etName.setText(existing.name);
@@ -138,8 +153,7 @@ public class AdminRoomsActivity extends AppCompatActivity {
         }
 
         btnSelectImage.setOnClickListener(v -> {
-            imagePickerLauncher.launch("image/*");
-            // actual ImageView update occurs when saving, using pendingImageUri
+            imagePickerLauncher.launch(new String[]{"image/*"});
         });
 
         AlertDialog dialog = new AlertDialog.Builder(this)
@@ -203,11 +217,13 @@ public class AdminRoomsActivity extends AppCompatActivity {
                 }
                 runOnUiThread(() -> {
                     dialog.dismiss();
+                    activePreviewImageView = null;
                     loadRooms();
                 });
             });
         }));
 
+        dialog.setOnDismissListener(d -> activePreviewImageView = null);
         dialog.show();
     }
 

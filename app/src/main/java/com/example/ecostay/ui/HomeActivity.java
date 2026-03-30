@@ -47,15 +47,15 @@ public class HomeActivity extends AppCompatActivity {
         // Schedule periodic promotions (unique work so it won't duplicate).
         NotificationScheduler.schedulePeriodicPromotions(this);
 
-        Button btnRooms = findViewById(R.id.btnRooms);
-        Button btnServices = findViewById(R.id.btnServices);
+        View shortcutAvailableRooms = findViewById(R.id.shortcutAvailableRooms);
+        View shortcutAvailableServices = findViewById(R.id.shortcutAvailableServices);
         Button btnOffers = findViewById(R.id.btnOffers);
         Button btnProfile = findViewById(R.id.btnProfile);
         Button btnBookings = findViewById(R.id.btnBookings);
         Button btnSignOut = findViewById(R.id.btnSignOut);
 
-        btnRooms.setOnClickListener(v -> startActivity(new android.content.Intent(this, RoomsActivity.class)));
-        btnServices.setOnClickListener(v -> startActivity(new android.content.Intent(this, ServicesActivity.class)));
+        shortcutAvailableRooms.setOnClickListener(v -> startActivity(new android.content.Intent(this, RoomsActivity.class)));
+        shortcutAvailableServices.setOnClickListener(v -> startActivity(new android.content.Intent(this, ServicesActivity.class)));
         btnOffers.setOnClickListener(v -> startActivity(new android.content.Intent(this, OffersActivity.class)));
         btnProfile.setOnClickListener(v -> startActivity(new android.content.Intent(this, ProfileActivity.class)));
         btnBookings.setOnClickListener(v -> startActivity(new android.content.Intent(this, BookingManagementActivity.class)));
