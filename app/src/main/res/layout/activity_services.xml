@@ -1,16 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@style/EcoStay.PageContainer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_screen_gradient">
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        style="@style/EcoStay.PageContainer"
-        tools:context=".ui.ServicesActivity">
+    android:background="@drawable/bg_screen_gradient"
+    tools:context=".ui.ServicesActivity">
 
         <TextView
             android:id="@+id/tvServicesTitle"
@@ -69,14 +65,14 @@
             android:id="@+id/tvServicesEmptyState"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:text="@string/services_empty"
             android:textAlignment="center"
             android:textColor="@color/text_secondary"
-            app:layout_constraintTop_toBottomOf="@id/rvServices"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            android:visibility="gone"
+            app:layout_constraintTop_toTopOf="@id/rvServices"
+            app:layout_constraintBottom_toBottomOf="@id/rvServices"
+            app:layout_constraintStart_toStartOf="@id/rvServices"
+            app:layout_constraintEnd_toEndOf="@id/rvServices" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
 

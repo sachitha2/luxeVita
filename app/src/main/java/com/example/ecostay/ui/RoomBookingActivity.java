@@ -109,7 +109,13 @@ public class RoomBookingActivity extends AppCompatActivity {
                 booking.startDateEpochDay = startEpochDay;
                 booking.endDateEpochDay = endEpochDay;
                 booking.status = "CONFIRMED";
+                booking.paymentStatus = "PENDING";
+                booking.paymentMethod = "Pay at hotel";
+                long nights = Math.max(1, endEpochDay - startEpochDay);
+                booking.totalAmount = nights * rt.pricePerNight;
                 booking.createdAtEpochMillis = System.currentTimeMillis();
+                booking.updatedAtEpochMillis = booking.createdAtEpochMillis;
+                booking.cancelledAtEpochMillis = null;
 
                 long bookingId = roomBookingDao.insert(booking);
 

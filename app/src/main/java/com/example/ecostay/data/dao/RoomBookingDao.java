@@ -4,6 +4,7 @@ import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import com.example.ecostay.data.entity.RoomBookingEntity;
 
@@ -14,6 +15,9 @@ public interface RoomBookingDao {
 
     @Insert
     long insert(RoomBookingEntity booking);
+
+    @Update
+    void update(RoomBookingEntity booking);
 
     @Delete
     void delete(RoomBookingEntity booking);
@@ -38,5 +42,20 @@ public interface RoomBookingDao {
 
     @Query("SELECT * FROM room_bookings WHERE user_id = :userId ORDER BY created_at_epoch_millis DESC")
     List<RoomBookingEntity> getAllByUser(long userId);
+
+    @Query("SELECT * FROM room_bookings WHERE id = :bookingId AND user_id = :userId LIMIT 1")
+    RoomBookingEntity findByIdForUser(long bookingId, long userId);
+
+    @Query(
+            "SELECT * FROM room_bookings " +
+                    "WHERE user_id = :userId " +
+                    "AND (:status = 'ALL' OR status = :status) " +
+                    "ORDER BY " +
+                    "CASE WHEN :sortBy = 'created_asc' THEN created_at_epoch_millis END ASC, " +
+                    "CASE WHEN :sortBy = 'checkin_asc' THEN start_date_epoch_day END ASC, " +
+                    "CASE WHEN :sortBy = 'checkin_desc' THEN start_date_epoch_day END DESC, " +
+                    "created_at_epoch_millis DESC"
+    )
+    List<RoomBookingEntity> getManagedByUser(long userId, String status, String sortBy);
 }
 

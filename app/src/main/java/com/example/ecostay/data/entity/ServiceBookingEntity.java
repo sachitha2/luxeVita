@@ -31,7 +31,23 @@ public class ServiceBookingEntity {
     @NonNull
     public String status; // CONFIRMED, CANCELLED
 
+    @NonNull
+    @ColumnInfo(name = "payment_status")
+    public String paymentStatus; // PAID, PENDING, REFUNDED
+
+    @ColumnInfo(name = "payment_method")
+    public String paymentMethod;
+
+    @ColumnInfo(name = "total_amount")
+    public double totalAmount;
+
     @ColumnInfo(name = "created_at_epoch_millis")
     public long createdAtEpochMillis;
+
+    @ColumnInfo(name = "updated_at_epoch_millis")
+    public long updatedAtEpochMillis;
+
+    @ColumnInfo(name = "cancelled_at_epoch_millis")
+    public Long cancelledAtEpochMillis;
 }
 

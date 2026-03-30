@@ -41,6 +41,18 @@
         <activity
             android:name=".ui.OffersActivity"
             android:exported="false" />
+        <activity
+            android:name=".ui.BookingManagementActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.BookingDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.ModifyBookingActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.BookingReceiptActivity"
+            android:exported="false" />
     </application>
 
 </manifest>

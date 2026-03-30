@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_screen_gradient">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        style="@style/EcoStay.PageContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:context=".ui.BookingDetailActivity">
+
+        <TextView
+            android:id="@+id/tvBookingDetailHeader"
+            style="@style/EcoStay.Title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/booking_detail_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/detailCard"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/bg_surface_card"
+            android:padding="14dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvBookingDetailHeader">
+
+            <TextView
+                android:id="@+id/tvBookingDetailTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_primary"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Ocean View Suite" />
+
+            <TextView
+                android:id="@+id/tvBookingDetailMeta"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:textColor="@color/text_secondary"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvBookingDetailTitle"
+                tools:text="Room booking #10" />
+
+            <TextView
+                android:id="@+id/tvBookingDetailSchedule"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textColor="@color/text_secondary"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvBookingDetailMeta"
+                tools:text="2026-04-02 to 2026-04-05" />
+
+            <TextView
+                android:id="@+id/tvBookingDetailStatusLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="@string/booking_status"
+                android:textColor="@color/text_secondary"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvBookingDetailSchedule" />
+
+            <TextView
+                android:id="@+id/tvBookingDetailStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:background="@drawable/bg_subtle_chip"
+                android:paddingStart="10dp"
+                android:paddingTop="6dp"
+                android:paddingEnd="10dp"
+                android:paddingBottom="6dp"
+                android:textColor="@color/text_primary"
+                android:textStyle="bold"
+                app:layout_constraintBaseline_toBaselineOf="@id/tvBookingDetailStatusLabel"
+                app:layout_constraintStart_toEndOf="@id/tvBookingDetailStatusLabel"
+                tools:text="CONFIRMED" />
+
+            <TextView
+                android:id="@+id/tvBookingDetailPaymentLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/booking_payment_status"
+                android:textColor="@color/text_secondary"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvBookingDetailStatusLabel" />
+
+            <TextView
+                android:id="@+id/tvBookingDetailPayment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:background="@drawable/bg_subtle_chip"
+                android:paddingStart="10dp"
+                android:paddingTop="6dp"
+                android:paddingEnd="10dp"
+                android:paddingBottom="6dp"
+                android:textColor="@color/text_primary"
+                android:textStyle="bold"
+                app:layout_constraintBaseline_toBaselineOf="@id/tvBookingDetailPaymentLabel"
+                app:layout_constraintStart_toEndOf="@id/tvBookingDetailPaymentLabel"
+                tools:text="PENDING" />
+
+            <TextView
+                android:id="@+id/tvBookingDetailAmountLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/booking_total_amount"
+                android:textColor="@color/text_secondary"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvBookingDetailPaymentLabel" />
+
+            <TextView
+                android:id="@+id/tvBookingDetailAmount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:textColor="@color/brand_primary_dark"
+                android:textStyle="bold"
+                app:layout_constraintBaseline_toBaselineOf="@id/tvBookingDetailAmountLabel"
+                app:layout_constraintStart_toEndOf="@id/tvBookingDetailAmountLabel"
+                tools:text="$1200.00" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <Button
+            android:id="@+id/btnBookingDetailModify"
+            style="@style/EcoStay.PrimaryButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:text="@string/action_modify_booking"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/detailCard" />
+
+        <Button
+            android:id="@+id/btnBookingDetailCancel"
+            style="@style/EcoStay.SecondaryButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/action_cancel_booking"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnBookingDetailModify" />
+
+        <Button
+            android:id="@+id/btnBookingDetailReceipt"
+            style="@style/EcoStay.SecondaryButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/action_view_receipt"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnBookingDetailCancel" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

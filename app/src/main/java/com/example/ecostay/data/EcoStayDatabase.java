@@ -5,6 +5,7 @@ import android.content.Context;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+import androidx.room.migration.Migration;
 import androidx.annotation.NonNull;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
@@ -35,12 +36,31 @@ import java.time.LocalDate;
                 OfferEntity.class,
                 AttractionEntity.class
         },
-        version = 1,
+        version = 2,
         exportSchema = false
 )
 public abstract class EcoStayDatabase extends RoomDatabase {
 
     private static final String DB_NAME = "ecostay.db";
+    private static final Migration MIGRATION_1_2 = new Migration(1, 2) {
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase db) {
+            db.execSQL("ALTER TABLE room_bookings ADD COLUMN payment_status TEXT NOT NULL DEFAULT 'PENDING'");
+            db.execSQL("ALTER TABLE room_bookings ADD COLUMN payment_method TEXT");
+            db.execSQL("ALTER TABLE room_bookings ADD COLUMN total_amount REAL NOT NULL DEFAULT 0");
+            db.execSQL("ALTER TABLE room_bookings ADD COLUMN updated_at_epoch_millis INTEGER NOT NULL DEFAULT 0");
+            db.execSQL("ALTER TABLE room_bookings ADD COLUMN cancelled_at_epoch_millis INTEGER");
+
+            db.execSQL("ALTER TABLE service_bookings ADD COLUMN payment_status TEXT NOT NULL DEFAULT 'PENDING'");
+            db.execSQL("ALTER TABLE service_bookings ADD COLUMN payment_method TEXT");
+            db.execSQL("ALTER TABLE service_bookings ADD COLUMN total_amount REAL NOT NULL DEFAULT 0");
+            db.execSQL("ALTER TABLE service_bookings ADD COLUMN updated_at_epoch_millis INTEGER NOT NULL DEFAULT 0");
+            db.execSQL("ALTER TABLE service_bookings ADD COLUMN cancelled_at_epoch_millis INTEGER");
+
+            db.execSQL("UPDATE room_bookings SET updated_at_epoch_millis = created_at_epoch_millis WHERE updated_at_epoch_millis = 0");
+            db.execSQL("UPDATE service_bookings SET updated_at_epoch_millis = created_at_epoch_millis WHERE updated_at_epoch_millis = 0");
+        }
+    };
 
     public abstract UserDao userDao();
 
@@ -87,6 +107,7 @@ public abstract class EcoStayDatabase extends RoomDatabase {
                                     seedRoomsAndServicesIfMissing(db);
                                 }
                             })
+                            .addMigrations(MIGRATION_1_2)
                             .build();
                 }
             }

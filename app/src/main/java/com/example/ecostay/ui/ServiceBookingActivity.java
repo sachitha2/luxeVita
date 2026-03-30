@@ -124,7 +124,12 @@ public class ServiceBookingActivity extends AppCompatActivity {
                 booking.serviceId = serviceId;
                 booking.bookingDateEpochDay = dateEpochDay;
                 booking.status = "CONFIRMED";
+                booking.paymentStatus = "PENDING";
+                booking.paymentMethod = "Pay at hotel";
+                booking.totalAmount = service == null ? 0.0 : service.price;
                 booking.createdAtEpochMillis = System.currentTimeMillis();
+                booking.updatedAtEpochMillis = booking.createdAtEpochMillis;
+                booking.cancelledAtEpochMillis = null;
 
                 long bookingId = serviceBookingDao.insert(booking);
 

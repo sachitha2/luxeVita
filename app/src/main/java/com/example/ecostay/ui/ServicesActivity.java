@@ -2,9 +2,10 @@ package com.example.ecostay.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -29,6 +30,7 @@ public class ServicesActivity extends AppCompatActivity {
 
     private Spinner spCategoryFilter;
     private RecyclerView rvServices;
+    private TextView tvServicesEmptyState;
 
     private ServiceAdapter adapter;
     private List<ServiceEntity> allServices = new ArrayList<>();
@@ -51,6 +53,7 @@ public class ServicesActivity extends AppCompatActivity {
 
         spCategoryFilter = findViewById(R.id.spCategoryFilter);
         rvServices = findViewById(R.id.rvServices);
+        tvServicesEmptyState = findViewById(R.id.tvServicesEmptyState);
 
         adapter = new ServiceAdapter(service -> {
             Intent intent = new Intent(ServicesActivity.this, ServiceBookingActivity.class);
@@ -83,7 +86,7 @@ public class ServicesActivity extends AppCompatActivity {
 
         dbExecutor.execute(() -> {
             allServices = serviceDao.getAll();
-            runOnUiThread(() -> adapter.setItems(allServices));
+            runOnUiThread(() -> updateServiceList(allServices));
         });
     }
 
@@ -91,7 +94,7 @@ public class ServicesActivity extends AppCompatActivity {
         if (allServices == null) return;
 
         if (category == null || category.equals("All")) {
-            adapter.setItems(allServices);
+            updateServiceList(allServices);
             return;
         }
 
@@ -101,7 +104,14 @@ public class ServicesActivity extends AppCompatActivity {
                 filtered.add(s);
             }
         }
-        adapter.setItems(filtered);
+        updateServiceList(filtered);
+    }
+
+    private void updateServiceList(List<ServiceEntity> services) {
+        adapter.setItems(services);
+        boolean hasItems = services != null && !services.isEmpty();
+        rvServices.setVisibility(hasItems ? View.VISIBLE : View.INVISIBLE);
+        tvServicesEmptyState.setVisibility(hasItems ? View.GONE : View.VISIBLE);
     }
 }
 

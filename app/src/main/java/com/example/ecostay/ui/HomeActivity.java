@@ -3,7 +3,6 @@ package com.example.ecostay.ui;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
@@ -55,14 +54,11 @@ public class HomeActivity extends AppCompatActivity {
         Button btnBookings = findViewById(R.id.btnBookings);
         Button btnSignOut = findViewById(R.id.btnSignOut);
 
-        View.OnClickListener comingSoon = v ->
-                Toast.makeText(this, R.string.coming_soon, Toast.LENGTH_SHORT).show();
-
         btnRooms.setOnClickListener(v -> startActivity(new android.content.Intent(this, RoomsActivity.class)));
         btnServices.setOnClickListener(v -> startActivity(new android.content.Intent(this, ServicesActivity.class)));
         btnOffers.setOnClickListener(v -> startActivity(new android.content.Intent(this, OffersActivity.class)));
         btnProfile.setOnClickListener(v -> startActivity(new android.content.Intent(this, ProfileActivity.class)));
-        btnBookings.setOnClickListener(comingSoon);
+        btnBookings.setOnClickListener(v -> startActivity(new android.content.Intent(this, BookingManagementActivity.class)));
 
         btnSignOut.setOnClickListener(v -> {
             SessionManager.clearSession(this);
