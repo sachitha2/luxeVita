@@ -88,6 +88,58 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
+        android:id="@+id/tvFeaturedRoomsTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:text="Featured rooms"
+        android:textColor="@color/text_primary"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/heroCard"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvFeaturedRooms"
+        android:layout_width="0dp"
+        android:layout_height="190dp"
+        android:layout_marginTop="10dp"
+        android:paddingStart="4dp"
+        android:paddingEnd="4dp"
+        android:clipToPadding="false"
+        app:layout_constraintTop_toBottomOf="@id/tvFeaturedRoomsTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:listitem="@layout/item_room_type" />
+
+    <TextView
+        android:id="@+id/tvFeaturedServicesTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:text="Featured services"
+        android:textColor="@color/text_primary"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/rvFeaturedRooms"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvFeaturedServices"
+        android:layout_width="0dp"
+        android:layout_height="190dp"
+        android:layout_marginTop="10dp"
+        android:paddingStart="4dp"
+        android:paddingEnd="4dp"
+        android:clipToPadding="false"
+        app:layout_constraintTop_toBottomOf="@id/tvFeaturedServicesTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:listitem="@layout/item_service" />
+
+    <TextView
         android:id="@+id/tvShortcutsTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -96,7 +148,7 @@
         android:textColor="@color/text_primary"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/heroCard"
+        app:layout_constraintTop_toBottomOf="@id/rvFeaturedServices"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
