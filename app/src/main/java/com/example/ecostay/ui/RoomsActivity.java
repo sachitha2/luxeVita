@@ -49,6 +49,7 @@ public class RoomsActivity extends AppCompatActivity {
     private TextView tvDateRange;
     private Spinner spSort;
     private RecyclerView rvRooms;
+    private TextView tvRoomsEmptyState;
 
     private RoomTypeAdapter adapter;
 
@@ -82,6 +83,7 @@ public class RoomsActivity extends AppCompatActivity {
         tvDateRange = findViewById(R.id.tvDateRange);
         spSort = findViewById(R.id.spSort);
         rvRooms = findViewById(R.id.rvRooms);
+        tvRoomsEmptyState = findViewById(R.id.tvRoomsEmptyState);
 
         adapter = new RoomTypeAdapter(roomType -> {
             Intent intent = new Intent(RoomsActivity.this, RoomBookingActivity.class);
@@ -131,6 +133,7 @@ public class RoomsActivity extends AppCompatActivity {
                 adapterSpinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 spRoomTypeFilter.setAdapter(adapterSpinner);
                 adapter.setItems(allRoomTypes);
+                updateEmptyState(allRoomTypes);
             });
         });
 
@@ -180,7 +183,10 @@ public class RoomsActivity extends AppCompatActivity {
                 }
                 Collections.sort(results, comparator);
 
-                runOnUiThread(() -> adapter.setItems(results));
+                runOnUiThread(() -> {
+                    adapter.setItems(results);
+                    updateEmptyState(results);
+                });
             });
         };
 
@@ -227,6 +233,12 @@ public class RoomsActivity extends AppCompatActivity {
 
     private void toast(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+
+    private void updateEmptyState(List<RoomTypeEntity> rooms) {
+        if (tvRoomsEmptyState == null) return;
+        boolean isEmpty = rooms == null || rooms.isEmpty();
+        tvRoomsEmptyState.setVisibility(isEmpty ? View.VISIBLE : View.GONE);
     }
 }
 

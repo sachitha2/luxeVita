@@ -9,8 +9,13 @@
         <item name="colorSecondary">@color/brand_accent</item>
         <item name="colorSecondaryVariant">@color/brand_primary</item>
         <item name="colorOnSecondary">@color/white</item>
+        <item name="colorSurface">@color/surface_card</item>
+        <item name="colorOnSurface">@color/text_primary</item>
+        <item name="colorBackgroundFloating">@color/surface_card</item>
         <item name="android:colorBackground">@color/surface_bg</item>
         <item name="android:textColorPrimary">@color/text_primary</item>
+        <item name="android:textColorSecondary">@color/text_secondary</item>
+        <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
         <item name="materialButtonStyle">@style/EcoStay.PrimaryButton</item>
         <item name="textInputStyle">@style/EcoStay.TextField</item>
         <!-- Status bar color. -->
