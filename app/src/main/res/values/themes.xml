@@ -11,6 +11,8 @@
         <item name="colorOnSecondary">@color/white</item>
         <item name="android:colorBackground">@color/surface_bg</item>
         <item name="android:textColorPrimary">@color/text_primary</item>
+        <item name="materialButtonStyle">@style/EcoStay.PrimaryButton</item>
+        <item name="textInputStyle">@style/EcoStay.TextField</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->

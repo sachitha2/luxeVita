@@ -7,22 +7,17 @@
     android:background="@drawable/bg_screen_gradient">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:paddingBottom="20dp"
-    tools:context=".ui.HomeActivity">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/EcoStay.PageContainer"
+        tools:context=".ui.HomeActivity">
 
     <TextView
         android:id="@+id/tvWelcome"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/home_title"
-        android:textColor="@color/text_primary"
-        android:textSize="28sp"
-        android:textStyle="bold"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
+        style="@style/EcoStay.Title"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -31,11 +26,8 @@
         android:id="@+id/tvHomeSubtitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
         android:text="@string/home_subtitle"
-        android:textColor="@color/text_secondary"
-        android:textSize="15sp"
+        style="@style/EcoStay.Subtitle"
         app:layout_constraintTop_toBottomOf="@id/tvWelcome"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -44,12 +36,10 @@
         android:id="@+id/heroCard"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="20dp"
         android:background="@drawable/bg_hero_card"
-        android:elevation="3dp"
-        android:padding="16dp"
+        android:elevation="4dp"
+        android:padding="18dp"
         app:layout_constraintTop_toBottomOf="@id/tvHomeSubtitle"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
@@ -99,70 +89,55 @@
 
     <Button
         android:id="@+id/btnRooms"
+        style="@style/EcoStay.PrimaryButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/action_browse_rooms"
-        android:layout_marginStart="20dp"
         android:layout_marginTop="18dp"
-        android:layout_marginEnd="20dp"
-        android:backgroundTint="@color/brand_primary"
-        android:minHeight="52dp"
         app:layout_constraintTop_toBottomOf="@id/heroCard"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
         android:id="@+id/btnServices"
+        style="@style/EcoStay.SecondaryButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/action_reserve_services"
-        android:layout_marginStart="20dp"
         android:layout_marginTop="12dp"
-        android:layout_marginEnd="20dp"
-        android:backgroundTint="@color/brand_primary"
-        android:minHeight="52dp"
         app:layout_constraintTop_toBottomOf="@id/btnRooms"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
         android:id="@+id/btnOffers"
+        style="@style/EcoStay.SecondaryButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/action_view_offers"
-        android:layout_marginStart="20dp"
         android:layout_marginTop="12dp"
-        android:layout_marginEnd="20dp"
-        android:backgroundTint="@color/brand_primary"
-        android:minHeight="52dp"
         app:layout_constraintTop_toBottomOf="@id/btnServices"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
         android:id="@+id/btnProfile"
+        style="@style/EcoStay.SecondaryButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/action_edit_profile"
-        android:layout_marginStart="20dp"
         android:layout_marginTop="12dp"
-        android:layout_marginEnd="20dp"
-        android:backgroundTint="@color/brand_primary"
-        android:minHeight="52dp"
         app:layout_constraintTop_toBottomOf="@id/btnOffers"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
         android:id="@+id/btnBookings"
+        style="@style/EcoStay.SecondaryButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/action_manage_bookings"
-        android:layout_marginStart="20dp"
         android:layout_marginTop="12dp"
-        android:layout_marginEnd="20dp"
-        android:backgroundTint="@color/brand_primary"
-        android:minHeight="52dp"
         app:layout_constraintTop_toBottomOf="@id/btnProfile"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -172,17 +147,15 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/action_sign_out"
-        android:layout_marginStart="20dp"
+        style="@style/EcoStay.SecondaryButton"
         android:layout_marginTop="18dp"
-        android:layout_marginEnd="20dp"
-        android:backgroundTint="@android:color/transparent"
-        android:background="@android:color/transparent"
+        android:backgroundTint="@color/surface_card"
         android:textColor="@color/state_error"
         app:layout_constraintTop_toBottomOf="@id/btnBookings"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="20dp"/>
+        android:layout_marginBottom="8dp"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

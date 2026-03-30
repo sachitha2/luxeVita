@@ -3,12 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_screen_gradient">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp"
+        style="@style/EcoStay.PageContainer"
         tools:context=".ui.ProfileActivity">
 
         <TextView
@@ -16,94 +17,111 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/profile_title"
-            android:textColor="@color/text_primary"
-            android:textSize="24sp"
-            android:textStyle="bold"
+            style="@style/EcoStay.Title"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
-        <TextView
-            android:id="@+id/tvPreferredRoomType"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/profileCard"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Preferred room type"
             android:layout_marginTop="16dp"
+            android:background="@drawable/bg_filter_panel"
+            android:padding="14dp"
             app:layout_constraintTop_toBottomOf="@id/tvProfileTitle"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
-
-        <Spinner
-            android:id="@+id/spPreferredRoomType"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/tvPreferredRoomType"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tilTravelStart"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            app:layout_constraintTop_toBottomOf="@id/spPreferredRoomType"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etTravelStart"
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/tvPreferredRoomType"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:hint="Travel start date (tap to pick)"
-                android:focusable="false"
-                android:clickable="true" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:text="Travel preferences"
+                android:textColor="@color/text_primary"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tilTravelEnd"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            app:layout_constraintTop_toBottomOf="@id/tilTravelStart"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etTravelEnd"
-                android:layout_width="match_parent"
+            <Spinner
+                android:id="@+id/spPreferredRoomType"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:hint="Travel end date (tap to pick)"
-                android:focusable="false"
-                android:clickable="true" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_marginTop="8dp"
+                app:layout_constraintTop_toBottomOf="@id/tvPreferredRoomType"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tilMaxBudget"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            app:layout_constraintTop_toBottomOf="@id/tilTravelEnd"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etMaxBudget"
-                android:layout_width="match_parent"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilTravelStart"
+                style="@style/EcoStay.TextField"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:hint="Max budget (optional)"
-                android:inputType="numberDecimal" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_marginTop="12dp"
+                app:layout_constraintTop_toBottomOf="@id/spPreferredRoomType"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
 
-        <Button
-            android:id="@+id/btnSaveProfile"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Save Profile"
-            android:layout_marginTop="16dp"
-            android:minHeight="52dp"
-            app:layout_constraintTop_toBottomOf="@id/tilMaxBudget"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etTravelStart"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Travel start date (tap to pick)"
+                    android:focusable="false"
+                    android:clickable="true" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilTravelEnd"
+                style="@style/EcoStay.TextField"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                app:layout_constraintTop_toBottomOf="@id/tilTravelStart"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etTravelEnd"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Travel end date (tap to pick)"
+                    android:focusable="false"
+                    android:clickable="true" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilMaxBudget"
+                style="@style/EcoStay.TextField"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                app:layout_constraintTop_toBottomOf="@id/tilTravelEnd"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etMaxBudget"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Max budget (optional)"
+                    android:inputType="numberDecimal" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/btnSaveProfile"
+                style="@style/EcoStay.PrimaryButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Save profile"
+                android:layout_marginTop="14dp"
+                app:layout_constraintTop_toBottomOf="@id/tilMaxBudget"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
             android:id="@+id/tvBookingHistory"
@@ -112,7 +130,7 @@
             android:text="Booking History"
             android:layout_marginTop="20dp"
             android:textStyle="bold"
-            app:layout_constraintTop_toBottomOf="@id/btnSaveProfile"
+            app:layout_constraintTop_toBottomOf="@id/profileCard"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
