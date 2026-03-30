@@ -15,6 +15,17 @@
         android:layout_height="wrap_content"
         android:padding="14dp">
 
+        <ImageView
+            android:id="@+id/ivServiceImage"
+            android:layout_width="0dp"
+            android:layout_height="140dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/service_default"
+            android:contentDescription="@string/services_title"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
         <TextView
             android:id="@+id/tvServiceName"
             android:layout_width="0dp"
@@ -23,9 +34,10 @@
             android:textColor="@color/text_primary"
             android:textStyle="bold"
             android:textSize="17sp"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ivServiceImage"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/tvServicePrice" />
+            app:layout_constraintEnd_toStartOf="@id/tvServicePrice"
+            android:layout_marginTop="12dp" />
 
         <TextView
             android:id="@+id/tvServiceCategory"

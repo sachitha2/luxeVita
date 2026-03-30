@@ -3,6 +3,7 @@ package com.example.ecostay.ui.adapters;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -47,6 +48,10 @@ public class RoomTypeAdapter extends RecyclerView.Adapter<RoomTypeAdapter.RoomTy
         holder.tvName.setText(item.name);
         holder.tvDescription.setText(item.description);
         holder.tvPrice.setText("$" + item.pricePerNight + " / night");
+        int fallbackRes = R.drawable.room_default;
+        int imageRes = holder.itemView.getContext().getResources()
+                .getIdentifier(item.imageRef == null ? "" : item.imageRef, "drawable", holder.itemView.getContext().getPackageName());
+        holder.ivRoomImage.setImageResource(imageRes != 0 ? imageRes : fallbackRes);
 
         holder.card.setOnClickListener(v -> listener.onRoomClicked(item));
     }
@@ -58,6 +63,7 @@ public class RoomTypeAdapter extends RecyclerView.Adapter<RoomTypeAdapter.RoomTy
 
     static class RoomTypeViewHolder extends RecyclerView.ViewHolder {
         final CardView card;
+        final ImageView ivRoomImage;
         final TextView tvName;
         final TextView tvDescription;
         final TextView tvPrice;
@@ -65,6 +71,7 @@ public class RoomTypeAdapter extends RecyclerView.Adapter<RoomTypeAdapter.RoomTy
         RoomTypeViewHolder(@NonNull View itemView) {
             super(itemView);
             card = (CardView) itemView;
+            ivRoomImage = itemView.findViewById(R.id.ivRoomImage);
             tvName = itemView.findViewById(R.id.tvRoomName);
             tvDescription = itemView.findViewById(R.id.tvRoomDescription);
             tvPrice = itemView.findViewById(R.id.tvPricePerNight);

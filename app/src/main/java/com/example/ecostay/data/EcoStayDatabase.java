@@ -36,7 +36,7 @@ import java.time.LocalDate;
                 OfferEntity.class,
                 AttractionEntity.class
         },
-        version = 2,
+        version = 3,
         exportSchema = false
 )
 public abstract class EcoStayDatabase extends RoomDatabase {
@@ -59,6 +59,12 @@ public abstract class EcoStayDatabase extends RoomDatabase {
 
             db.execSQL("UPDATE room_bookings SET updated_at_epoch_millis = created_at_epoch_millis WHERE updated_at_epoch_millis = 0");
             db.execSQL("UPDATE service_bookings SET updated_at_epoch_millis = created_at_epoch_millis WHERE updated_at_epoch_millis = 0");
+        }
+    };
+    private static final Migration MIGRATION_2_3 = new Migration(2, 3) {
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase db) {
+            db.execSQL("ALTER TABLE services ADD COLUMN imageRef TEXT");
         }
     };
 
@@ -107,7 +113,7 @@ public abstract class EcoStayDatabase extends RoomDatabase {
                                     seedRoomsAndServicesIfMissing(db);
                                 }
                             })
-                            .addMigrations(MIGRATION_1_2)
+                            .addMigrations(MIGRATION_1_2, MIGRATION_2_3)
                             .build();
                 }
             }
@@ -131,27 +137,34 @@ public abstract class EcoStayDatabase extends RoomDatabase {
                         "SELECT 'Garden Suite','Quiet garden-facing suite for a relaxing stay.',900.0,15,'garden_suite' " +
                         "WHERE NOT EXISTS (SELECT 1 FROM room_types WHERE name = 'Garden Suite')"
         );
+        db.execSQL("UPDATE room_types SET imageRef = 'ocean_view_suite' WHERE name = 'Ocean View Suite' AND (imageRef IS NULL OR imageRef = '')");
+        db.execSQL("UPDATE room_types SET imageRef = 'deluxe_room' WHERE name = 'Deluxe Room' AND (imageRef IS NULL OR imageRef = '')");
+        db.execSQL("UPDATE room_types SET imageRef = 'garden_suite' WHERE name = 'Garden Suite' AND (imageRef IS NULL OR imageRef = '')");
 
         db.execSQL(
-                "INSERT INTO services(name, category, description, price) " +
-                        "SELECT 'Spa Massage','SPA','60-minute relaxation massage.',150.0 " +
+                "INSERT INTO services(name, category, description, price, imageRef) " +
+                        "SELECT 'Spa Massage','SPA','60-minute relaxation massage.',150.0,'service_spa_massage' " +
                         "WHERE NOT EXISTS (SELECT 1 FROM services WHERE name = 'Spa Massage')"
         );
         db.execSQL(
-                "INSERT INTO services(name, category, description, price) " +
-                        "SELECT 'Fine Dining','DINING','Chef-curated multi-course dinner.',200.0 " +
+                "INSERT INTO services(name, category, description, price, imageRef) " +
+                        "SELECT 'Fine Dining','DINING','Chef-curated multi-course dinner.',200.0,'service_fine_dining' " +
                         "WHERE NOT EXISTS (SELECT 1 FROM services WHERE name = 'Fine Dining')"
         );
         db.execSQL(
-                "INSERT INTO services(name, category, description, price) " +
-                        "SELECT 'Poolside Cabanas','CABANAS','Reserved cabana access with refreshments.',100.0 " +
+                "INSERT INTO services(name, category, description, price, imageRef) " +
+                        "SELECT 'Poolside Cabanas','CABANAS','Reserved cabana access with refreshments.',100.0,'service_poolside_cabanas' " +
                         "WHERE NOT EXISTS (SELECT 1 FROM services WHERE name = 'Poolside Cabanas')"
         );
         db.execSQL(
-                "INSERT INTO services(name, category, description, price) " +
-                        "SELECT 'Guided Beach Tour','TOURS','Local guide for an unforgettable beach experience.',180.0 " +
+                "INSERT INTO services(name, category, description, price, imageRef) " +
+                        "SELECT 'Guided Beach Tour','TOURS','Local guide for an unforgettable beach experience.',180.0,'service_guided_beach_tour' " +
                         "WHERE NOT EXISTS (SELECT 1 FROM services WHERE name = 'Guided Beach Tour')"
         );
+        db.execSQL("UPDATE services SET imageRef = 'service_spa_massage' WHERE name = 'Spa Massage' AND (imageRef IS NULL OR imageRef = '')");
+        db.execSQL("UPDATE services SET imageRef = 'service_fine_dining' WHERE name = 'Fine Dining' AND (imageRef IS NULL OR imageRef = '')");
+        db.execSQL("UPDATE services SET imageRef = 'service_poolside_cabanas' WHERE name = 'Poolside Cabanas' AND (imageRef IS NULL OR imageRef = '')");
+        db.execSQL("UPDATE services SET imageRef = 'service_guided_beach_tour' WHERE name = 'Guided Beach Tour' AND (imageRef IS NULL OR imageRef = '')");
     }
 
     private static void seedOffersAndAttractions(

@@ -72,13 +72,18 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checked="true"
-                    android:text="@string/mode_login" />
+                    android:buttonTint="@color/brand_primary"
+                    android:text="@string/mode_login"
+                    android:textColor="@color/text_primary" />
 
                 <RadioButton
                     android:id="@+id/rbSignup"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/mode_signup" />
+                    android:layout_marginStart="16dp"
+                    android:buttonTint="@color/brand_primary"
+                    android:text="@string/mode_signup"
+                    android:textColor="@color/text_primary" />
             </RadioGroup>
 
             <com.google.android.material.textfield.TextInputLayout

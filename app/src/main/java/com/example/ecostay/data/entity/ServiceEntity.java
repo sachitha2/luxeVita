@@ -23,5 +23,8 @@ public class ServiceEntity {
 
     @ColumnInfo(name = "price")
     public double price;
+
+    // Optional image reference (e.g., drawable resource name) for UI.
+    public String imageRef;
 }
 

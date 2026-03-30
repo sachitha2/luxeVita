@@ -3,6 +3,7 @@ package com.example.ecostay.ui.adapters;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -48,6 +49,10 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.ServiceV
         holder.tvCategory.setText(item.category);
         holder.tvPrice.setText("$" + item.price + "");
         holder.tvDescription.setText(item.description);
+        int fallbackRes = R.drawable.service_default;
+        int imageRes = holder.itemView.getContext().getResources()
+                .getIdentifier(item.imageRef == null ? "" : item.imageRef, "drawable", holder.itemView.getContext().getPackageName());
+        holder.ivServiceImage.setImageResource(imageRes != 0 ? imageRes : fallbackRes);
 
         holder.card.setOnClickListener(v -> listener.onServiceClicked(item));
     }
@@ -59,6 +64,7 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.ServiceV
 
     static class ServiceViewHolder extends RecyclerView.ViewHolder {
         final CardView card;
+        final ImageView ivServiceImage;
         final TextView tvName;
         final TextView tvCategory;
         final TextView tvPrice;
@@ -67,6 +73,7 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.ServiceV
         ServiceViewHolder(@NonNull View itemView) {
             super(itemView);
             card = (CardView) itemView;
+            ivServiceImage = itemView.findViewById(R.id.ivServiceImage);
             tvName = itemView.findViewById(R.id.tvServiceName);
             tvCategory = itemView.findViewById(R.id.tvServiceCategory);
             tvPrice = itemView.findViewById(R.id.tvServicePrice);

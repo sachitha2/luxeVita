@@ -66,10 +66,10 @@ public class ServicesActivity extends AppCompatActivity {
 
         ArrayAdapter<String> categoryAdapter = new ArrayAdapter<>(
                 this,
-                android.R.layout.simple_spinner_item,
+                R.layout.item_spinner_category,
                 CATEGORIES
         );
-        categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        categoryAdapter.setDropDownViewResource(R.layout.item_spinner_category_dropdown);
         spCategoryFilter.setAdapter(categoryAdapter);
 
         spCategoryFilter.setOnItemSelectedListener(new android.widget.AdapterView.OnItemSelectedListener() {
