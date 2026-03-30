@@ -55,7 +55,8 @@ public class HomeActivity extends AppCompatActivity {
         Button btnBookings = findViewById(R.id.btnBookings);
         Button btnSignOut = findViewById(R.id.btnSignOut);
 
-        View.OnClickListener comingSoon = v -> Toast.makeText(this, "Coming soon", Toast.LENGTH_SHORT).show();
+        View.OnClickListener comingSoon = v ->
+                Toast.makeText(this, R.string.coming_soon, Toast.LENGTH_SHORT).show();
 
         btnRooms.setOnClickListener(v -> startActivity(new android.content.Intent(this, RoomsActivity.class)));
         btnServices.setOnClickListener(v -> startActivity(new android.content.Intent(this, ServicesActivity.class)));

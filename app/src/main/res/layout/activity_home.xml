@@ -1,30 +1,113 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg_screen_gradient">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="20dp"
     tools:context=".ui.HomeActivity">
 
     <TextView
         android:id="@+id/tvWelcome"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Welcome to LuxeVista"
-        android:textSize="20sp"
+        android:text="@string/home_title"
+        android:textColor="@color/text_primary"
+        android:textSize="28sp"
         android:textStyle="bold"
-        android:padding="16dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/tvHomeSubtitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:text="@string/home_subtitle"
+        android:textColor="@color/text_secondary"
+        android:textSize="15sp"
+        app:layout_constraintTop_toBottomOf="@id/tvWelcome"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/heroCard"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/bg_hero_card"
+        android:elevation="3dp"
+        android:padding="16dp"
+        app:layout_constraintTop_toBottomOf="@id/tvHomeSubtitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <TextView
+            android:id="@+id/tvHeroTag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_subtle_chip"
+            android:paddingStart="10dp"
+            android:paddingTop="6dp"
+            android:paddingEnd="10dp"
+            android:paddingBottom="6dp"
+            android:text="@string/home_popular_tag"
+            android:textColor="@color/brand_primary_dark"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/tvHeroTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:text="@string/home_hero_title"
+            android:textColor="@color/text_on_dark"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/tvHeroTag"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <TextView
+            android:id="@+id/tvHeroSubtitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/home_hero_subtitle"
+            android:textColor="@color/text_on_dark"
+            android:textSize="14sp"
+            app:layout_constraintTop_toBottomOf="@id/tvHeroTitle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <Button
         android:id="@+id/btnRooms"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-            android:text="Browse &amp; Book Rooms"
-        android:layout_margin="16dp"
-        app:layout_constraintTop_toBottomOf="@id/tvWelcome"
+        android:text="@string/action_browse_rooms"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginEnd="20dp"
+        android:backgroundTint="@color/brand_primary"
+        android:minHeight="52dp"
+        app:layout_constraintTop_toBottomOf="@id/heroCard"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -32,9 +115,12 @@
         android:id="@+id/btnServices"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Reserve Services"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
+        android:text="@string/action_reserve_services"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="20dp"
+        android:backgroundTint="@color/brand_primary"
+        android:minHeight="52dp"
         app:layout_constraintTop_toBottomOf="@id/btnRooms"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -43,9 +129,12 @@
         android:id="@+id/btnOffers"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-            android:text="Offers &amp; Attractions"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
+        android:text="@string/action_view_offers"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="20dp"
+        android:backgroundTint="@color/brand_primary"
+        android:minHeight="52dp"
         app:layout_constraintTop_toBottomOf="@id/btnServices"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -54,9 +143,12 @@
         android:id="@+id/btnProfile"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Profile"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
+        android:text="@string/action_edit_profile"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="20dp"
+        android:backgroundTint="@color/brand_primary"
+        android:minHeight="52dp"
         app:layout_constraintTop_toBottomOf="@id/btnOffers"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -65,9 +157,12 @@
         android:id="@+id/btnBookings"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Manage Bookings"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
+        android:text="@string/action_manage_bookings"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="20dp"
+        android:backgroundTint="@color/brand_primary"
+        android:minHeight="52dp"
         app:layout_constraintTop_toBottomOf="@id/btnProfile"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -76,14 +171,19 @@
         android:id="@+id/btnSignOut"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Sign out"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
+        android:text="@string/action_sign_out"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginEnd="20dp"
+        android:backgroundTint="@android:color/transparent"
+        android:background="@android:color/transparent"
+        android:textColor="@color/state_error"
         app:layout_constraintTop_toBottomOf="@id/btnBookings"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="16dp"/>
+        android:layout_marginBottom="20dp"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
 

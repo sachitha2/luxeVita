@@ -41,6 +41,8 @@ public class MainActivity extends AppCompatActivity {
 
         RadioGroup radioMode = findViewById(R.id.radioMode);
         TextInputLayout tilConfirmPassword = findViewById(R.id.tilConfirmPassword);
+        TextInputLayout tilEmail = findViewById(R.id.tilEmail);
+        TextInputLayout tilPassword = findViewById(R.id.tilPassword);
         TextInputEditText etEmail = findViewById(R.id.etEmail);
         TextInputEditText etPassword = findViewById(R.id.etPassword);
         TextInputEditText etConfirmPassword = findViewById(R.id.etConfirmPassword);
@@ -51,14 +53,15 @@ public class MainActivity extends AppCompatActivity {
 
         final boolean[] isSignupMode = new boolean[]{!rbLogin.isChecked()};
         tilConfirmPassword.setVisibility(isSignupMode[0] ? View.VISIBLE : View.GONE);
-        btnSubmit.setText(isSignupMode[0] ? "Sign Up" : "Login");
+        btnSubmit.setText(isSignupMode[0] ? getString(R.string.action_create_account) : getString(R.string.mode_login));
 
         radioMode.setOnCheckedChangeListener((group, checkedId) -> {
             boolean signup = checkedId == R.id.rbSignup;
             isSignupMode[0] = signup;
             tilConfirmPassword.setVisibility(signup ? View.VISIBLE : View.GONE);
-            btnSubmit.setText(signup ? "Sign Up" : "Login");
+            btnSubmit.setText(signup ? getString(R.string.action_create_account) : getString(R.string.mode_login));
             tvMessage.setText("");
+            clearValidationErrors(tilEmail, tilPassword, tilConfirmPassword);
         });
 
         btnSubmit.setOnClickListener(v -> {
@@ -67,34 +70,39 @@ public class MainActivity extends AppCompatActivity {
             String confirmPassword = etConfirmPassword.getText() == null ? "" : etConfirmPassword.getText().toString();
 
             tvMessage.setText("");
+            clearValidationErrors(tilEmail, tilPassword, tilConfirmPassword);
 
             if (!ValidationUtils.isValidEmail(email)) {
-                tvMessage.setText("Enter a valid email address.");
+                tilEmail.setError(getString(R.string.error_valid_email));
                 return;
             }
 
             if (!ValidationUtils.isValidPassword(password)) {
-                tvMessage.setText("Password must be at least 8 characters.");
+                tilPassword.setError(getString(R.string.error_valid_password));
                 return;
             }
 
             if (isSignupMode[0]) {
                 if (confirmPassword.isEmpty()) {
-                    tvMessage.setText("Confirm your password.");
+                    tilConfirmPassword.setError(getString(R.string.error_confirm_password));
                     return;
                 }
                 if (!password.equals(confirmPassword)) {
-                    tvMessage.setText("Passwords do not match.");
+                    tilConfirmPassword.setError(getString(R.string.error_password_mismatch));
                     return;
                 }
 
+                setSubmitLoading(btnSubmit, true, true);
                 // Sign-up flow.
                 String safeEmail = email;
                 dbExecutor.execute(() -> {
                     try {
                         UserEntity existing = userDao.findByEmail(safeEmail);
                         if (existing != null) {
-                            mainHandler.post(() -> tvMessage.setText("Email already registered. Try login."));
+                            mainHandler.post(() -> {
+                                setSubmitLoading(btnSubmit, false, true);
+                                tvMessage.setText(R.string.error_email_registered);
+                            });
                             return;
                         }
 
@@ -113,10 +121,14 @@ public class MainActivity extends AppCompatActivity {
                             finish();
                         });
                     } catch (Exception e) {
-                        mainHandler.post(() -> tvMessage.setText("Sign-up failed. Please try again."));
+                        mainHandler.post(() -> {
+                            setSubmitLoading(btnSubmit, false, true);
+                            tvMessage.setText(R.string.error_signup_failed);
+                        });
                     }
                 });
             } else {
+                setSubmitLoading(btnSubmit, true, false);
                 // Login flow.
                 String safeEmail = email;
                 String passwordToCheck = password;
@@ -124,7 +136,10 @@ public class MainActivity extends AppCompatActivity {
                     try {
                         UserEntity user = userDao.findByEmail(safeEmail);
                         if (user == null) {
-                            mainHandler.post(() -> tvMessage.setText("No account found. Please sign up."));
+                            mainHandler.post(() -> {
+                                setSubmitLoading(btnSubmit, false, false);
+                                tvMessage.setText(R.string.error_account_not_found);
+                            });
                             return;
                         }
 
@@ -134,7 +149,10 @@ public class MainActivity extends AppCompatActivity {
                                 user.passwordHash
                         );
                         if (!ok) {
-                            mainHandler.post(() -> tvMessage.setText("Incorrect password."));
+                            mainHandler.post(() -> {
+                                setSubmitLoading(btnSubmit, false, false);
+                                tvMessage.setText(R.string.error_incorrect_password);
+                            });
                             return;
                         }
 
@@ -145,10 +163,28 @@ public class MainActivity extends AppCompatActivity {
                             finish();
                         });
                     } catch (Exception e) {
-                        mainHandler.post(() -> tvMessage.setText("Login failed. Please try again."));
+                        mainHandler.post(() -> {
+                            setSubmitLoading(btnSubmit, false, false);
+                            tvMessage.setText(R.string.error_login_failed);
+                        });
                     }
                 });
             }
         });
+    }
+
+    private void clearValidationErrors(TextInputLayout... inputLayouts) {
+        for (TextInputLayout inputLayout : inputLayouts) {
+            inputLayout.setError(null);
+        }
+    }
+
+    private void setSubmitLoading(Button btnSubmit, boolean isLoading, boolean signupMode) {
+        btnSubmit.setEnabled(!isLoading);
+        if (isLoading) {
+            btnSubmit.setText(signupMode ? R.string.progress_signing_up : R.string.progress_logging_in);
+            return;
+        }
+        btnSubmit.setText(signupMode ? R.string.action_create_account : R.string.mode_login);
     }
 }
