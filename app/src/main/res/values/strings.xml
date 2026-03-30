@@ -78,6 +78,7 @@
     <string name="admin_dashboard_subtitle">Manage bookings, services, and customer requests.</string>
     <string name="admin_manage_bookings">Manage all bookings</string>
     <string name="admin_manage_services">Manage services</string>
+    <string name="admin_manage_rooms">Manage rooms</string>
     <string name="admin_manage_bookings_title">Admin booking management</string>
     <string name="admin_manage_bookings_subtitle">Accept or cancel customer bookings.</string>
     <string name="admin_action_accept">Accept</string>
@@ -94,4 +95,22 @@
     <string name="admin_delete_service_confirm">Delete</string>
     <string name="admin_service_validation_error">Please complete all fields.</string>
     <string name="admin_service_price_error">Enter a valid price.</string>
+    <string name="admin_manage_rooms_title">Admin room management</string>
+    <string name="admin_rooms_empty">No room types available.</string>
+    <string name="admin_add_room">Add room</string>
+    <string name="admin_edit_room">Edit</string>
+    <string name="admin_save_room">Save</string>
+    <string name="admin_room_name_hint">Room name</string>
+    <string name="admin_room_description_hint">Room description</string>
+    <string name="admin_room_price_hint">Price per night</string>
+    <string name="admin_room_inventory_hint">Total rooms</string>
+    <string name="admin_room_image_ref_hint">Image drawable name (optional)</string>
+    <string name="admin_delete_room_title">Delete room type</string>
+    <string name="admin_delete_room_message">Delete %1$s?</string>
+    <string name="admin_delete_room_confirm">Delete</string>
+    <string name="admin_room_validation_error">Please complete all required fields.</string>
+    <string name="admin_room_price_error">Enter a valid price greater than zero.</string>
+    <string name="admin_room_inventory_error">Enter a valid room count greater than zero.</string>
+    <string name="admin_room_inventory_count">Inventory: %1$d</string>
+    <string name="admin_room_image_ref_value">Image ref: %1$s</string>
 </resources>

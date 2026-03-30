@@ -62,6 +62,9 @@
         <activity
             android:name=".ui.AdminServicesActivity"
             android:exported="false" />
+        <activity
+            android:name=".ui.AdminRoomsActivity"
+            android:exported="false" />
     </application>
 
 </manifest>

@@ -56,6 +56,17 @@
             app:layout_constraintTop_toBottomOf="@id/btnAdminManageBookings" />
 
         <Button
+            android:id="@+id/btnAdminManageRooms"
+            style="@style/EcoStay.SecondaryButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="@string/admin_manage_rooms"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnAdminManageServices" />
+
+        <Button
             android:id="@+id/btnAdminLogout"
             style="@style/EcoStay.SecondaryButton"
             android:layout_width="0dp"
@@ -65,7 +76,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btnAdminManageServices" />
+            app:layout_constraintTop_toBottomOf="@id/btnAdminManageRooms" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

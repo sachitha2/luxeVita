@@ -24,12 +24,15 @@ public class AdminDashboardActivity extends AppCompatActivity {
 
         Button btnManageBookings = findViewById(R.id.btnAdminManageBookings);
         Button btnManageServices = findViewById(R.id.btnAdminManageServices);
+        Button btnManageRooms = findViewById(R.id.btnAdminManageRooms);
         Button btnLogout = findViewById(R.id.btnAdminLogout);
 
         btnManageBookings.setOnClickListener(v ->
                 startActivity(new Intent(this, AdminBookingManagementActivity.class)));
         btnManageServices.setOnClickListener(v ->
                 startActivity(new Intent(this, AdminServicesActivity.class)));
+        btnManageRooms.setOnClickListener(v ->
+                startActivity(new Intent(this, AdminRoomsActivity.class)));
         btnLogout.setOnClickListener(v -> {
             SessionManager.clearSession(this);
             redirectToLogin();

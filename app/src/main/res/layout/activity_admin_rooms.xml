@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/EcoStay.ScreenRoot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/EcoStay.PageContainer"
+        tools:context=".ui.AdminRoomsActivity">
+
+        <TextView
+            android:id="@+id/tvAdminRoomsTitle"
+            style="@style/EcoStay.Title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/admin_manage_rooms_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/btnAdminAddRoom"
+            style="@style/EcoStay.PrimaryButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:text="@string/admin_add_room"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvAdminRoomsTitle" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvAdminRooms"
+            android:layout_width="0dp"
+            android:layout_height="480dp"
+            android:layout_marginTop="12dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnAdminAddRoom" />
+
+        <TextView
+            android:id="@+id/tvAdminRoomsEmptyState"
+            style="@style/EcoStay.Subtitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/admin_rooms_empty"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnAdminAddRoom" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
