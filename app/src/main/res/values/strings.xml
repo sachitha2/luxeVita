@@ -79,8 +79,13 @@
     <string name="label_service_method">Service method: %1$s</string>
 
     <string name="faq_tips_title">FAQs &amp; Maintenance Tips</string>
+    <string name="faq_tips_subtitle">Quick answers and practical care advice for your devices</string>
     <string name="faq_section_title">Frequently Asked Questions</string>
     <string name="tips_section_title">Maintenance Tips</string>
+    <string name="faq_count">%1$d questions</string>
+    <string name="tips_count">%1$d tips</string>
+    <string name="label_faq_question">Question</string>
+    <string name="label_expand_answer">Show answer</string>
     <string name="faq_empty">No FAQs available.</string>
     <string name="tips_empty">No maintenance tips available.</string>
 

@@ -11,7 +11,8 @@
         style="@style/TechCare.ScreenRoot"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:fillViewport="true">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             style="@style/TechCare.PageContainer"
@@ -19,43 +20,201 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/tvFaqSection"
-                style="@style/TechCare.CardLabel"
-                android:layout_width="wrap_content"
+                android:id="@+id/tvSubtitle"
+                style="@style/TechCare.Subtitle"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="@string/faq_section_title"
+                android:text="@string/faq_tips_subtitle"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/faqSectionHeader"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_xl"
+                android:background="@drawable/bg_filter_panel"
+                android:padding="@dimen/spacing_lg"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvSubtitle">
+
+                <ImageView
+                    android:id="@+id/ivFaqIcon"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:contentDescription="@null"
+                    android:src="@drawable/ic_nav_faq"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tvFaqSection"
+                    style="@style/TechCare.CardLabel"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/spacing_sm"
+                    android:text="@string/faq_section_title"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/tvFaqCount"
+                    app:layout_constraintStart_toEndOf="@id/ivFaqIcon"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tvFaqCount"
+                    style="@style/TechCare.Subtitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvFaqs"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/spacing_sm"
+                android:layout_marginTop="@dimen/spacing_md"
                 android:nestedScrollingEnabled="false"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvFaqSection" />
+                app:layout_constraintTop_toBottomOf="@id/faqSectionHeader" />
+
+            <ImageView
+                android:id="@+id/ivFaqEmpty"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_nav_faq"
+                android:visibility="gone"
+                app:layout_constraintBottom_toTopOf="@id/tvFaqEmpty"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/faqSectionHeader"
+                app:layout_constraintVertical_chainStyle="packed" />
 
             <TextView
-                android:id="@+id/tvTipsSection"
-                style="@style/TechCare.CardLabel"
+                android:id="@+id/tvFaqEmpty"
+                style="@style/TechCare.EmptyState"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_sm"
+                android:paddingStart="@dimen/spacing_xl"
+                android:paddingEnd="@dimen/spacing_xl"
+                android:text="@string/faq_empty"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ivFaqEmpty" />
+
+            <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/barrierFaqSection"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/spacing_xl"
-                android:text="@string/tips_section_title"
+                app:barrierDirection="bottom"
+                app:constraint_referenced_ids="rvFaqs,tvFaqEmpty" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/tipsSectionHeader"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_xxl"
+                android:background="@drawable/bg_filter_panel"
+                android:padding="@dimen/spacing_lg"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/rvFaqs" />
+                app:layout_constraintTop_toBottomOf="@id/barrierFaqSection">
+
+                <ImageView
+                    android:id="@+id/ivTipsIcon"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:contentDescription="@null"
+                    android:src="@drawable/ic_lightbulb_tip"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tvTipsSection"
+                    style="@style/TechCare.CardLabel"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/spacing_sm"
+                    android:text="@string/tips_section_title"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/tvTipsCount"
+                    app:layout_constraintStart_toEndOf="@id/ivTipsIcon"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tvTipsCount"
+                    style="@style/TechCare.Subtitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvTips"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/spacing_sm"
+                android:layout_marginTop="@dimen/spacing_md"
                 android:nestedScrollingEnabled="false"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvTipsSection" />
+                app:layout_constraintTop_toBottomOf="@id/tipsSectionHeader" />
+
+            <ImageView
+                android:id="@+id/ivTipsEmpty"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_lightbulb_tip"
+                android:visibility="gone"
+                app:layout_constraintBottom_toTopOf="@id/tvTipsEmpty"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tipsSectionHeader"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+            <TextView
+                android:id="@+id/tvTipsEmpty"
+                style="@style/TechCare.EmptyState"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_sm"
+                android:paddingStart="@dimen/spacing_xl"
+                android:paddingEnd="@dimen/spacing_xl"
+                android:paddingBottom="@dimen/spacing_lg"
+                android:text="@string/tips_empty"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ivTipsEmpty" />
+
+            <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/barrierTipsSection"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:barrierDirection="bottom"
+                app:constraint_referenced_ids="rvTips,tvTipsEmpty" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/barrierTipsSection" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

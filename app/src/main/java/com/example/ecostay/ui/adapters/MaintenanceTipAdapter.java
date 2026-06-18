@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ecostay.R;
 import com.example.ecostay.data.entity.MaintenanceTipEntity;
+import com.example.ecostay.util.StatusUiUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +38,7 @@ public class MaintenanceTipAdapter extends RecyclerView.Adapter<MaintenanceTipAd
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         MaintenanceTipEntity tip = items.get(position);
-        holder.tvDeviceType.setText(tip.deviceType);
+        StatusUiUtils.applyStatusChip(holder.tvDeviceType, tip.deviceType);
         holder.tvTitle.setText(tip.title);
         holder.tvDescription.setText(tip.description);
     }

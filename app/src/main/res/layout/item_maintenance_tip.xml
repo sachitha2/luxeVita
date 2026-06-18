@@ -1,38 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/TechCare.NavCard"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="8dp"
-    app:cardCornerRadius="12dp"
-    app:cardElevation="1dp">
+    android:layout_marginBottom="@dimen/spacing_sm">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="12dp">
+        android:padding="@dimen/spacing_lg">
+
+        <ImageView
+            android:id="@+id/ivTipIcon"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_lightbulb_tip"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tvDeviceType"
-            android:layout_width="match_parent"
+            style="@style/TechCare.StatusChip.Success"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/brand_accent"
-            android:textStyle="bold" />
+            android:layout_marginStart="@dimen/spacing_sm"
+            app:layout_constraintBottom_toBottomOf="@id/ivTipIcon"
+            app:layout_constraintStart_toEndOf="@id/ivTipIcon"
+            app:layout_constraintTop_toTopOf="@id/ivTipIcon" />
 
         <TextView
             android:id="@+id/tvTitle"
             style="@style/TechCare.CardLabel"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp" />
+            android:layout_marginTop="@dimen/spacing_sm"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ivTipIcon" />
 
         <TextView
             android:id="@+id/tvDescription"
             style="@style/TechCare.Subtitle"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp" />
+            android:layout_marginTop="@dimen/spacing_xs"
+            android:lineSpacingExtra="2dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvTitle" />
 
-    </LinearLayout>
-</androidx.cardview.widget.CardView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>
