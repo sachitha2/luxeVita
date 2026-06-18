@@ -9,22 +9,17 @@ import androidx.room.PrimaryKey;
 public class ServiceEntity {
 
     @PrimaryKey(autoGenerate = true)
-    public long id;
+    @ColumnInfo(name = "serviceId")
+    public int serviceId;
 
     @NonNull
-    public String name;
+    public String deviceType;
 
-    // SPA, DINING, CABANAS, TOURS (stored as string to keep the app simple)
     @NonNull
-    public String category;
+    public String serviceName;
 
     @NonNull
     public String description;
 
-    @ColumnInfo(name = "price")
-    public double price;
-
-    // Optional image reference (e.g., drawable resource name) for UI.
-    public String imageRef;
+    public double estimatedPrice;
 }
-

@@ -5,46 +5,36 @@ import android.content.SharedPreferences;
 
 public final class SessionManager {
 
-    private static final String PREFS_NAME = "ecostay_session";
-    private static final String KEY_USER_ID = "user_id";
-    private static final String KEY_EMAIL = "email";
-    private static final String KEY_IS_ADMIN = "is_admin";
+    private static final String PREFS_NAME = "techcare_session";
+    private static final String KEY_USER_ID = "loggedInUserId";
+    private static final String KEY_IS_LOGGED_IN = "isLoggedIn";
+    private static final String KEY_USER_NAME = "userName";
 
     private SessionManager() {
     }
 
-    public static void saveSession(Context context, long userId, String email) {
+    public static void saveSession(Context context, int userId, String fullName) {
         SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
         prefs.edit()
-                .putLong(KEY_USER_ID, userId)
-                .putString(KEY_EMAIL, email)
-                .putBoolean(KEY_IS_ADMIN, false)
+                .putInt(KEY_USER_ID, userId)
+                .putBoolean(KEY_IS_LOGGED_IN, true)
+                .putString(KEY_USER_NAME, fullName)
                 .apply();
     }
 
-    public static void saveAdminSession(Context context, String email) {
+    public static boolean isLoggedIn(Context context) {
         SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
-        prefs.edit()
-                .putString(KEY_EMAIL, email)
-                .putBoolean(KEY_IS_ADMIN, true)
-                .remove(KEY_USER_ID)
-                .apply();
+        return prefs.getBoolean(KEY_IS_LOGGED_IN, false);
     }
 
-    public static Long getUserId(Context context) {
+    public static int getUserId(Context context) {
         SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
-        if (!prefs.contains(KEY_USER_ID)) return null;
-        return prefs.getLong(KEY_USER_ID, -1L);
+        return prefs.getInt(KEY_USER_ID, -1);
     }
 
-    public static String getEmail(Context context) {
+    public static String getUserName(Context context) {
         SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
-        return prefs.getString(KEY_EMAIL, null);
-    }
-
-    public static boolean isAdmin(Context context) {
-        SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
-        return prefs.getBoolean(KEY_IS_ADMIN, false);
+        return prefs.getString(KEY_USER_NAME, "");
     }
 
     public static void clearSession(Context context) {
@@ -52,4 +42,3 @@ public final class SessionManager {
         prefs.edit().clear().apply();
     }
 }
-

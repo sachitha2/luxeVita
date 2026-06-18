@@ -1,31 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="EcoStay" />
+    <style name="TechCare" />
 
-    <style name="EcoStay.ScreenRoot">
+    <style name="TechCare.ScreenRoot">
         <item name="android:background">@drawable/bg_screen_gradient</item>
     </style>
 
-    <style name="EcoStay.PageContainer">
+    <style name="TechCare.PageContainer">
         <item name="android:paddingStart">20dp</item>
         <item name="android:paddingTop">20dp</item>
         <item name="android:paddingEnd">20dp</item>
         <item name="android:paddingBottom">28dp</item>
     </style>
 
-    <style name="EcoStay.Title">
+    <style name="TechCare.Title">
         <item name="android:textColor">@color/text_primary</item>
         <item name="android:textSize">28sp</item>
         <item name="android:textStyle">bold</item>
     </style>
 
-    <style name="EcoStay.Subtitle">
+    <style name="TechCare.Subtitle">
         <item name="android:textColor">@color/text_secondary</item>
         <item name="android:textSize">14sp</item>
     </style>
 
-    <style name="EcoStay.PrimaryButton" parent="Widget.MaterialComponents.Button">
+    <style name="TechCare.PrimaryButton" parent="Widget.MaterialComponents.Button">
         <item name="android:minHeight">54dp</item>
         <item name="cornerRadius">14dp</item>
         <item name="backgroundTint">@color/brand_primary</item>
@@ -35,7 +35,7 @@
         <item name="android:insetBottom">0dp</item>
     </style>
 
-    <style name="EcoStay.SecondaryButton" parent="Widget.MaterialComponents.Button.OutlinedButton">
+    <style name="TechCare.SecondaryButton" parent="Widget.MaterialComponents.Button.OutlinedButton">
         <item name="android:minHeight">52dp</item>
         <item name="cornerRadius">14dp</item>
         <item name="strokeColor">@color/card_stroke</item>
@@ -46,7 +46,7 @@
         <item name="android:textStyle">bold</item>
     </style>
 
-    <style name="EcoStay.TextField" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+    <style name="TechCare.TextField" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="boxBackgroundColor">@color/surface_card</item>
         <item name="boxStrokeColor">@color/card_stroke</item>
         <item name="hintTextColor">@color/text_hint</item>
@@ -54,6 +54,12 @@
         <item name="boxCornerRadiusTopEnd">12dp</item>
         <item name="boxCornerRadiusBottomStart">12dp</item>
         <item name="boxCornerRadiusBottomEnd">12dp</item>
+    </style>
+
+    <style name="TechCare.CardLabel">
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
 </resources>

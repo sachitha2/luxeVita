@@ -1,12 +1,11 @@
-# LuxeVista Resort (EcoStay) - Documentation
+# Documentation
 
-This folder contains the diagrams and documentation required by the assessment brief.
+TechCare Services documentation has moved to the project root:
 
-## Contents
+- [README.md](../README.md)
+- [DATABASE_SCHEMA.md](../DATABASE_SCHEMA.md)
+- [TECHNICAL_DOCUMENTATION.md](../TECHNICAL_DOCUMENTATION.md)
+- [USER_DOCUMENTATION.md](../USER_DOCUMENTATION.md)
+- [TEST_PLAN.md](../TEST_PLAN.md)
 
-- `uml/*.puml` - UML diagrams (Use Case, Class model, Activity sketches)
-- `er/*.puml` - ER diagram sources
-- `db_schema.md` - Normalized relational schema (tables, keys, relationships)
-- `user_documentation.md` - User-facing documentation (flows)
-- `technical_documentation.md` - Implementation notes (architecture, validation, notifications)
-
+The `uml/` and `er/` folders contain legacy diagrams from the original project and are not maintained for TechCare Services.

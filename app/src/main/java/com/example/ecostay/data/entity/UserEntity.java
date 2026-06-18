@@ -8,29 +8,33 @@ import androidx.room.PrimaryKey;
 
 @Entity(
         tableName = "users",
-        indices = {@Index(value = {"email"}, unique = true)}
+        indices = {
+                @Index(value = {"email"}, unique = true),
+                @Index(value = {"phone"}, unique = true)
+        }
 )
 public class UserEntity {
 
     @PrimaryKey(autoGenerate = true)
-    public long id;
+    @ColumnInfo(name = "userId")
+    public int userId;
+
+    @NonNull
+    public String fullName;
 
     @NonNull
     public String email;
 
     @NonNull
-    @ColumnInfo(name = "password_hash")
-    public String passwordHash;
+    public String phone;
+
+    @NonNull
+    public String password;
 
     @NonNull
     @ColumnInfo(name = "password_salt")
     public String passwordSalt;
 
-    // Preferences / personalization (optional until user sets them)
-    public Long preferredRoomTypeId;
-    public Double maxBudget;
-
-    public Long travelStartDateEpochDay;
-    public Long travelEndDateEpochDay;
+    @NonNull
+    public String address;
 }
-

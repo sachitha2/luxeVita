@@ -1,6 +1,7 @@
 package com.example.ecostay.data.dao;
 
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
@@ -12,19 +13,27 @@ import java.util.List;
 @Dao
 public interface UserDao {
 
-    @Query("SELECT * FROM users WHERE email = :email LIMIT 1")
-    UserEntity findByEmail(String email);
-
-    @Query("SELECT * FROM users WHERE id = :id LIMIT 1")
-    UserEntity findById(long id);
-
     @Insert
     long insert(UserEntity user);
 
     @Update
     void update(UserEntity user);
 
+    @Delete
+    void delete(UserEntity user);
+
+    @Query("SELECT * FROM users WHERE userId = :userId LIMIT 1")
+    UserEntity getById(int userId);
+
     @Query("SELECT * FROM users")
     List<UserEntity> getAll();
-}
 
+    @Query("SELECT * FROM users WHERE email = :email LIMIT 1")
+    UserEntity findByEmail(String email);
+
+    @Query("SELECT * FROM users WHERE phone = :phone LIMIT 1")
+    UserEntity findByPhone(String phone);
+
+    @Query("SELECT * FROM users WHERE email = :identifier OR phone = :identifier LIMIT 1")
+    UserEntity findByEmailOrPhone(String identifier);
+}

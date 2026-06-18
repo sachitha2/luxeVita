@@ -1,13 +1,10 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Theme.EcoStay" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <!-- Primary brand color. -->
+    <style name="Theme.TechCare" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="colorPrimary">@color/brand_primary</item>
         <item name="colorPrimaryVariant">@color/brand_primary_dark</item>
         <item name="colorOnPrimary">@color/white</item>
-        <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/brand_accent</item>
-        <item name="colorSecondaryVariant">@color/brand_primary</item>
+        <item name="colorSecondaryVariant">@color/brand_accent_dark</item>
         <item name="colorOnSecondary">@color/white</item>
         <item name="colorSurface">@color/surface_card</item>
         <item name="colorOnSurface">@color/text_primary</item>
@@ -16,10 +13,8 @@
         <item name="android:textColorPrimary">@color/text_primary</item>
         <item name="android:textColorSecondary">@color/text_secondary</item>
         <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
-        <item name="materialButtonStyle">@style/EcoStay.PrimaryButton</item>
-        <item name="textInputStyle">@style/EcoStay.TextField</item>
-        <!-- Status bar color. -->
+        <item name="materialButtonStyle">@style/TechCare.PrimaryButton</item>
+        <item name="textInputStyle">@style/TechCare.TextField</item>
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
-        <!-- Customize your theme here. -->
     </style>
 </resources>

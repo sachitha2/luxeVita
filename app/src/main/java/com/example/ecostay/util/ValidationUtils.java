@@ -9,16 +9,28 @@ public final class ValidationUtils {
             Pattern.CASE_INSENSITIVE
     );
 
+    private static final Pattern PHONE_PATTERN = Pattern.compile("^\\d{10}$");
+
     private ValidationUtils() {
     }
 
+    public static boolean isEmpty(String value) {
+        return value == null || value.trim().isEmpty();
+    }
+
     public static boolean isValidEmail(String email) {
-        return email != null && EMAIL_PATTERN.matcher(email).matches();
+        return email != null && EMAIL_PATTERN.matcher(email.trim()).matches();
+    }
+
+    public static boolean isValidPhone(String phone) {
+        return phone != null && PHONE_PATTERN.matcher(phone.trim()).matches();
     }
 
     public static boolean isValidPassword(String password) {
-        // Simple rule: at least 8 chars; you can expand as needed.
         return password != null && password.length() >= 8;
     }
-}
 
+    public static boolean isValidIssueDescription(String description) {
+        return description != null && description.trim().length() >= 10;
+    }
+}

@@ -7,10 +7,10 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="brand_primary">#0F6D64</color>
-    <color name="brand_primary_dark">#0B4F49</color>
-    <color name="brand_accent">#E4B95B</color>
-    <color name="brand_accent_dark">#BD8F31</color>
+    <color name="brand_primary">#1565C0</color>
+    <color name="brand_primary_dark">#0D47A1</color>
+    <color name="brand_accent">#00838F</color>
+    <color name="brand_accent_dark">#006064</color>
     <color name="surface_bg">#F4F7FB</color>
     <color name="surface_card">#FFFFFFFF</color>
     <color name="surface_muted">#EDF3F8</color>

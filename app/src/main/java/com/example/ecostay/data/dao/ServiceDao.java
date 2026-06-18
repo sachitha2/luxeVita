@@ -13,15 +13,6 @@ import java.util.List;
 @Dao
 public interface ServiceDao {
 
-    @Query("SELECT * FROM services ORDER BY name ASC")
-    List<ServiceEntity> getAll();
-
-    @Query("SELECT * FROM services WHERE category = :category ORDER BY name ASC")
-    List<ServiceEntity> getByCategory(String category);
-
-    @Insert
-    long[] insertAll(ServiceEntity... services);
-
     @Insert
     long insert(ServiceEntity service);
 
@@ -31,7 +22,12 @@ public interface ServiceDao {
     @Delete
     void delete(ServiceEntity service);
 
-    @Query("SELECT * FROM services WHERE id = :id LIMIT 1")
-    ServiceEntity findById(long id);
-}
+    @Query("SELECT * FROM services WHERE serviceId = :serviceId LIMIT 1")
+    ServiceEntity getById(int serviceId);
 
+    @Query("SELECT * FROM services ORDER BY deviceType, serviceName")
+    List<ServiceEntity> getAll();
+
+    @Query("SELECT * FROM services WHERE deviceType = :deviceType ORDER BY serviceName")
+    List<ServiceEntity> getByDeviceType(String deviceType);
+}
