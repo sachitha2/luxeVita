@@ -1,7 +1,11 @@
 package com.example.ecostay.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -21,6 +25,7 @@ import com.example.ecostay.util.DateTimeUtils;
 import com.example.ecostay.util.ToolbarUtils;
 import com.example.ecostay.util.ValidationUtils;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +41,13 @@ public class SubmitRepairRequestActivity extends AppCompatActivity {
 
     private Spinner spDevice;
     private Spinner spService;
+    private View formContent;
+    private View cardNoDevices;
+    private Button btnSubmit;
+    private ProgressBar progressSubmit;
+    private TextInputLayout tilIssue;
+    private TextInputLayout tilDate;
+    private TextInputLayout tilTime;
     private List<DeviceEntity> userDevices = new ArrayList<>();
     private List<ServiceEntity> services = new ArrayList<>();
     private int preselectedServiceId = -1;
@@ -61,15 +73,26 @@ public class SubmitRepairRequestActivity extends AppCompatActivity {
         serviceViewModel = new ViewModelProvider(this).get(ServiceViewModel.class);
         bookingViewModel = new ViewModelProvider(this).get(BookingViewModel.class);
 
+        formContent = findViewById(R.id.formContent);
+        cardNoDevices = findViewById(R.id.cardNoDevices);
         spDevice = findViewById(R.id.spDevice);
         spService = findViewById(R.id.spService);
         TextInputEditText etIssue = findViewById(R.id.etIssue);
         TextInputEditText etDate = findViewById(R.id.etDate);
         TextInputEditText etTime = findViewById(R.id.etTime);
         RadioGroup rgMethod = findViewById(R.id.rgServiceMethod);
+        btnSubmit = findViewById(R.id.btnSubmit);
+        progressSubmit = findViewById(R.id.progressSubmit);
+        tilIssue = findViewById(R.id.tilIssue);
+        tilDate = findViewById(R.id.tilDate);
+        tilTime = findViewById(R.id.tilTime);
+
+        findViewById(R.id.btnAddDevice).setOnClickListener(v ->
+                startActivity(new Intent(this, AddDeviceActivity.class)));
 
         deviceViewModel.getDevices().observe(this, devices -> {
             userDevices = devices != null ? devices : new ArrayList<>();
+            updateDeviceAvailability();
             bindDeviceSpinner();
         });
         deviceViewModel.loadDevices(userId);
@@ -85,11 +108,11 @@ public class SubmitRepairRequestActivity extends AppCompatActivity {
             serviceViewModel.loadAllServices();
         }
 
-        findViewById(R.id.btnSubmit).setOnClickListener(v -> submit(
-                userId, etIssue, etDate, etTime, rgMethod));
+        btnSubmit.setOnClickListener(v -> submit(userId, etIssue, etDate, etTime, rgMethod));
 
         bookingViewModel.getSubmitResult().observe(this, result -> {
             if (result == null) return;
+            setSubmitting(false);
             if (result.success) {
                 Toast.makeText(this, R.string.booking_submitted, Toast.LENGTH_SHORT).show();
                 finish();
@@ -99,25 +122,31 @@ public class SubmitRepairRequestActivity extends AppCompatActivity {
         });
     }
 
+    private void updateDeviceAvailability() {
+        boolean hasDevices = !userDevices.isEmpty();
+        formContent.setVisibility(hasDevices ? View.VISIBLE : View.GONE);
+        cardNoDevices.setVisibility(hasDevices ? View.GONE : View.VISIBLE);
+    }
+
     private void bindDeviceSpinner() {
         List<String> labels = new ArrayList<>();
         for (DeviceEntity device : userDevices) {
             labels.add(device.brand + " " + device.model + " (" + device.deviceType + ")");
         }
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_spinner_item, labels);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                R.layout.item_spinner_category, labels);
+        adapter.setDropDownViewResource(R.layout.item_spinner_category_dropdown);
         spDevice.setAdapter(adapter);
     }
 
     private void bindServiceSpinner() {
         List<String> labels = new ArrayList<>();
         for (ServiceEntity service : services) {
-            labels.add(service.serviceName + " - Rs. " + (int) service.estimatedPrice);
+            labels.add(service.serviceName + " — Rs. " + (int) service.estimatedPrice);
         }
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_spinner_item, labels);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                R.layout.item_spinner_category, labels);
+        adapter.setDropDownViewResource(R.layout.item_spinner_category_dropdown);
         spService.setAdapter(adapter);
 
         if (preselectedServiceId > 0) {
@@ -132,8 +161,10 @@ public class SubmitRepairRequestActivity extends AppCompatActivity {
 
     private void submit(int userId, TextInputEditText etIssue, TextInputEditText etDate,
                         TextInputEditText etTime, RadioGroup rgMethod) {
+        clearFieldErrors();
+
         if (userDevices.isEmpty()) {
-            Toast.makeText(this, R.string.error_select_device, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.no_devices_for_repair, Toast.LENGTH_SHORT).show();
             return;
         }
         if (services.isEmpty()) {
@@ -145,16 +176,20 @@ public class SubmitRepairRequestActivity extends AppCompatActivity {
         String date = textOf(etDate);
         String time = textOf(etTime);
 
+        boolean valid = true;
         if (!ValidationUtils.isValidIssueDescription(issue)) {
-            Toast.makeText(this, R.string.error_valid_issue, Toast.LENGTH_SHORT).show();
-            return;
+            tilIssue.setError(getString(R.string.error_valid_issue));
+            valid = false;
         }
         if (!DateTimeUtils.isValidDate(date)) {
-            Toast.makeText(this, R.string.error_valid_date, Toast.LENGTH_SHORT).show();
-            return;
+            tilDate.setError(getString(R.string.error_valid_date));
+            valid = false;
         }
         if (!DateTimeUtils.isValidTime(time)) {
-            Toast.makeText(this, R.string.error_valid_time, Toast.LENGTH_SHORT).show();
+            tilTime.setError(getString(R.string.error_valid_time));
+            valid = false;
+        }
+        if (!valid) {
             return;
         }
 
@@ -163,6 +198,8 @@ public class SubmitRepairRequestActivity extends AppCompatActivity {
             Toast.makeText(this, R.string.error_select_service_method, Toast.LENGTH_SHORT).show();
             return;
         }
+
+        setSubmitting(true);
 
         String serviceMethod = methodId == R.id.rbPickup
                 ? getString(R.string.method_pickup)
@@ -181,6 +218,17 @@ public class SubmitRepairRequestActivity extends AppCompatActivity {
         booking.preferredTime = time.trim();
 
         bookingViewModel.submitBooking(booking);
+    }
+
+    private void setSubmitting(boolean submitting) {
+        btnSubmit.setEnabled(!submitting);
+        progressSubmit.setVisibility(submitting ? View.VISIBLE : View.GONE);
+    }
+
+    private void clearFieldErrors() {
+        tilIssue.setError(null);
+        tilDate.setError(null);
+        tilTime.setError(null);
     }
 
     private String textOf(TextInputEditText editText) {

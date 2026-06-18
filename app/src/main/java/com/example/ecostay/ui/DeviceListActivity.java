@@ -3,8 +3,6 @@ package com.example.ecostay.ui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,7 +24,9 @@ public class DeviceListActivity extends AppCompatActivity {
     private DeviceViewModel deviceViewModel;
     private DeviceAdapter adapter;
     private TextView tvEmpty;
+    private TextView tvDeviceCount;
     private View ivEmpty;
+    private RecyclerView rvDevices;
     private int userId;
 
     @Override
@@ -44,10 +44,10 @@ public class DeviceListActivity extends AppCompatActivity {
 
         deviceViewModel = new ViewModelProvider(this).get(DeviceViewModel.class);
 
-        RecyclerView rvDevices = findViewById(R.id.rvDevices);
+        rvDevices = findViewById(R.id.rvDevices);
         tvEmpty = findViewById(R.id.tvEmpty);
         ivEmpty = findViewById(R.id.ivEmpty);
-        Button btnAdd = findViewById(R.id.btnAddDevice);
+        tvDeviceCount = findViewById(R.id.tvDeviceCount);
 
         adapter = new DeviceAdapter(new DeviceAdapter.Listener() {
             @Override
@@ -71,14 +71,13 @@ public class DeviceListActivity extends AppCompatActivity {
         rvDevices.setLayoutManager(new LinearLayoutManager(this));
         rvDevices.setAdapter(adapter);
 
-        btnAdd.setOnClickListener(v ->
+        findViewById(R.id.cardAddDevice).setOnClickListener(v ->
                 startActivity(new Intent(this, AddDeviceActivity.class)));
 
         deviceViewModel.getDevices().observe(this, devices -> {
-            boolean empty = devices == null || devices.isEmpty();
-            int visibility = empty ? View.VISIBLE : View.GONE;
-            tvEmpty.setVisibility(visibility);
-            ivEmpty.setVisibility(visibility);
+            int count = devices != null ? devices.size() : 0;
+            updateEmptyState(count == 0);
+            updateDeviceCount(count);
             adapter.setItems(devices);
         });
 
@@ -87,6 +86,24 @@ public class DeviceListActivity extends AppCompatActivity {
                 Toast.makeText(this, result.message, Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void updateEmptyState(boolean empty) {
+        int emptyVisibility = empty ? View.VISIBLE : View.GONE;
+        tvEmpty.setVisibility(emptyVisibility);
+        ivEmpty.setVisibility(emptyVisibility);
+        rvDevices.setVisibility(empty ? View.GONE : View.VISIBLE);
+        if (empty) {
+            tvDeviceCount.setVisibility(View.GONE);
+        }
+    }
+
+    private void updateDeviceCount(int count) {
+        if (count == 0) {
+            return;
+        }
+        tvDeviceCount.setText(getString(R.string.devices_count, count));
+        tvDeviceCount.setVisibility(View.VISIBLE);
     }
 
     @Override

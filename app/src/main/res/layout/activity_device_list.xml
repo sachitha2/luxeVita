@@ -14,45 +14,114 @@
         android:layout_weight="1"
         android:padding="@dimen/page_padding_horizontal">
 
-        <Button
-            android:id="@+id/btnAddDevice"
-            style="@style/TechCare.PrimaryButton"
+        <TextView
+            android:id="@+id/tvSubtitle"
+            style="@style/TechCare.Subtitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/action_add_device"
+            android:text="@string/device_list_subtitle"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardAddDevice"
+            style="@style/TechCare.NavCard"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_lg"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackground"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvSubtitle">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/spacing_lg">
+
+                <ImageView
+                    android:id="@+id/ivAddIcon"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:contentDescription="@null"
+                    android:src="@drawable/ic_nav_devices"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tvAddTitle"
+                    style="@style/TechCare.CardLabel"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/spacing_md"
+                    android:text="@string/action_add_device"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/ivAddIcon"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tvAddDesc"
+                    style="@style/TechCare.Subtitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/spacing_md"
+                    android:layout_marginTop="@dimen/spacing_xs"
+                    android:text="@string/add_device_card_desc"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/ivAddIcon"
+                    app:layout_constraintTop_toBottomOf="@id/tvAddTitle" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <TextView
+            android:id="@+id/tvDeviceCount"
+            style="@style/TechCare.Subtitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_lg"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cardAddDevice" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvDevices"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginTop="@dimen/spacing_lg"
+            android:layout_marginTop="@dimen/spacing_sm"
+            android:clipToPadding="false"
+            android:paddingBottom="@dimen/spacing_md"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btnAddDevice" />
+            app:layout_constraintTop_toBottomOf="@id/tvDeviceCount" />
 
         <ImageView
             android:id="@+id/ivEmpty"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
             android:contentDescription="@null"
-            android:src="@drawable/ic_empty_list"
+            android:src="@drawable/ic_nav_devices"
             android:visibility="gone"
             app:layout_constraintBottom_toTopOf="@id/tvEmpty"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btnAddDevice"
+            app:layout_constraintTop_toBottomOf="@id/cardAddDevice"
             app:layout_constraintVertical_chainStyle="packed" />
 
         <TextView
             android:id="@+id/tvEmpty"
             style="@style/TechCare.EmptyState"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_sm"
+            android:layout_marginTop="@dimen/spacing_md"
+            android:paddingStart="@dimen/spacing_xl"
+            android:paddingEnd="@dimen/spacing_xl"
             android:text="@string/devices_empty"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"

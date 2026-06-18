@@ -1,9 +1,12 @@
 package com.example.ecostay.ui;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,6 +20,7 @@ import com.example.ecostay.ui.viewmodel.DeviceViewModel;
 import com.example.ecostay.util.ToolbarUtils;
 import com.example.ecostay.util.ValidationUtils;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 public class AddDeviceActivity extends AppCompatActivity {
 
@@ -26,6 +30,10 @@ public class AddDeviceActivity extends AppCompatActivity {
     private int userId;
     private int deviceId = -1;
     private boolean isEdit;
+    private Button btnSave;
+    private ProgressBar progressSave;
+    private TextInputLayout tilBrand;
+    private TextInputLayout tilModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,14 +52,20 @@ public class AddDeviceActivity extends AppCompatActivity {
         ToolbarUtils.setupBackToolbar(this, isEdit ? R.string.edit_device_title : R.string.add_device_title);
         deviceViewModel = new ViewModelProvider(this).get(DeviceViewModel.class);
 
+        TextView tvSubtitle = findViewById(R.id.tvSubtitle);
+        tvSubtitle.setText(isEdit ? R.string.edit_device_subtitle : R.string.add_device_subtitle);
+
         Spinner spDeviceType = findViewById(R.id.spDeviceType);
         TextInputEditText etBrand = findViewById(R.id.etBrand);
         TextInputEditText etModel = findViewById(R.id.etModel);
-        Button btnSave = findViewById(R.id.btnSave);
+        btnSave = findViewById(R.id.btnSave);
+        progressSave = findViewById(R.id.progressSave);
+        tilBrand = findViewById(R.id.tilBrand);
+        tilModel = findViewById(R.id.tilModel);
 
         ArrayAdapter<CharSequence> typeAdapter = ArrayAdapter.createFromResource(
-                this, R.array.device_types, android.R.layout.simple_spinner_item);
-        typeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                this, R.array.device_types, R.layout.item_spinner_category);
+        typeAdapter.setDropDownViewResource(R.layout.item_spinner_category_dropdown);
         spDeviceType.setAdapter(typeAdapter);
 
         if (isEdit) {
@@ -66,14 +80,21 @@ public class AddDeviceActivity extends AppCompatActivity {
         }
 
         btnSave.setOnClickListener(v -> {
+            clearFieldErrors();
             String brand = textOf(etBrand);
             String model = textOf(etModel);
             String deviceType = spDeviceType.getSelectedItem().toString();
 
-            if (ValidationUtils.isEmpty(brand) || ValidationUtils.isEmpty(model)) {
-                Toast.makeText(this, R.string.error_empty_fields, Toast.LENGTH_SHORT).show();
+            if (ValidationUtils.isEmpty(brand)) {
+                tilBrand.setError(getString(R.string.error_empty_fields));
                 return;
             }
+            if (ValidationUtils.isEmpty(model)) {
+                tilModel.setError(getString(R.string.error_empty_fields));
+                return;
+            }
+
+            setSaving(true);
 
             DeviceEntity device = new DeviceEntity();
             device.userId = userId;
@@ -87,13 +108,25 @@ public class AddDeviceActivity extends AppCompatActivity {
         });
 
         deviceViewModel.getSaveResult().observe(this, result -> {
-            if (result != null && result.success) {
+            if (result == null) return;
+            setSaving(false);
+            if (result.success) {
                 Toast.makeText(this, result.message, Toast.LENGTH_SHORT).show();
                 finish();
-            } else if (result != null) {
+            } else {
                 Toast.makeText(this, result.message, Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void setSaving(boolean saving) {
+        btnSave.setEnabled(!saving);
+        progressSave.setVisibility(saving ? View.VISIBLE : View.GONE);
+    }
+
+    private void clearFieldErrors() {
+        tilBrand.setError(null);
+        tilModel.setError(null);
     }
 
     private String textOf(TextInputEditText editText) {

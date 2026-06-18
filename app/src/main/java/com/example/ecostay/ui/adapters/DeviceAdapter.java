@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ecostay.R;
 import com.example.ecostay.data.entity.DeviceEntity;
+import com.example.ecostay.util.StatusUiUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,8 +50,9 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         DeviceEntity device = items.get(position);
-        holder.tvDeviceLabel.setText(device.brand + " " + device.model);
-        holder.tvDeviceType.setText(device.deviceType);
+        StatusUiUtils.applyStatusChip(holder.tvDeviceType, device.deviceType);
+        holder.tvDeviceLabel.setText(device.brand);
+        holder.tvDeviceMeta.setText(device.model);
         holder.btnEdit.setOnClickListener(v -> listener.onEdit(device));
         holder.btnDelete.setOnClickListener(v -> listener.onDelete(device));
     }
@@ -63,6 +65,7 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.ViewHolder
     static class ViewHolder extends RecyclerView.ViewHolder {
         final TextView tvDeviceLabel;
         final TextView tvDeviceType;
+        final TextView tvDeviceMeta;
         final Button btnEdit;
         final Button btnDelete;
 
@@ -70,6 +73,7 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.ViewHolder
             super(itemView);
             tvDeviceLabel = itemView.findViewById(R.id.tvDeviceLabel);
             tvDeviceType = itemView.findViewById(R.id.tvDeviceType);
+            tvDeviceMeta = itemView.findViewById(R.id.tvDeviceMeta);
             btnEdit = itemView.findViewById(R.id.btnEdit);
             btnDelete = itemView.findViewById(R.id.btnDelete);
         }

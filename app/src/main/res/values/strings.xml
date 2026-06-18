@@ -43,10 +43,16 @@
     <string name="price_format">Rs. %1$.0f</string>
 
     <string name="device_list_title">Saved Devices</string>
+    <string name="device_list_subtitle">Register your devices for faster repair bookings</string>
+    <string name="devices_count">%1$d device(s) saved</string>
     <string name="action_add_device">Add Device</string>
-    <string name="devices_empty">No devices saved yet. Add your first device.</string>
+    <string name="add_device_card_desc">Register a new phone, laptop, or appliance</string>
+    <string name="devices_empty">No devices saved yet. Tap Add Device above to register your first one.</string>
     <string name="add_device_title">Add Device</string>
+    <string name="add_device_subtitle">Enter your device details to save it for repair requests</string>
     <string name="edit_device_title">Edit Device</string>
+    <string name="edit_device_subtitle">Update your saved device information</string>
+    <string name="label_device_details">Device details</string>
     <string name="hint_brand">Brand</string>
     <string name="hint_model">Model</string>
     <string name="hint_device_type">Device type</string>
@@ -55,13 +61,20 @@
     <string name="action_delete">Delete</string>
 
     <string name="submit_repair_title">Submit Repair Request</string>
+    <string name="submit_repair_subtitle">Tell us about the issue and when you would like service</string>
+    <string name="section_device_service">Device &amp; service</string>
+    <string name="section_issue_details">Describe the problem</string>
+    <string name="section_schedule">Preferred schedule</string>
+    <string name="label_optional_photo">Photo attachment</string>
+    <string name="no_devices_for_repair">Add a device before submitting a repair request.</string>
+    <string name="progress_submitting_repair">Submitting your request…</string>
     <string name="hint_issue_description">Describe the issue</string>
     <string name="hint_preferred_date">Preferred date (yyyy-MM-dd)</string>
     <string name="hint_preferred_time">Preferred time (HH:mm)</string>
     <string name="service_method_title">Service method</string>
     <string name="method_pickup">Pickup</string>
     <string name="method_dropoff">Service center drop-off</string>
-    <string name="photo_placeholder">Photo attachment (optional placeholder)</string>
+    <string name="photo_placeholder">Optional — attach a photo of the issue (coming soon)</string>
     <string name="action_submit_request">Submit Request</string>
     <string name="hint_select_device">Select device</string>
     <string name="hint_select_service">Select service</string>
@@ -117,6 +130,7 @@
     <string name="error_select_service_method">Please select pickup or drop-off.</string>
     <string name="error_message_short">Message must be at least 10 characters.</string>
 
+    <string name="progress_saving_device">Saving device…</string>
     <string name="progress_logging_in">Signing you in…</string>
     <string name="progress_registering">Creating your account…</string>
     <string name="booking_submitted">Repair request submitted successfully.</string>

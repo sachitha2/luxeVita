@@ -11,17 +11,37 @@
         android:layout_height="wrap_content"
         android:padding="@dimen/spacing_lg">
 
-        <TextView
-            android:id="@+id/tvDeviceLabel"
-            style="@style/TechCare.CardLabel"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
+        <ImageView
+            android:id="@+id/ivDeviceIcon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_nav_devices"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tvDeviceType"
+            style="@style/TechCare.StatusChip.Progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_sm"
+            app:layout_constraintBottom_toBottomOf="@id/ivDeviceIcon"
+            app:layout_constraintStart_toEndOf="@id/ivDeviceIcon"
+            app:layout_constraintTop_toTopOf="@id/ivDeviceIcon" />
+
+        <TextView
+            android:id="@+id/tvDeviceLabel"
+            style="@style/TechCare.CardLabel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_sm"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ivDeviceIcon" />
+
+        <TextView
+            android:id="@+id/tvDeviceMeta"
             style="@style/TechCare.Subtitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -33,23 +53,31 @@
         <Button
             android:id="@+id/btnEdit"
             style="@style/TechCare.SecondaryButton"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_sm"
+            android:layout_marginTop="@dimen/spacing_md"
+            android:layout_marginEnd="@dimen/spacing_xs"
             android:text="@string/action_edit"
+            app:layout_constraintEnd_toStartOf="@id/btnDelete"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintHorizontal_weight="1"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvDeviceType" />
+            app:layout_constraintTop_toBottomOf="@id/tvDeviceMeta" />
 
         <Button
             android:id="@+id/btnDelete"
             style="@style/TechCare.SecondaryButton"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/spacing_sm"
-            android:layout_marginTop="@dimen/spacing_sm"
+            android:layout_marginStart="@dimen/spacing_xs"
+            android:layout_marginTop="@dimen/spacing_md"
             android:text="@string/action_delete"
+            android:textColor="@color/state_error"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_weight="1"
             app:layout_constraintStart_toEndOf="@id/btnEdit"
-            app:layout_constraintTop_toBottomOf="@id/tvDeviceType" />
+            app:layout_constraintTop_toBottomOf="@id/tvDeviceMeta"
+            app:strokeColor="@color/state_error" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>
