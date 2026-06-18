@@ -43,6 +43,10 @@ public final class DateTimeUtils {
         }
     }
 
+    public static String formatTime(LocalTime time) {
+        return String.format(Locale.getDefault(), "%02d:%02d", time.getHour(), time.getMinute());
+    }
+
     public static boolean isValidTime(String time) {
         if (time == null || time.trim().isEmpty()) return false;
         try {

@@ -114,10 +114,22 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_lg"
             android:text="@string/link_register"
-            app:layout_constraintBottom_toTopOf="@id/tvMessage"
+            app:layout_constraintBottom_toTopOf="@id/tvAdminLink"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/loginCard" />
+
+        <TextView
+            android:id="@+id/tvAdminLink"
+            style="@style/TechCare.Link"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_sm"
+            android:text="@string/link_admin_login"
+            app:layout_constraintBottom_toTopOf="@id/tvMessage"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvRegisterLink" />
 
         <TextView
             android:id="@+id/tvMessage"
@@ -129,7 +141,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvRegisterLink" />
+            app:layout_constraintTop_toBottomOf="@id/tvAdminLink" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

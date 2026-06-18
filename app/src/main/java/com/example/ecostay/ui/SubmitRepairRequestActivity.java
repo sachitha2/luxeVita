@@ -1,15 +1,22 @@
 package com.example.ecostay.ui;
 
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -22,18 +29,31 @@ import com.example.ecostay.ui.viewmodel.BookingViewModel;
 import com.example.ecostay.ui.viewmodel.DeviceViewModel;
 import com.example.ecostay.ui.viewmodel.ServiceViewModel;
 import com.example.ecostay.util.DateTimeUtils;
+import com.example.ecostay.util.PhotoUtils;
 import com.example.ecostay.util.ToolbarUtils;
 import com.example.ecostay.util.ValidationUtils;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class SubmitRepairRequestActivity extends AppCompatActivity {
 
     public static final String EXTRA_SERVICE_ID = "serviceId";
     public static final String EXTRA_DEVICE_TYPE = "deviceType";
+
+    private final ActivityResultLauncher<String> pickImageLauncher =
+            registerForActivityResult(new ActivityResultContracts.GetContent(), uri -> {
+                if (uri != null) {
+                    selectedPhotoUri = uri;
+                    showPhotoPreview(uri);
+                }
+            });
 
     private DeviceViewModel deviceViewModel;
     private ServiceViewModel serviceViewModel;
@@ -43,15 +63,24 @@ public class SubmitRepairRequestActivity extends AppCompatActivity {
     private Spinner spService;
     private View formContent;
     private View cardNoDevices;
+    private View cardPhoto;
+    private View ivPhotoIcon;
+    private View tvPhotoTitle;
+    private View tvPhotoPlaceholder;
+    private ImageView ivPhotoPreview;
+    private TextView tvRemovePhoto;
     private Button btnSubmit;
     private ProgressBar progressSubmit;
     private TextInputLayout tilIssue;
     private TextInputLayout tilDate;
     private TextInputLayout tilTime;
+    private TextInputEditText etDate;
+    private TextInputEditText etTime;
     private List<DeviceEntity> userDevices = new ArrayList<>();
     private List<ServiceEntity> services = new ArrayList<>();
     private int preselectedServiceId = -1;
     private String preselectedDeviceType;
+    private Uri selectedPhotoUri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,11 +104,17 @@ public class SubmitRepairRequestActivity extends AppCompatActivity {
 
         formContent = findViewById(R.id.formContent);
         cardNoDevices = findViewById(R.id.cardNoDevices);
+        cardPhoto = findViewById(R.id.cardPhoto);
+        ivPhotoIcon = findViewById(R.id.ivPhotoIcon);
+        tvPhotoTitle = findViewById(R.id.tvPhotoTitle);
+        tvPhotoPlaceholder = findViewById(R.id.tvPhotoPlaceholder);
+        ivPhotoPreview = findViewById(R.id.ivPhotoPreview);
+        tvRemovePhoto = findViewById(R.id.tvRemovePhoto);
         spDevice = findViewById(R.id.spDevice);
         spService = findViewById(R.id.spService);
         TextInputEditText etIssue = findViewById(R.id.etIssue);
-        TextInputEditText etDate = findViewById(R.id.etDate);
-        TextInputEditText etTime = findViewById(R.id.etTime);
+        etDate = findViewById(R.id.etDate);
+        etTime = findViewById(R.id.etTime);
         RadioGroup rgMethod = findViewById(R.id.rgServiceMethod);
         btnSubmit = findViewById(R.id.btnSubmit);
         progressSubmit = findViewById(R.id.progressSubmit);
@@ -89,6 +124,10 @@ public class SubmitRepairRequestActivity extends AppCompatActivity {
 
         findViewById(R.id.btnAddDevice).setOnClickListener(v ->
                 startActivity(new Intent(this, AddDeviceActivity.class)));
+
+        setupDatePicker();
+        setupTimePicker();
+        setupPhotoPicker();
 
         deviceViewModel.getDevices().observe(this, devices -> {
             userDevices = devices != null ? devices : new ArrayList<>();
@@ -108,7 +147,7 @@ public class SubmitRepairRequestActivity extends AppCompatActivity {
             serviceViewModel.loadAllServices();
         }
 
-        btnSubmit.setOnClickListener(v -> submit(userId, etIssue, etDate, etTime, rgMethod));
+        btnSubmit.setOnClickListener(v -> submit(userId, etIssue, rgMethod));
 
         bookingViewModel.getSubmitResult().observe(this, result -> {
             if (result == null) return;
@@ -120,6 +159,79 @@ public class SubmitRepairRequestActivity extends AppCompatActivity {
                 Toast.makeText(this, result.message, Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void setupDatePicker() {
+        View.OnClickListener listener = v -> showDatePicker();
+        etDate.setOnClickListener(listener);
+        tilDate.setEndIconOnClickListener(listener);
+    }
+
+    private void setupTimePicker() {
+        View.OnClickListener listener = v -> showTimePicker();
+        etTime.setOnClickListener(listener);
+        tilTime.setEndIconOnClickListener(listener);
+    }
+
+    private void setupPhotoPicker() {
+        cardPhoto.setOnClickListener(v -> {
+            if (selectedPhotoUri == null) {
+                pickImageLauncher.launch("image/*");
+            } else {
+                pickImageLauncher.launch("image/*");
+            }
+        });
+        tvRemovePhoto.setOnClickListener(v -> {
+            selectedPhotoUri = null;
+            ivPhotoPreview.setVisibility(View.GONE);
+            ivPhotoPreview.setImageDrawable(null);
+            tvRemovePhoto.setVisibility(View.GONE);
+            ivPhotoIcon.setVisibility(View.VISIBLE);
+            tvPhotoTitle.setVisibility(View.VISIBLE);
+            tvPhotoPlaceholder.setVisibility(View.VISIBLE);
+            ((TextView) tvPhotoPlaceholder).setText(R.string.photo_attach_hint);
+        });
+    }
+
+    private void showDatePicker() {
+        Calendar calendar = Calendar.getInstance();
+        DatePickerDialog dialog = new DatePickerDialog(
+                this,
+                (view, year, month, dayOfMonth) -> {
+                    LocalDate date = LocalDate.of(year, month + 1, dayOfMonth);
+                    etDate.setText(DateTimeUtils.formatDisplayDate(date));
+                    tilDate.setError(null);
+                },
+                calendar.get(Calendar.YEAR),
+                calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DAY_OF_MONTH)
+        );
+        dialog.getDatePicker().setMinDate(System.currentTimeMillis());
+        dialog.show();
+    }
+
+    private void showTimePicker() {
+        Calendar calendar = Calendar.getInstance();
+        TimePickerDialog dialog = new TimePickerDialog(
+                this,
+                (view, hourOfDay, minute) -> {
+                    etTime.setText(DateTimeUtils.formatTime(LocalTime.of(hourOfDay, minute)));
+                    tilTime.setError(null);
+                },
+                calendar.get(Calendar.HOUR_OF_DAY),
+                calendar.get(Calendar.MINUTE),
+                true
+        );
+        dialog.show();
+    }
+
+    private void showPhotoPreview(Uri uri) {
+        ivPhotoPreview.setImageURI(uri);
+        ivPhotoPreview.setVisibility(View.VISIBLE);
+        tvRemovePhoto.setVisibility(View.VISIBLE);
+        ivPhotoIcon.setVisibility(View.GONE);
+        tvPhotoTitle.setVisibility(View.GONE);
+        tvPhotoPlaceholder.setVisibility(View.GONE);
     }
 
     private void updateDeviceAvailability() {
@@ -159,8 +271,7 @@ public class SubmitRepairRequestActivity extends AppCompatActivity {
         }
     }
 
-    private void submit(int userId, TextInputEditText etIssue, TextInputEditText etDate,
-                        TextInputEditText etTime, RadioGroup rgMethod) {
+    private void submit(int userId, TextInputEditText etIssue, RadioGroup rgMethod) {
         clearFieldErrors();
 
         if (userDevices.isEmpty()) {
@@ -199,6 +310,16 @@ public class SubmitRepairRequestActivity extends AppCompatActivity {
             return;
         }
 
+        String photoPath = "";
+        if (selectedPhotoUri != null) {
+            try {
+                photoPath = PhotoUtils.savePhotoFromUri(this, selectedPhotoUri);
+            } catch (IOException e) {
+                Toast.makeText(this, R.string.error_photo_save, Toast.LENGTH_SHORT).show();
+                return;
+            }
+        }
+
         setSubmitting(true);
 
         String serviceMethod = methodId == R.id.rbPickup
@@ -216,6 +337,7 @@ public class SubmitRepairRequestActivity extends AppCompatActivity {
         booking.serviceMethod = serviceMethod;
         booking.preferredDate = date.trim();
         booking.preferredTime = time.trim();
+        booking.photoPath = photoPath;
 
         bookingViewModel.submitBooking(booking);
     }

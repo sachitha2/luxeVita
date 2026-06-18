@@ -36,4 +36,7 @@ public interface UserDao {
 
     @Query("SELECT * FROM users WHERE email = :identifier OR phone = :identifier LIMIT 1")
     UserEntity findByEmailOrPhone(String identifier);
+
+    @Query("SELECT * FROM users WHERE email = :email AND role = :role LIMIT 1")
+    UserEntity findByEmailAndRole(String email, String role);
 }

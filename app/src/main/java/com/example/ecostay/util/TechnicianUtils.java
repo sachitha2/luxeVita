@@ -24,6 +24,24 @@ public final class TechnicianUtils {
             "Completed"
     };
 
+    public static final String[] ADMIN_STATUS_OPTIONS = {
+            "Received",
+            "Technician Assigned",
+            "Under Repair",
+            "Ready for Pickup",
+            "Completed",
+            "Cancelled"
+    };
+
+    public static final String[] TECHNICIAN_LABELS = {
+            "Kasun Perera - Smartphone Specialist",
+            "Nimal Fernando - Laptop Specialist",
+            "Saman Silva - Television Specialist",
+            "Ruwan Jayasinghe - Air Conditioner Specialist",
+            "Chamara De Silva - Refrigerator Specialist",
+            "Prasad Kumara - Washing Machine Specialist"
+    };
+
     private TechnicianUtils() {
     }
 
@@ -52,5 +70,29 @@ public final class TechnicianUtils {
 
     public static boolean canAdvanceStatus(String currentStatus) {
         return getStatusIndex(currentStatus) < STATUS_FLOW.length - 1;
+    }
+
+    public static String[] getAllTechnicianLabels() {
+        return TECHNICIAN_LABELS.clone();
+    }
+
+    public static String getTechnicianNameFromLabel(String label) {
+        if (label == null) {
+            return "TechCare Specialist";
+        }
+        int dashIndex = label.indexOf(" - ");
+        return dashIndex > 0 ? label.substring(0, dashIndex) : label;
+    }
+
+    public static String getTechnicianLabelForName(String technicianName) {
+        if (technicianName == null) {
+            return TECHNICIAN_LABELS[0];
+        }
+        for (String label : TECHNICIAN_LABELS) {
+            if (label.startsWith(technicianName)) {
+                return label;
+            }
+        }
+        return technicianName;
     }
 }

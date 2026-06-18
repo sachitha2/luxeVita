@@ -33,4 +33,7 @@ public class RepairStatusEntity {
 
     @NonNull
     public String updatedAt;
+
+    @NonNull
+    public String updatedBy = "System";
 }

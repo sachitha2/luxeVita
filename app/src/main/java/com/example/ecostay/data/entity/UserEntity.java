@@ -37,4 +37,7 @@ public class UserEntity {
 
     @NonNull
     public String address;
+
+    @NonNull
+    public String role = "CUSTOMER";
 }

@@ -25,9 +25,21 @@ public interface BookingDao {
     @Query("SELECT * FROM bookings WHERE bookingId = :bookingId LIMIT 1")
     BookingEntity getById(int bookingId);
 
-    @Query("SELECT * FROM bookings")
+    @Query("SELECT * FROM bookings ORDER BY bookingId DESC")
     List<BookingEntity> getAll();
 
     @Query("SELECT * FROM bookings WHERE userId = :userId ORDER BY bookingId DESC")
     List<BookingEntity> getByUserId(int userId);
+
+    @Query("SELECT * FROM bookings WHERE status = :status ORDER BY bookingId DESC")
+    List<BookingEntity> getByStatus(String status);
+
+    @Query("SELECT COUNT(*) FROM bookings")
+    int countAll();
+
+    @Query("SELECT COUNT(*) FROM bookings WHERE status = :status")
+    int countByStatus(String status);
+
+    @Query("SELECT COUNT(*) FROM bookings WHERE serviceId = :serviceId")
+    int countByServiceId(int serviceId);
 }

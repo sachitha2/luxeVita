@@ -292,21 +292,19 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/tvServiceMethod">
 
-                        <RadioButton
+                        <com.google.android.material.radiobutton.MaterialRadioButton
                             android:id="@+id/rbPickup"
+                            style="@style/TechCare.RadioButton"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:buttonTint="@color/brand_primary"
-                            android:paddingStart="@dimen/spacing_xs"
                             android:text="@string/method_pickup" />
 
-                        <RadioButton
+                        <com.google.android.material.radiobutton.MaterialRadioButton
                             android:id="@+id/rbDropoff"
+                            style="@style/TechCare.RadioButton"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/spacing_xs"
-                            android:buttonTint="@color/brand_primary"
-                            android:paddingStart="@dimen/spacing_xs"
                             android:text="@string/method_dropoff" />
                     </RadioGroup>
 
@@ -351,6 +349,9 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/spacing_lg"
                         android:layout_marginEnd="@dimen/spacing_xs"
+                        app:endIconDrawable="@drawable/ic_calendar"
+                        app:endIconMode="custom"
+                        app:endIconTint="@color/brand_primary"
                         app:layout_constraintEnd_toStartOf="@id/tilTime"
                         app:layout_constraintHorizontal_chainStyle="spread"
                         app:layout_constraintStart_toStartOf="parent"
@@ -360,8 +361,12 @@
                             android:id="@+id/etDate"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="@string/hint_preferred_date"
-                            android:inputType="date" />
+                            android:clickable="true"
+                            android:cursorVisible="false"
+                            android:focusable="false"
+                            android:hint="@string/hint_select_date"
+                            android:inputType="none"
+                            android:longClickable="false" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -370,6 +375,9 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/spacing_xs"
+                        app:endIconDrawable="@drawable/ic_time"
+                        app:endIconMode="custom"
+                        app:endIconTint="@color/brand_primary"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@id/tilDate"
                         app:layout_constraintTop_toTopOf="@id/tilDate">
@@ -378,8 +386,12 @@
                             android:id="@+id/etTime"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="@string/hint_preferred_time"
-                            android:inputType="time" />
+                            android:clickable="true"
+                            android:cursorVisible="false"
+                            android:focusable="false"
+                            android:hint="@string/hint_select_time"
+                            android:inputType="none"
+                            android:longClickable="false" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -390,10 +402,24 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing_md"
                     android:background="@drawable/bg_photo_placeholder"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?attr/selectableItemBackground"
                     android:padding="@dimen/spacing_lg"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/cardSchedule">
+
+                    <ImageView
+                        android:id="@+id/ivPhotoPreview"
+                        android:layout_width="0dp"
+                        android:layout_height="160dp"
+                        android:contentDescription="@string/label_optional_photo"
+                        android:scaleType="centerCrop"
+                        android:visibility="gone"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <ImageView
                         android:id="@+id/ivPhotoIcon"
@@ -423,11 +449,25 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/spacing_xs"
                         android:gravity="center"
-                        android:text="@string/photo_placeholder"
+                        android:text="@string/photo_attach_hint"
                         android:textAlignment="center"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/tvPhotoTitle" />
+
+                    <TextView
+                        android:id="@+id/tvRemovePhoto"
+                        style="@style/TechCare.Link"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/spacing_md"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:text="@string/action_remove_photo"
+                        android:visibility="gone"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/ivPhotoPreview" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

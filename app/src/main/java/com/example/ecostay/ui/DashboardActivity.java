@@ -23,6 +23,12 @@ public class DashboardActivity extends AppCompatActivity {
             return;
         }
 
+        if (SessionManager.isAdmin(this)) {
+            startActivity(new Intent(this, com.example.ecostay.ui.admin.AdminDashboardActivity.class));
+            finish();
+            return;
+        }
+
         setContentView(R.layout.activity_dashboard);
 
         TextView tvGreeting = findViewById(R.id.tvGreeting);

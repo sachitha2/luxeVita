@@ -50,6 +50,36 @@
         <activity
             android:name=".ui.SupportActivity"
             android:exported="false" />
+        <activity
+            android:name=".ui.admin.AdminLoginActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.admin.AdminDashboardActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.admin.AdminBookingListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.admin.AdminBookingDetailsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.admin.ManageServicesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.admin.AddEditServiceActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.admin.ManageFaqActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.admin.AddEditFaqActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.admin.ManageTipsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.admin.AddEditTipActivity"
+            android:exported="false" />
     </application>
 
 </manifest>

@@ -71,10 +71,15 @@
     <string name="hint_issue_description">Describe the issue</string>
     <string name="hint_preferred_date">Preferred date (yyyy-MM-dd)</string>
     <string name="hint_preferred_time">Preferred time (HH:mm)</string>
+    <string name="hint_select_date">Select date</string>
+    <string name="hint_select_time">Select time</string>
     <string name="service_method_title">Service method</string>
     <string name="method_pickup">Pickup</string>
     <string name="method_dropoff">Service center drop-off</string>
-    <string name="photo_placeholder">Optional — attach a photo of the issue (coming soon)</string>
+    <string name="photo_attach_hint">Tap to attach a photo of the issue</string>
+    <string name="photo_attached">Photo attached</string>
+    <string name="action_remove_photo">Remove photo</string>
+    <string name="error_photo_save">Could not save the selected photo. Please try again.</string>
     <string name="action_submit_request">Submit Request</string>
     <string name="hint_select_device">Select device</string>
     <string name="hint_select_service">Select service</string>
@@ -154,5 +159,98 @@
         <item>Air Conditioner</item>
         <item>Refrigerator</item>
         <item>Washing Machine</item>
+    </string-array>
+
+    <string name="link_admin_login">Admin login</string>
+    <string name="error_use_admin_login">Please use the admin login page.</string>
+
+    <string name="admin_login_title">Admin Sign In</string>
+    <string name="admin_login_subtitle">TechCare staff portal</string>
+    <string name="admin_dashboard_title">Admin Dashboard</string>
+    <string name="admin_dashboard_greeting">Welcome, %1$s</string>
+    <string name="admin_dashboard_subtitle">Manage repair operations</string>
+    <string name="admin_stat_total">Total Bookings</string>
+    <string name="admin_stat_received">Received</string>
+    <string name="admin_stat_assigned">Technician Assigned</string>
+    <string name="admin_stat_under_repair">Under Repair</string>
+    <string name="admin_stat_ready">Ready for Pickup</string>
+    <string name="admin_stat_completed">Completed</string>
+    <string name="admin_stat_cancelled">Cancelled</string>
+    <string name="admin_card_bookings">Manage Bookings</string>
+    <string name="admin_card_bookings_desc">View and update repair bookings</string>
+    <string name="admin_card_services">Manage Services</string>
+    <string name="admin_card_services_desc">Add, edit, or remove repair services</string>
+    <string name="admin_card_faqs">Manage FAQs</string>
+    <string name="admin_card_faqs_desc">Update frequently asked questions</string>
+    <string name="admin_card_tips">Manage Maintenance Tips</string>
+    <string name="admin_card_tips_desc">Update device care tips</string>
+    <string name="admin_bookings_title">All Bookings</string>
+    <string name="admin_booking_details_title">Manage Booking</string>
+    <string name="label_filter_status">Filter by status</string>
+    <string name="filter_all">All statuses</string>
+    <string name="hint_search_booking">Search booking ID or customer</string>
+    <string name="label_customer">Customer: %1$s</string>
+    <string name="label_preferred_schedule">Preferred: %1$s at %2$s</string>
+    <string name="label_issue">Issue</string>
+    <string name="label_admin_remarks">Admin remarks</string>
+    <string name="hint_admin_remarks">Add status notes for this update</string>
+    <string name="hint_estimated_completion">Estimated completion (yyyy-MM-dd)</string>
+    <string name="label_assign_technician">Assign technician</string>
+    <string name="label_change_status">Change status</string>
+    <string name="action_save_changes">Save Changes</string>
+    <string name="admin_booking_saved">Booking updated successfully.</string>
+    <string name="admin_bookings_empty">No bookings found.</string>
+    <string name="manage_services_title">Manage Services</string>
+    <string name="add_service_title">Add Service</string>
+    <string name="edit_service_title">Edit Service</string>
+    <string name="hint_service_name">Service name</string>
+    <string name="hint_service_description">Description</string>
+    <string name="hint_estimated_price">Estimated price (Rs.)</string>
+    <string name="services_admin_empty">No services available.</string>
+    <string name="service_saved">Service saved.</string>
+    <string name="service_deleted">Service deleted.</string>
+    <string name="delete_service_confirm">Delete this service?</string>
+    <string name="error_valid_price">Enter a valid positive price.</string>
+    <string name="error_delete_service_has_bookings">Cannot delete: bookings reference this service.</string>
+    <string name="manage_faq_title">Manage FAQs</string>
+    <string name="add_faq_title">Add FAQ</string>
+    <string name="edit_faq_title">Edit FAQ</string>
+    <string name="hint_question">Question</string>
+    <string name="hint_answer">Answer</string>
+    <string name="faq_admin_empty">No FAQs available.</string>
+    <string name="faq_saved">FAQ saved.</string>
+    <string name="faq_deleted">FAQ deleted.</string>
+    <string name="delete_faq_confirm">Delete this FAQ?</string>
+    <string name="manage_tips_title">Manage Maintenance Tips</string>
+    <string name="add_tip_title">Add Tip</string>
+    <string name="edit_tip_title">Edit Tip</string>
+    <string name="hint_tip_title">Title</string>
+    <string name="hint_tip_description">Description</string>
+    <string name="tips_admin_empty">No maintenance tips available.</string>
+    <string name="tip_saved">Tip saved.</string>
+    <string name="tip_deleted">Tip deleted.</string>
+    <string name="delete_tip_confirm">Delete this tip?</string>
+    <string name="action_add">Add</string>
+    <string name="label_updated_by">Updated by: %1$s</string>
+    <string name="progress_saving">Saving…</string>
+    <string name="link_customer_login">Back to customer login</string>
+
+    <string-array name="admin_booking_statuses">
+        <item>All</item>
+        <item>Received</item>
+        <item>Technician Assigned</item>
+        <item>Under Repair</item>
+        <item>Ready for Pickup</item>
+        <item>Completed</item>
+        <item>Cancelled</item>
+    </string-array>
+
+    <string-array name="admin_technicians">
+        <item>Kasun Perera - Smartphone Specialist</item>
+        <item>Nimal Fernando - Laptop Specialist</item>
+        <item>Saman Silva - Television Specialist</item>
+        <item>Ruwan Jayasinghe - Air Conditioner Specialist</item>
+        <item>Chamara De Silva - Refrigerator Specialist</item>
+        <item>Prasad Kumara - Washing Machine Specialist</item>
     </string-array>
 </resources>

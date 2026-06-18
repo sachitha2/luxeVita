@@ -36,7 +36,7 @@ import java.util.concurrent.Executors;
                 FaqEntity.class,
                 MaintenanceTipEntity.class
         },
-        version = 1,
+        version = 3,
         exportSchema = false
 )
 public abstract class AppDatabase extends RoomDatabase {
@@ -78,6 +78,12 @@ public abstract class AppDatabase extends RoomDatabase {
                                 @Override
                                 public void onCreate(@NonNull SupportSQLiteDatabase db) {
                                     seedCatalogData(db);
+                                    AdminUserSeeder.seedAdminUser(db);
+                                }
+
+                                @Override
+                                public void onOpen(@NonNull SupportSQLiteDatabase db) {
+                                    AdminUserSeeder.seedAdminUser(db);
                                 }
                             })
                             .build();

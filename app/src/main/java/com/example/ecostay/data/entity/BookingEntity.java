@@ -68,4 +68,10 @@ public class BookingEntity {
 
     @NonNull
     public String createdAt;
+
+    @NonNull
+    public String photoPath = "";
+
+    @NonNull
+    public String adminRemarks = "";
 }

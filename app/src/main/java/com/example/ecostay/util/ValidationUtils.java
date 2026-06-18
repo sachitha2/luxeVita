@@ -33,4 +33,16 @@ public final class ValidationUtils {
     public static boolean isValidIssueDescription(String description) {
         return description != null && description.trim().length() >= 10;
     }
+
+    public static boolean isValidPrice(String priceStr) {
+        if (isEmpty(priceStr)) {
+            return false;
+        }
+        try {
+            double price = Double.parseDouble(priceStr.trim());
+            return price > 0;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
 }

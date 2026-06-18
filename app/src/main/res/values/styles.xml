@@ -139,4 +139,13 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <style name="TechCare.RadioButton" parent="Widget.MaterialComponents.CompoundButton.RadioButton">
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:textSize">14sp</item>
+        <item name="buttonTint">@color/brand_primary</item>
+        <item name="android:paddingStart">8dp</item>
+        <item name="android:paddingEnd">8dp</item>
+        <item name="android:minHeight">48dp</item>
+    </style>
+
 </resources>

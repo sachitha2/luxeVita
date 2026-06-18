@@ -22,7 +22,11 @@ public class SplashActivity extends AppCompatActivity {
         new Handler(Looper.getMainLooper()).postDelayed(() -> {
             Intent intent;
             if (SessionManager.isLoggedIn(SplashActivity.this)) {
-                intent = new Intent(SplashActivity.this, DashboardActivity.class);
+                if (SessionManager.isAdmin(SplashActivity.this)) {
+                    intent = new Intent(SplashActivity.this, com.example.ecostay.ui.admin.AdminDashboardActivity.class);
+                } else {
+                    intent = new Intent(SplashActivity.this, DashboardActivity.class);
+                }
             } else {
                 intent = new Intent(SplashActivity.this, LoginActivity.class);
             }

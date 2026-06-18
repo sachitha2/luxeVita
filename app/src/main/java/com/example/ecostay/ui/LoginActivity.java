@@ -32,7 +32,12 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         if (SessionManager.isLoggedIn(this)) {
-            goToDashboard();
+            if (SessionManager.isAdmin(this)) {
+                startActivity(new Intent(this, com.example.ecostay.ui.admin.AdminDashboardActivity.class));
+            } else {
+                goToDashboard();
+            }
+            finish();
             return;
         }
 
@@ -60,11 +65,15 @@ public class LoginActivity extends AppCompatActivity {
         tvRegisterLink.setOnClickListener(v ->
                 startActivity(new Intent(this, RegisterActivity.class)));
 
+        TextView tvAdminLink = findViewById(R.id.tvAdminLink);
+        tvAdminLink.setOnClickListener(v ->
+                startActivity(new Intent(this, com.example.ecostay.ui.admin.AdminLoginActivity.class)));
+
         authViewModel.getLoginResult().observe(this, result -> {
             if (result == null) return;
             setLoading(false);
             if (result.success && result.user != null) {
-                SessionManager.saveSession(this, result.user.userId, result.user.fullName);
+                SessionManager.saveSession(this, result.user.userId, result.user.fullName, result.user.role);
                 goToDashboard();
             } else {
                 tvMessage.setText(mapError(result.error));
@@ -101,6 +110,8 @@ public class LoginActivity extends AppCompatActivity {
                 return R.string.error_account_not_found;
             case INCORRECT_PASSWORD:
                 return R.string.error_incorrect_password;
+            case USE_ADMIN_LOGIN:
+                return R.string.error_use_admin_login;
             default:
                 return R.string.error_login_failed;
         }

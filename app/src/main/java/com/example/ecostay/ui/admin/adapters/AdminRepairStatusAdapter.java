@@ -1,0 +1,67 @@
+package com.example.ecostay.ui.admin.adapters;
+
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.ecostay.R;
+import com.example.ecostay.data.entity.RepairStatusEntity;
+import com.example.ecostay.util.StatusUiUtils;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class AdminRepairStatusAdapter extends RecyclerView.Adapter<AdminRepairStatusAdapter.ViewHolder> {
+
+    private final List<RepairStatusEntity> items = new ArrayList<>();
+
+    public void setItems(List<RepairStatusEntity> statuses) {
+        items.clear();
+        if (statuses != null) {
+            items.addAll(statuses);
+        }
+        notifyDataSetChanged();
+    }
+
+    @NonNull
+    @Override
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.item_admin_repair_status, parent, false);
+        return new ViewHolder(view);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        RepairStatusEntity status = items.get(position);
+        StatusUiUtils.applyStatusChip(holder.tvStatus, status.status);
+        holder.tvRemarks.setText(status.remarks);
+        holder.tvUpdatedAt.setText(status.updatedAt);
+        holder.tvUpdatedBy.setText(holder.itemView.getContext().getString(
+                R.string.label_updated_by, status.updatedBy));
+    }
+
+    @Override
+    public int getItemCount() {
+        return items.size();
+    }
+
+    static class ViewHolder extends RecyclerView.ViewHolder {
+        final TextView tvStatus;
+        final TextView tvRemarks;
+        final TextView tvUpdatedAt;
+        final TextView tvUpdatedBy;
+
+        ViewHolder(@NonNull View itemView) {
+            super(itemView);
+            tvStatus = itemView.findViewById(R.id.tvStatus);
+            tvRemarks = itemView.findViewById(R.id.tvRemarks);
+            tvUpdatedAt = itemView.findViewById(R.id.tvUpdatedAt);
+            tvUpdatedBy = itemView.findViewById(R.id.tvUpdatedBy);
+        }
+    }
+}
