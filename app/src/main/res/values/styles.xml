@@ -8,10 +8,10 @@
     </style>
 
     <style name="TechCare.PageContainer">
-        <item name="android:paddingStart">20dp</item>
-        <item name="android:paddingTop">20dp</item>
-        <item name="android:paddingEnd">20dp</item>
-        <item name="android:paddingBottom">28dp</item>
+        <item name="android:paddingStart">@dimen/page_padding_horizontal</item>
+        <item name="android:paddingTop">@dimen/page_padding_top</item>
+        <item name="android:paddingEnd">@dimen/page_padding_horizontal</item>
+        <item name="android:paddingBottom">@dimen/page_padding_bottom</item>
     </style>
 
     <style name="TechCare.Title">
@@ -25,9 +25,21 @@
         <item name="android:textSize">14sp</item>
     </style>
 
+    <style name="TechCare.HeroTitle">
+        <item name="android:textColor">@color/text_on_dark</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TechCare.HeroSubtitle">
+        <item name="android:textColor">@color/text_on_dark</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:alpha">0.9</item>
+    </style>
+
     <style name="TechCare.PrimaryButton" parent="Widget.MaterialComponents.Button">
         <item name="android:minHeight">54dp</item>
-        <item name="cornerRadius">14dp</item>
+        <item name="cornerRadius">@dimen/button_radius</item>
         <item name="backgroundTint">@color/brand_primary</item>
         <item name="android:textAllCaps">false</item>
         <item name="android:textStyle">bold</item>
@@ -37,7 +49,7 @@
 
     <style name="TechCare.SecondaryButton" parent="Widget.MaterialComponents.Button.OutlinedButton">
         <item name="android:minHeight">52dp</item>
-        <item name="cornerRadius">14dp</item>
+        <item name="cornerRadius">@dimen/button_radius</item>
         <item name="strokeColor">@color/card_stroke</item>
         <item name="strokeWidth">1dp</item>
         <item name="backgroundTint">@color/surface_card</item>
@@ -48,7 +60,7 @@
 
     <style name="TechCare.TextField" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="boxBackgroundColor">@color/surface_card</item>
-        <item name="boxStrokeColor">@color/card_stroke</item>
+        <item name="boxStrokeColor">@color/box_stroke_selector</item>
         <item name="hintTextColor">@color/text_hint</item>
         <item name="boxCornerRadiusTopStart">12dp</item>
         <item name="boxCornerRadiusTopEnd">12dp</item>
@@ -59,6 +71,71 @@
     <style name="TechCare.CardLabel">
         <item name="android:textColor">@color/text_primary</item>
         <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TechCare.Link">
+        <item name="android:textColor">@color/brand_primary</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TechCare.Toolbar" parent="Widget.MaterialComponents.Toolbar">
+        <item name="android:background">@color/brand_primary</item>
+        <item name="titleTextColor">@color/white</item>
+        <item name="navigationIconTint">@color/white</item>
+        <item name="android:elevation">0dp</item>
+    </style>
+
+    <style name="TechCare.NavCard" parent="Widget.MaterialComponents.CardView">
+        <item name="cardCornerRadius">@dimen/card_radius</item>
+        <item name="cardElevation">2dp</item>
+        <item name="cardBackgroundColor">@color/surface_card</item>
+        <item name="strokeColor">@color/card_stroke</item>
+        <item name="strokeWidth">1dp</item>
+    </style>
+
+    <style name="TechCare.StatusChip">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:paddingStart">10dp</item>
+        <item name="android:paddingEnd">10dp</item>
+        <item name="android:paddingTop">4dp</item>
+        <item name="android:paddingBottom">4dp</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="TechCare.StatusChip.Pending" parent="TechCare.StatusChip">
+        <item name="android:background">@drawable/bg_chip_pending</item>
+        <item name="android:textColor">@color/chip_pending_text</item>
+    </style>
+
+    <style name="TechCare.StatusChip.Progress" parent="TechCare.StatusChip">
+        <item name="android:background">@drawable/bg_chip_progress</item>
+        <item name="android:textColor">@color/chip_progress_text</item>
+    </style>
+
+    <style name="TechCare.StatusChip.Success" parent="TechCare.StatusChip">
+        <item name="android:background">@drawable/bg_chip_success</item>
+        <item name="android:textColor">@color/chip_success_text</item>
+    </style>
+
+    <style name="TechCare.StatusChip.Cancelled" parent="TechCare.StatusChip">
+        <item name="android:background">@drawable/bg_chip_cancelled</item>
+        <item name="android:textColor">@color/chip_cancelled_text</item>
+    </style>
+
+    <style name="TechCare.EmptyState">
+        <item name="android:textColor">@color/text_secondary</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textAlignment">center</item>
+    </style>
+
+    <style name="TechCare.SplashTitle">
+        <item name="android:textColor">@color/brand_primary</item>
+        <item name="android:textSize">32sp</item>
         <item name="android:textStyle">bold</item>
     </style>
 

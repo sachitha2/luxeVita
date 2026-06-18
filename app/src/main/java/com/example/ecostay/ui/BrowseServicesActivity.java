@@ -18,6 +18,7 @@ import com.example.ecostay.data.entity.ServiceEntity;
 import com.example.ecostay.session.SessionManager;
 import com.example.ecostay.ui.adapters.RepairServiceAdapter;
 import com.example.ecostay.ui.viewmodel.ServiceViewModel;
+import com.example.ecostay.util.ToolbarUtils;
 
 import java.util.List;
 
@@ -26,7 +27,9 @@ public class BrowseServicesActivity extends AppCompatActivity {
     private ServiceViewModel serviceViewModel;
     private RepairServiceAdapter adapter;
     private TextView tvEmpty;
-    private List<ServiceEntity> allServices;
+    private TextView tvResultsCount;
+    private View ivEmpty;
+    private RecyclerView rvServices;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,12 +41,15 @@ public class BrowseServicesActivity extends AppCompatActivity {
         }
 
         setContentView(R.layout.activity_browse_services);
+        ToolbarUtils.setupBackToolbar(this, R.string.browse_services_title);
 
         serviceViewModel = new ViewModelProvider(this).get(ServiceViewModel.class);
 
         Spinner spCategory = findViewById(R.id.spDeviceCategory);
-        RecyclerView rvServices = findViewById(R.id.rvServices);
+        rvServices = findViewById(R.id.rvServices);
         tvEmpty = findViewById(R.id.tvEmpty);
+        ivEmpty = findViewById(R.id.ivEmpty);
+        tvResultsCount = findViewById(R.id.tvResultsCount);
 
         adapter = new RepairServiceAdapter(service -> {
             Intent intent = new Intent(this, SubmitRepairRequestActivity.class);
@@ -56,13 +62,14 @@ public class BrowseServicesActivity extends AppCompatActivity {
         rvServices.setAdapter(adapter);
 
         ArrayAdapter<CharSequence> categoryAdapter = ArrayAdapter.createFromResource(
-                this, R.array.device_categories, android.R.layout.simple_spinner_item);
-        categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                this, R.array.device_categories, R.layout.item_spinner_category);
+        categoryAdapter.setDropDownViewResource(R.layout.item_spinner_category_dropdown);
         spCategory.setAdapter(categoryAdapter);
 
         serviceViewModel.getServices().observe(this, services -> {
-            allServices = services;
-            updateEmptyState(services == null || services.isEmpty());
+            int count = services != null ? services.size() : 0;
+            updateEmptyState(count == 0);
+            updateResultsCount(count);
             adapter.setItems(services);
         });
 
@@ -86,6 +93,20 @@ public class BrowseServicesActivity extends AppCompatActivity {
     }
 
     private void updateEmptyState(boolean empty) {
-        tvEmpty.setVisibility(empty ? View.VISIBLE : View.GONE);
+        int emptyVisibility = empty ? View.VISIBLE : View.GONE;
+        tvEmpty.setVisibility(emptyVisibility);
+        ivEmpty.setVisibility(emptyVisibility);
+        rvServices.setVisibility(empty ? View.GONE : View.VISIBLE);
+        if (empty) {
+            tvResultsCount.setVisibility(View.GONE);
+        }
+    }
+
+    private void updateResultsCount(int count) {
+        if (count == 0) {
+            return;
+        }
+        tvResultsCount.setText(getString(R.string.services_count, count));
+        tvResultsCount.setVisibility(View.VISIBLE);
     }
 }

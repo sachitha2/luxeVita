@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/TechCare.NavCard"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="12dp"
-    app:cardCornerRadius="14dp"
-    app:cardElevation="2dp">
+    android:layout_marginBottom="@dimen/spacing_md"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?attr/selectableItemBackground">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:padding="@dimen/spacing_lg">
 
         <TextView
             android:id="@+id/tvBookingId"
@@ -24,7 +26,7 @@
             style="@style/TechCare.Subtitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp" />
+            android:layout_marginTop="@dimen/spacing_xs" />
 
         <TextView
             android:id="@+id/tvDevice"
@@ -35,18 +37,17 @@
 
         <TextView
             android:id="@+id/tvStatus"
-            android:layout_width="match_parent"
+            style="@style/TechCare.StatusChip.Progress"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
-            android:textColor="@color/brand_primary"
-            android:textStyle="bold" />
+            android:layout_marginTop="@dimen/spacing_sm" />
 
         <TextView
             android:id="@+id/tvTechnician"
             style="@style/TechCare.Subtitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="2dp" />
+            android:layout_marginTop="@dimen/spacing_xs" />
 
         <TextView
             android:id="@+id/tvEstimated"
@@ -56,4 +57,4 @@
             android:layout_marginTop="2dp" />
 
     </LinearLayout>
-</androidx.cardview.widget.CardView>
+</com.google.android.material.card.MaterialCardView>

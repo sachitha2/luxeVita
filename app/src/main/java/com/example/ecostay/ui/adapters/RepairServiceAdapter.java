@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ecostay.R;
 import com.example.ecostay.data.entity.ServiceEntity;
+import com.example.ecostay.util.StatusUiUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,6 +48,7 @@ public class RepairServiceAdapter extends RecyclerView.Adapter<RepairServiceAdap
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         ServiceEntity service = items.get(position);
+        StatusUiUtils.applyStatusChip(holder.tvDeviceType, service.deviceType);
         holder.tvServiceName.setText(service.serviceName);
         holder.tvDescription.setText(service.description);
         holder.tvPrice.setText(holder.itemView.getContext().getString(
@@ -60,6 +62,7 @@ public class RepairServiceAdapter extends RecyclerView.Adapter<RepairServiceAdap
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
+        final TextView tvDeviceType;
         final TextView tvServiceName;
         final TextView tvDescription;
         final TextView tvPrice;
@@ -67,6 +70,7 @@ public class RepairServiceAdapter extends RecyclerView.Adapter<RepairServiceAdap
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
+            tvDeviceType = itemView.findViewById(R.id.tvDeviceType);
             tvServiceName = itemView.findViewById(R.id.tvServiceName);
             tvDescription = itemView.findViewById(R.id.tvDescription);
             tvPrice = itemView.findViewById(R.id.tvPrice);

@@ -18,6 +18,7 @@ import com.example.ecostay.ui.viewmodel.BookingViewModel;
 import com.example.ecostay.ui.viewmodel.DeviceViewModel;
 import com.example.ecostay.ui.viewmodel.ServiceViewModel;
 import com.example.ecostay.util.DateTimeUtils;
+import com.example.ecostay.util.ToolbarUtils;
 import com.example.ecostay.util.ValidationUtils;
 import com.google.android.material.textfield.TextInputEditText;
 
@@ -53,6 +54,7 @@ public class SubmitRepairRequestActivity extends AppCompatActivity {
         preselectedDeviceType = getIntent().getStringExtra(EXTRA_DEVICE_TYPE);
 
         setContentView(R.layout.activity_submit_repair);
+        ToolbarUtils.setupBackToolbar(this, R.string.submit_repair_title);
 
         int userId = SessionManager.getUserId(this);
         deviceViewModel = new ViewModelProvider(this).get(DeviceViewModel.class);

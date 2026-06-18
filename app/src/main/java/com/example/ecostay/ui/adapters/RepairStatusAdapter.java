@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ecostay.R;
 import com.example.ecostay.data.entity.RepairStatusEntity;
+import com.example.ecostay.util.StatusUiUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +38,7 @@ public class RepairStatusAdapter extends RecyclerView.Adapter<RepairStatusAdapte
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         RepairStatusEntity status = items.get(position);
-        holder.tvStatus.setText(status.status);
+        StatusUiUtils.applyStatusChip(holder.tvStatus, status.status);
         holder.tvRemarks.setText(status.remarks);
         holder.tvUpdatedAt.setText(status.updatedAt);
     }

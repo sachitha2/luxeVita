@@ -1,25 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#FF6200EE</color>
-    <color name="purple_700">#FF3700B3</color>
-    <color name="teal_200">#FF03DAC5</color>
-    <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="brand_primary">#1565C0</color>
-    <color name="brand_primary_dark">#0D47A1</color>
-    <color name="brand_accent">#00838F</color>
-    <color name="brand_accent_dark">#006064</color>
-    <color name="surface_bg">#F4F7FB</color>
+
+    <color name="brand_primary">#1E5AA8</color>
+    <color name="brand_primary_dark">#15477E</color>
+    <color name="brand_accent">#0E8A7D</color>
+    <color name="brand_accent_dark">#0A6B61</color>
+
+    <color name="surface_bg">#F5F8FC</color>
+    <color name="surface_gradient_start">#E8F0FA</color>
     <color name="surface_card">#FFFFFFFF</color>
-    <color name="surface_muted">#EDF3F8</color>
-    <color name="text_primary">#0F172A</color>
-    <color name="text_secondary">#475569</color>
-    <color name="text_hint">#64748B</color>
+    <color name="surface_muted">#EEF4F9</color>
+
+    <color name="text_primary">#1A2332</color>
+    <color name="text_secondary">#5C6B7A</color>
+    <color name="text_hint">#8B9AAB</color>
     <color name="text_on_dark">#F8FAFC</color>
-    <color name="card_stroke">#D8E2EE</color>
+
+    <color name="card_stroke">#D5DFEB</color>
     <color name="divider_soft">#E2E8F0</color>
-    <color name="state_error">#B42318</color>
-    <color name="state_success">#157347</color>
+
+    <color name="state_error">#DC2626</color>
+    <color name="state_success">#15803D</color>
+    <color name="state_warning">#B45309</color>
+    <color name="state_info">#1E5AA8</color>
+
+    <color name="chip_pending_bg">#FEF3C7</color>
+    <color name="chip_pending_text">#B45309</color>
+    <color name="chip_progress_bg">#DBEAFE</color>
+    <color name="chip_progress_text">#1E5AA8</color>
+    <color name="chip_success_bg">#DCFCE7</color>
+    <color name="chip_success_text">#15803D</color>
+    <color name="chip_cancelled_bg">#F1F5F9</color>
+    <color name="chip_cancelled_text">#8B9AAB</color>
 </resources>

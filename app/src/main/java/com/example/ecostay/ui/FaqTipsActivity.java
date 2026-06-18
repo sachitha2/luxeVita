@@ -12,6 +12,7 @@ import com.example.ecostay.session.SessionManager;
 import com.example.ecostay.ui.adapters.FaqAdapter;
 import com.example.ecostay.ui.adapters.MaintenanceTipAdapter;
 import com.example.ecostay.ui.viewmodel.FaqTipsViewModel;
+import com.example.ecostay.util.ToolbarUtils;
 
 public class FaqTipsActivity extends AppCompatActivity {
 
@@ -25,6 +26,7 @@ public class FaqTipsActivity extends AppCompatActivity {
         }
 
         setContentView(R.layout.activity_faq_tips);
+        ToolbarUtils.setupBackToolbar(this, R.string.faq_tips_title);
 
         FaqTipsViewModel viewModel = new ViewModelProvider(this).get(FaqTipsViewModel.class);
 

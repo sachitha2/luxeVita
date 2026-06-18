@@ -15,12 +15,14 @@ import com.example.ecostay.data.model.BookingSummary;
 import com.example.ecostay.session.SessionManager;
 import com.example.ecostay.ui.adapters.BookingAdapter;
 import com.example.ecostay.ui.viewmodel.BookingViewModel;
+import com.example.ecostay.util.ToolbarUtils;
 
 public class MyBookingsActivity extends AppCompatActivity {
 
     private BookingViewModel bookingViewModel;
     private BookingAdapter adapter;
     private TextView tvEmpty;
+    private View ivEmpty;
     private int userId;
 
     @Override
@@ -34,11 +36,13 @@ public class MyBookingsActivity extends AppCompatActivity {
 
         userId = SessionManager.getUserId(this);
         setContentView(R.layout.activity_my_bookings);
+        ToolbarUtils.setupBackToolbar(this, R.string.my_bookings_title);
 
         bookingViewModel = new ViewModelProvider(this).get(BookingViewModel.class);
 
         RecyclerView rvBookings = findViewById(R.id.rvBookings);
         tvEmpty = findViewById(R.id.tvEmpty);
+        ivEmpty = findViewById(R.id.ivEmpty);
 
         adapter = new BookingAdapter(booking -> {
             Intent intent = new Intent(this, BookingDetailsActivity.class);
@@ -51,7 +55,9 @@ public class MyBookingsActivity extends AppCompatActivity {
 
         bookingViewModel.getBookings().observe(this, bookings -> {
             boolean empty = bookings == null || bookings.isEmpty();
-            tvEmpty.setVisibility(empty ? View.VISIBLE : View.GONE);
+            int visibility = empty ? View.VISIBLE : View.GONE;
+            tvEmpty.setVisibility(visibility);
+            ivEmpty.setVisibility(visibility);
             adapter.setItems(bookings);
         });
     }

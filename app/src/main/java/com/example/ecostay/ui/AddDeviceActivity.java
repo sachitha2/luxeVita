@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,6 +14,7 @@ import com.example.ecostay.R;
 import com.example.ecostay.data.entity.DeviceEntity;
 import com.example.ecostay.session.SessionManager;
 import com.example.ecostay.ui.viewmodel.DeviceViewModel;
+import com.example.ecostay.util.ToolbarUtils;
 import com.example.ecostay.util.ValidationUtils;
 import com.google.android.material.textfield.TextInputEditText;
 
@@ -41,10 +41,8 @@ public class AddDeviceActivity extends AppCompatActivity {
         isEdit = deviceId > 0;
 
         setContentView(R.layout.activity_add_device);
+        ToolbarUtils.setupBackToolbar(this, isEdit ? R.string.edit_device_title : R.string.add_device_title);
         deviceViewModel = new ViewModelProvider(this).get(DeviceViewModel.class);
-
-        TextView tvTitle = findViewById(R.id.tvTitle);
-        tvTitle.setText(isEdit ? R.string.edit_device_title : R.string.add_device_title);
 
         Spinner spDeviceType = findViewById(R.id.spDeviceType);
         TextInputEditText etBrand = findViewById(R.id.etBrand);

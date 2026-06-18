@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.ecostay.R;
 import com.example.ecostay.session.SessionManager;
+import com.example.ecostay.util.ToolbarUtils;
 import com.example.ecostay.util.ValidationUtils;
 import com.google.android.material.textfield.TextInputEditText;
 
@@ -24,6 +25,7 @@ public class SupportActivity extends AppCompatActivity {
         }
 
         setContentView(R.layout.activity_support);
+        ToolbarUtils.setupBackToolbar(this, R.string.support_title);
 
         TextView tvContactInfo = findViewById(R.id.tvContactInfo);
         tvContactInfo.setText(getString(R.string.support_phone) + "\n"

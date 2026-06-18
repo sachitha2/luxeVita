@@ -5,28 +5,37 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/tvSplashTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/splash_title"
-        android:textColor="@color/brand_primary"
-        android:textSize="36sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@id/tvSplashSubtitle"
+    <ImageView
+        android:id="@+id/ivSplashLogo"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:contentDescription="@null"
+        android:src="@drawable/ic_logo_repair"
+        app:layout_constraintBottom_toTopOf="@id/tvSplashTitle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="packed" />
 
     <TextView
-        android:id="@+id/tvSplashSubtitle"
+        android:id="@+id/tvSplashTitle"
+        style="@style/TechCare.SplashTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="@dimen/spacing_lg"
+        android:text="@string/splash_title"
+        app:layout_constraintBottom_toTopOf="@id/tvSplashSubtitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ivSplashLogo" />
+
+    <TextView
+        android:id="@+id/tvSplashSubtitle"
+        style="@style/TechCare.Subtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_sm"
         android:text="@string/splash_subtitle"
-        android:textColor="@color/text_secondary"
-        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

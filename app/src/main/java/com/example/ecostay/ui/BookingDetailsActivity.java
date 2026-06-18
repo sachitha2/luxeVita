@@ -22,6 +22,7 @@ import com.example.ecostay.session.SessionManager;
 import com.example.ecostay.ui.adapters.RepairStatusAdapter;
 import com.example.ecostay.ui.viewmodel.BookingViewModel;
 import com.example.ecostay.util.TechnicianUtils;
+import com.example.ecostay.util.ToolbarUtils;
 
 public class BookingDetailsActivity extends AppCompatActivity {
 
@@ -50,6 +51,7 @@ public class BookingDetailsActivity extends AppCompatActivity {
         }
 
         setContentView(R.layout.activity_booking_details);
+        ToolbarUtils.setupBackToolbar(this, R.string.booking_details_title);
         bookingViewModel = new ViewModelProvider(this).get(BookingViewModel.class);
 
         tvBookingInfo = findViewById(R.id.tvBookingInfo);

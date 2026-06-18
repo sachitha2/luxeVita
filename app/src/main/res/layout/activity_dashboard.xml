@@ -10,127 +10,144 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/tvGreeting"
-            style="@style/TechCare.Title"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/heroCard"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:background="@drawable/bg_hero_card"
+            android:padding="@dimen/spacing_xl"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/tvSubtitle"
-            style="@style/TechCare.Subtitle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="@string/dashboard_subtitle"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvGreeting" />
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cardBrowseServices"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            app:cardCornerRadius="14dp"
-            app:cardElevation="2dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvSubtitle">
+            app:layout_constraintTop_toTopOf="parent">
 
             <TextView
-                style="@style/TechCare.CardLabel"
-                android:layout_width="match_parent"
+                android:id="@+id/tvGreeting"
+                style="@style/TechCare.HeroTitle"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:padding="18dp"
-                android:text="@string/card_browse_services" />
-        </androidx.cardview.widget.CardView>
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cardMyBookings"
+            <TextView
+                android:id="@+id/tvSubtitle"
+                style="@style/TechCare.HeroSubtitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_sm"
+                android:text="@string/dashboard_subtitle"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvGreeting" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardBrowseServices"
+            style="@style/TechCare.NavCard"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            app:cardCornerRadius="14dp"
-            app:cardElevation="2dp"
+            android:layout_marginTop="@dimen/spacing_xl"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackground"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/heroCard">
+
+            <include
+                android:id="@+id/navBrowseServices"
+                layout="@layout/item_dashboard_nav_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardMyBookings"
+            style="@style/TechCare.NavCard"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_md"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackground"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/cardBrowseServices">
 
-            <TextView
-                style="@style/TechCare.CardLabel"
+            <include
+                android:id="@+id/navMyBookings"
+                layout="@layout/item_dashboard_nav_content"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="18dp"
-                android:text="@string/card_my_bookings" />
-        </androidx.cardview.widget.CardView>
+                android:layout_height="wrap_content" />
+        </com.google.android.material.card.MaterialCardView>
 
-        <androidx.cardview.widget.CardView
+        <com.google.android.material.card.MaterialCardView
             android:id="@+id/cardSavedDevices"
+            style="@style/TechCare.NavCard"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            app:cardCornerRadius="14dp"
-            app:cardElevation="2dp"
+            android:layout_marginTop="@dimen/spacing_md"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackground"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/cardMyBookings">
 
-            <TextView
-                style="@style/TechCare.CardLabel"
+            <include
+                android:id="@+id/navSavedDevices"
+                layout="@layout/item_dashboard_nav_content"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="18dp"
-                android:text="@string/card_saved_devices" />
-        </androidx.cardview.widget.CardView>
+                android:layout_height="wrap_content" />
+        </com.google.android.material.card.MaterialCardView>
 
-        <androidx.cardview.widget.CardView
+        <com.google.android.material.card.MaterialCardView
             android:id="@+id/cardFaqsTips"
+            style="@style/TechCare.NavCard"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            app:cardCornerRadius="14dp"
-            app:cardElevation="2dp"
+            android:layout_marginTop="@dimen/spacing_md"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackground"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/cardSavedDevices">
 
-            <TextView
-                style="@style/TechCare.CardLabel"
+            <include
+                android:id="@+id/navFaqsTips"
+                layout="@layout/item_dashboard_nav_content"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="18dp"
-                android:text="@string/card_faqs_tips" />
-        </androidx.cardview.widget.CardView>
+                android:layout_height="wrap_content" />
+        </com.google.android.material.card.MaterialCardView>
 
-        <androidx.cardview.widget.CardView
+        <com.google.android.material.card.MaterialCardView
             android:id="@+id/cardSupport"
+            style="@style/TechCare.NavCard"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            app:cardCornerRadius="14dp"
-            app:cardElevation="2dp"
+            android:layout_marginTop="@dimen/spacing_md"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackground"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/cardFaqsTips">
 
-            <TextView
-                style="@style/TechCare.CardLabel"
+            <include
+                android:id="@+id/navSupport"
+                layout="@layout/item_dashboard_nav_content"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="18dp"
-                android:text="@string/card_support" />
-        </androidx.cardview.widget.CardView>
+                android:layout_height="wrap_content" />
+        </com.google.android.material.card.MaterialCardView>
 
         <Button
             android:id="@+id/btnLogout"
             style="@style/TechCare.SecondaryButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="@dimen/spacing_xxl"
             android:text="@string/action_logout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

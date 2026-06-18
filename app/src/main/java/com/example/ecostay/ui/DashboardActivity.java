@@ -3,6 +3,7 @@ package com.example.ecostay.ui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,16 +29,26 @@ public class DashboardActivity extends AppCompatActivity {
         String name = SessionManager.getUserName(this);
         tvGreeting.setText(getString(R.string.dashboard_greeting, name));
 
-        findViewById(R.id.cardBrowseServices).setOnClickListener(v ->
-                startActivity(new Intent(this, BrowseServicesActivity.class)));
-        findViewById(R.id.cardMyBookings).setOnClickListener(v ->
-                startActivity(new Intent(this, MyBookingsActivity.class)));
-        findViewById(R.id.cardSavedDevices).setOnClickListener(v ->
-                startActivity(new Intent(this, DeviceListActivity.class)));
-        findViewById(R.id.cardFaqsTips).setOnClickListener(v ->
-                startActivity(new Intent(this, FaqTipsActivity.class)));
-        findViewById(R.id.cardSupport).setOnClickListener(v ->
-                startActivity(new Intent(this, SupportActivity.class)));
+        setupNavCard(R.id.cardBrowseServices, R.id.navBrowseServices,
+                R.drawable.ic_nav_services, R.string.card_browse_services,
+                R.string.card_browse_services_desc,
+                BrowseServicesActivity.class);
+        setupNavCard(R.id.cardMyBookings, R.id.navMyBookings,
+                R.drawable.ic_nav_bookings, R.string.card_my_bookings,
+                R.string.card_my_bookings_desc,
+                MyBookingsActivity.class);
+        setupNavCard(R.id.cardSavedDevices, R.id.navSavedDevices,
+                R.drawable.ic_nav_devices, R.string.card_saved_devices,
+                R.string.card_saved_devices_desc,
+                DeviceListActivity.class);
+        setupNavCard(R.id.cardFaqsTips, R.id.navFaqsTips,
+                R.drawable.ic_nav_faq, R.string.card_faqs_tips,
+                R.string.card_faqs_tips_desc,
+                FaqTipsActivity.class);
+        setupNavCard(R.id.cardSupport, R.id.navSupport,
+                R.drawable.ic_nav_support, R.string.card_support,
+                R.string.card_support_desc,
+                SupportActivity.class);
 
         Button btnLogout = findViewById(R.id.btnLogout);
         btnLogout.setOnClickListener(v -> {
@@ -47,5 +58,19 @@ public class DashboardActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         });
+    }
+
+    private void setupNavCard(int cardId, int contentRootId, int iconRes, int titleRes,
+                              int descRes, Class<?> targetActivity) {
+        findViewById(cardId).setOnClickListener(v ->
+                startActivity(new Intent(this, targetActivity)));
+
+        android.view.View content = findViewById(contentRootId);
+        ImageView icon = content.findViewById(R.id.ivNavIcon);
+        TextView title = content.findViewById(R.id.tvNavTitle);
+        TextView desc = content.findViewById(R.id.tvNavDesc);
+        icon.setImageResource(iconRes);
+        title.setText(titleRes);
+        desc.setText(descRes);
     }
 }

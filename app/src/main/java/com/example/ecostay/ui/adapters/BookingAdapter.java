@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ecostay.R;
 import com.example.ecostay.data.model.BookingSummary;
+import com.example.ecostay.util.StatusUiUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,8 +51,7 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.ViewHold
                 R.string.label_booking_id, booking.bookingId));
         holder.tvServiceName.setText(booking.serviceName);
         holder.tvDevice.setText(booking.deviceLabel);
-        holder.tvStatus.setText(holder.itemView.getContext().getString(
-                R.string.label_status, booking.status));
+        StatusUiUtils.applyStatusChip(holder.tvStatus, booking.status);
         holder.tvTechnician.setText(holder.itemView.getContext().getString(
                 R.string.label_technician, booking.technicianName));
         holder.tvEstimated.setText(holder.itemView.getContext().getString(

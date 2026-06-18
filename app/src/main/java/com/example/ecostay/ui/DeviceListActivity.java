@@ -3,6 +3,7 @@ package com.example.ecostay.ui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,12 +19,14 @@ import com.example.ecostay.data.entity.DeviceEntity;
 import com.example.ecostay.session.SessionManager;
 import com.example.ecostay.ui.adapters.DeviceAdapter;
 import com.example.ecostay.ui.viewmodel.DeviceViewModel;
+import com.example.ecostay.util.ToolbarUtils;
 
 public class DeviceListActivity extends AppCompatActivity {
 
     private DeviceViewModel deviceViewModel;
     private DeviceAdapter adapter;
     private TextView tvEmpty;
+    private View ivEmpty;
     private int userId;
 
     @Override
@@ -37,11 +40,13 @@ public class DeviceListActivity extends AppCompatActivity {
 
         userId = SessionManager.getUserId(this);
         setContentView(R.layout.activity_device_list);
+        ToolbarUtils.setupBackToolbar(this, R.string.device_list_title);
 
         deviceViewModel = new ViewModelProvider(this).get(DeviceViewModel.class);
 
         RecyclerView rvDevices = findViewById(R.id.rvDevices);
         tvEmpty = findViewById(R.id.tvEmpty);
+        ivEmpty = findViewById(R.id.ivEmpty);
         Button btnAdd = findViewById(R.id.btnAddDevice);
 
         adapter = new DeviceAdapter(new DeviceAdapter.Listener() {
@@ -71,7 +76,9 @@ public class DeviceListActivity extends AppCompatActivity {
 
         deviceViewModel.getDevices().observe(this, devices -> {
             boolean empty = devices == null || devices.isEmpty();
-            tvEmpty.setVisibility(empty ? View.VISIBLE : View.GONE);
+            int visibility = empty ? View.VISIBLE : View.GONE;
+            tvEmpty.setVisibility(visibility);
+            ivEmpty.setVisibility(visibility);
             adapter.setItems(devices);
         });
 
