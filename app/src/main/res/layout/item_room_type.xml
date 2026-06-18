@@ -11,58 +11,58 @@
     app:cardUseCompatPadding="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="387dp"
+        android:layout_height="234dp"
         android:padding="14dp">
 
         <ImageView
             android:id="@+id/ivRoomImage"
             android:layout_width="0dp"
             android:layout_height="140dp"
+            android:contentDescription="@string/rooms_title"
             android:scaleType="centerCrop"
             android:src="@drawable/room_default"
-            android:contentDescription="@string/rooms_title"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tvRoomName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
             android:text="Room name"
             android:textColor="@color/text_primary"
-            android:textStyle="bold"
             android:textSize="18sp"
-            app:layout_constraintTop_toBottomOf="@id/ivRoomImage"
-            app:layout_constraintStart_toStartOf="parent"
+            android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@id/tvPricePerNight"
-            android:layout_marginTop="12dp" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ivRoomImage" />
 
         <TextView
             android:id="@+id/tvRoomDescription"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Description"
-            android:textColor="@color/text_secondary"
+            android:layout_marginTop="6dp"
             android:lineSpacingExtra="2dp"
             android:maxLines="3"
-            app:layout_constraintTop_toBottomOf="@id/tvRoomName"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:text="Description"
+            android:textColor="@color/text_secondary"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginTop="6dp"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvRoomName" />
 
         <TextView
             android:id="@+id/tvPricePerNight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="$0 / night"
             android:background="@drawable/bg_subtle_chip"
             android:paddingStart="10dp"
             android:paddingTop="6dp"
             android:paddingEnd="10dp"
             android:paddingBottom="6dp"
+            android:text="$0 / night"
             android:textColor="@color/brand_primary_dark"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
