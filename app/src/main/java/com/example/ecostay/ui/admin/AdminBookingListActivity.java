@@ -31,6 +31,12 @@ public class AdminBookingListActivity extends AppCompatActivity {
     private AdminBookingAdapter adapter;
     private String currentStatusFilter = "All";
     private List<AdminBookingSummary> allBookings = new ArrayList<>();
+    private String currentSearchQuery = "";
+
+    private TextView tvEmpty;
+    private TextView tvResultsCount;
+    private View ivEmpty;
+    private RecyclerView rvBookings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,12 +53,14 @@ public class AdminBookingListActivity extends AppCompatActivity {
 
         Spinner spStatusFilter = findViewById(R.id.spStatusFilter);
         SearchView searchView = findViewById(R.id.searchBookings);
-        RecyclerView rvBookings = findViewById(R.id.rvBookings);
-        TextView tvEmpty = findViewById(R.id.tvEmpty);
+        rvBookings = findViewById(R.id.rvBookings);
+        tvEmpty = findViewById(R.id.tvEmpty);
+        ivEmpty = findViewById(R.id.ivEmpty);
+        tvResultsCount = findViewById(R.id.tvResultsCount);
 
         ArrayAdapter<CharSequence> filterAdapter = ArrayAdapter.createFromResource(
-                this, R.array.admin_booking_statuses, android.R.layout.simple_spinner_item);
-        filterAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                this, R.array.admin_booking_statuses, R.layout.item_spinner_category);
+        filterAdapter.setDropDownViewResource(R.layout.item_spinner_category_dropdown);
         spStatusFilter.setAdapter(filterAdapter);
 
         adapter = new AdminBookingAdapter(booking -> {
@@ -78,23 +86,22 @@ public class AdminBookingListActivity extends AppCompatActivity {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                applySearch(query);
+                currentSearchQuery = query != null ? query : "";
+                refreshDisplayedBookings();
                 return true;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                applySearch(newText);
+                currentSearchQuery = newText != null ? newText : "";
+                refreshDisplayedBookings();
                 return true;
             }
         });
 
         bookingViewModel.getAdminBookings().observe(this, bookings -> {
             allBookings = bookings != null ? bookings : new ArrayList<>();
-            adapter.setItems(allBookings);
-            boolean empty = allBookings.isEmpty();
-            tvEmpty.setVisibility(empty ? View.VISIBLE : View.GONE);
-            rvBookings.setVisibility(empty ? View.GONE : View.VISIBLE);
+            refreshDisplayedBookings();
         });
 
         bookingViewModel.loadAllBookings(currentStatusFilter);
@@ -106,20 +113,44 @@ public class AdminBookingListActivity extends AppCompatActivity {
         bookingViewModel.loadAllBookings(currentStatusFilter);
     }
 
-    private void applySearch(String query) {
+    private void refreshDisplayedBookings() {
+        List<AdminBookingSummary> displayed = filterBookings(allBookings, currentSearchQuery);
+        adapter.setItems(displayed);
+        updateEmptyState(displayed.isEmpty());
+        updateResultsCount(displayed.size());
+    }
+
+    private List<AdminBookingSummary> filterBookings(List<AdminBookingSummary> source, String query) {
         if (query == null || query.trim().isEmpty()) {
-            adapter.setItems(allBookings);
-            return;
+            return new ArrayList<>(source);
         }
         String lower = query.trim().toLowerCase(Locale.getDefault());
         List<AdminBookingSummary> filtered = new ArrayList<>();
-        for (AdminBookingSummary booking : allBookings) {
+        for (AdminBookingSummary booking : source) {
             if (String.valueOf(booking.bookingId).contains(lower)
                     || booking.customerName.toLowerCase(Locale.getDefault()).contains(lower)
                     || booking.deviceLabel.toLowerCase(Locale.getDefault()).contains(lower)) {
                 filtered.add(booking);
             }
         }
-        adapter.setItems(filtered);
+        return filtered;
+    }
+
+    private void updateEmptyState(boolean empty) {
+        int emptyVisibility = empty ? View.VISIBLE : View.GONE;
+        tvEmpty.setVisibility(emptyVisibility);
+        ivEmpty.setVisibility(emptyVisibility);
+        rvBookings.setVisibility(empty ? View.GONE : View.VISIBLE);
+        if (empty) {
+            tvResultsCount.setVisibility(View.GONE);
+        }
+    }
+
+    private void updateResultsCount(int count) {
+        if (count == 0) {
+            return;
+        }
+        tvResultsCount.setText(getString(R.string.admin_bookings_count, count));
+        tvResultsCount.setVisibility(View.VISIBLE);
     }
 }

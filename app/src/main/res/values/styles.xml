@@ -148,4 +148,38 @@
         <item name="android:minHeight">48dp</item>
     </style>
 
+    <style name="TechCare.Spinner" parent="Widget.AppCompat.Spinner">
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:popupBackground">@drawable/bg_surface_card</item>
+        <item name="android:popupTheme">@style/ThemeOverlay.TechCare.SpinnerPopup</item>
+        <item name="android:dropDownVerticalOffset">4dp</item>
+    </style>
+
+    <style name="TechCare.SpinnerItem" parent="Widget.AppCompat.TextView.SpinnerItem">
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:paddingStart">16dp</item>
+        <item name="android:paddingEnd">16dp</item>
+        <item name="android:paddingTop">12dp</item>
+        <item name="android:paddingBottom">12dp</item>
+    </style>
+
+    <style name="TechCare.SpinnerDropDownItem" parent="Widget.AppCompat.TextView.SpinnerItem">
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:background">@color/surface_card</item>
+        <item name="android:paddingStart">16dp</item>
+        <item name="android:paddingEnd">16dp</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingBottom">10dp</item>
+    </style>
+
+    <style name="ThemeOverlay.TechCare.SpinnerPopup" parent="ThemeOverlay.MaterialComponents.Light">
+        <item name="android:colorBackground">@color/surface_card</item>
+        <item name="android:textColorPrimary">@color/text_primary</item>
+        <item name="android:textColorSecondary">@color/text_secondary</item>
+        <item name="colorOnSurface">@color/text_primary</item>
+        <item name="colorSurface">@color/surface_card</item>
+    </style>
+
 </resources>

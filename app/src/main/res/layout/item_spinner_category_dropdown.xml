@@ -1,15 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/tvSpinnerCategoryDropdown"
+    android:id="@android:id/text1"
+    style="@style/TechCare.SpinnerDropDownItem"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingStart="16dp"
-    android:paddingEnd="16dp"
-    android:paddingTop="10dp"
-    android:paddingBottom="10dp"
-    android:singleLine="true"
     android:ellipsize="end"
-    android:background="@color/surface_card"
-    android:textColor="@color/text_primary"
-    android:textSize="14sp" />
+    android:singleLine="true" />
 

@@ -62,13 +62,13 @@ public class AdminBookingDetailsActivity extends AppCompatActivity {
         RecyclerView rvHistory = findViewById(R.id.rvStatusHistory);
 
         ArrayAdapter<String> technicianAdapter = new ArrayAdapter<>(
-                this, android.R.layout.simple_spinner_item, TechnicianUtils.getAllTechnicianLabels());
-        technicianAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                this, R.layout.item_spinner_category, TechnicianUtils.getAllTechnicianLabels());
+        technicianAdapter.setDropDownViewResource(R.layout.item_spinner_category_dropdown);
         spTechnician.setAdapter(technicianAdapter);
 
         ArrayAdapter<String> statusAdapterSpinner = new ArrayAdapter<>(
-                this, android.R.layout.simple_spinner_item, TechnicianUtils.ADMIN_STATUS_OPTIONS);
-        statusAdapterSpinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                this, R.layout.item_spinner_category, TechnicianUtils.ADMIN_STATUS_OPTIONS);
+        statusAdapterSpinner.setDropDownViewResource(R.layout.item_spinner_category_dropdown);
         spStatus.setAdapter(statusAdapterSpinner);
 
         statusAdapter = new AdminRepairStatusAdapter();

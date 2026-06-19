@@ -16,6 +16,9 @@
         <item name="materialButtonStyle">@style/TechCare.PrimaryButton</item>
         <item name="radioButtonStyle">@style/TechCare.RadioButton</item>
         <item name="textInputStyle">@style/TechCare.TextField</item>
+        <item name="android:spinnerStyle">@style/TechCare.Spinner</item>
+        <item name="android:spinnerItemStyle">@style/TechCare.SpinnerItem</item>
+        <item name="android:spinnerDropDownItemStyle">@style/TechCare.SpinnerDropDownItem</item>
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
     </style>
 </resources>

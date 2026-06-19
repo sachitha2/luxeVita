@@ -58,8 +58,8 @@ public class AddEditServiceActivity extends AppCompatActivity {
         Button btnSave = findViewById(R.id.btnSave);
 
         ArrayAdapter<CharSequence> deviceAdapter = ArrayAdapter.createFromResource(
-                this, R.array.device_types, android.R.layout.simple_spinner_item);
-        deviceAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                this, R.array.device_types, R.layout.item_spinner_category);
+        deviceAdapter.setDropDownViewResource(R.layout.item_spinner_category_dropdown);
         spDeviceType.setAdapter(deviceAdapter);
 
         if (isEdit) {

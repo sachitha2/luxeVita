@@ -185,8 +185,12 @@
     <string name="admin_card_tips">Manage Maintenance Tips</string>
     <string name="admin_card_tips_desc">Update device care tips</string>
     <string name="admin_bookings_title">All Bookings</string>
+    <string name="admin_bookings_subtitle">Filter and search repair bookings across all customers</string>
+    <string name="admin_bookings_filter_title">Filter &amp; search</string>
+    <string name="admin_bookings_count">%1$d booking(s) found</string>
     <string name="admin_booking_details_title">Manage Booking</string>
     <string name="label_filter_status">Filter by status</string>
+    <string name="label_search_bookings">Search bookings</string>
     <string name="filter_all">All statuses</string>
     <string name="hint_search_booking">Search booking ID or customer</string>
     <string name="label_customer">Customer: %1$s</string>

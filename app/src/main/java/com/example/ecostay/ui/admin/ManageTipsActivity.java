@@ -48,8 +48,8 @@ public class ManageTipsActivity extends AppCompatActivity {
         TextView tvEmpty = findViewById(R.id.tvEmpty);
 
         ArrayAdapter<CharSequence> filterAdapter = ArrayAdapter.createFromResource(
-                this, R.array.device_categories, android.R.layout.simple_spinner_item);
-        filterAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                this, R.array.device_categories, R.layout.item_spinner_category);
+        filterAdapter.setDropDownViewResource(R.layout.item_spinner_category_dropdown);
         spDeviceFilter.setAdapter(filterAdapter);
 
         adapter = new AdminTipAdapter(new AdminTipAdapter.Listener() {
