@@ -5,14 +5,22 @@
     android:layout_height="wrap_content"
     android:padding="@dimen/spacing_lg">
 
-    <ImageView
-        android:id="@+id/ivNavIcon"
-        android:layout_width="28dp"
-        android:layout_height="28dp"
-        android:contentDescription="@null"
+    <FrameLayout
+        android:id="@+id/iconContainer"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:background="@drawable/bg_nav_icon_container"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/ivNavIcon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center"
+            android:contentDescription="@null" />
+    </FrameLayout>
 
     <TextView
         android:id="@+id/tvNavTitle"
@@ -21,7 +29,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/spacing_md"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/ivNavIcon"
+        app:layout_constraintStart_toEndOf="@id/iconContainer"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -32,7 +40,7 @@
         android:layout_marginStart="@dimen/spacing_md"
         android:layout_marginTop="@dimen/spacing_xs"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/ivNavIcon"
+        app:layout_constraintStart_toEndOf="@id/iconContainer"
         app:layout_constraintTop_toBottomOf="@id/tvNavTitle" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

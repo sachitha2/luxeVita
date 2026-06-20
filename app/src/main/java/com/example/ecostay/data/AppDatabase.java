@@ -39,7 +39,7 @@ import java.util.concurrent.Executors;
                 MaintenanceTipEntity.class,
                 SupportMessageEntity.class
         },
-        version = 7,
+        version = 8,
         exportSchema = false
 )
 public abstract class AppDatabase extends RoomDatabase {
@@ -81,7 +81,8 @@ public abstract class AppDatabase extends RoomDatabase {
                             .addMigrations(
                                     DatabaseMigrations.MIGRATION_4_5,
                                     DatabaseMigrations.MIGRATION_5_6,
-                                    DatabaseMigrations.MIGRATION_6_7
+                                    DatabaseMigrations.MIGRATION_6_7,
+                                    DatabaseMigrations.MIGRATION_7_8
                             )
                             .fallbackToDestructiveMigration()
                             .addCallback(new Callback() {

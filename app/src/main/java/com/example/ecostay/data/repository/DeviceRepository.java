@@ -8,6 +8,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.example.ecostay.data.AppDatabase;
 import com.example.ecostay.data.dao.DeviceDao;
 import com.example.ecostay.data.entity.DeviceEntity;
+import com.example.ecostay.util.PhotoUtils;
 
 import java.util.List;
 
@@ -68,6 +69,7 @@ public class DeviceRepository {
     public void deleteDevice(DeviceEntity device) {
         AppDatabase.getWriteExecutor().execute(() -> {
             try {
+                PhotoUtils.deletePhotoFile(device.imagePath);
                 deviceDao.delete(device);
                 deleteResult.postValue(new OperationResult(true, "Device deleted"));
                 devices.postValue(deviceDao.getByUserId(device.userId));
@@ -80,5 +82,9 @@ public class DeviceRepository {
     public void getDeviceById(int deviceId, MutableLiveData<DeviceEntity> liveData) {
         AppDatabase.getWriteExecutor().execute(() ->
                 liveData.postValue(deviceDao.getById(deviceId)));
+    }
+
+    public void clearSaveResult() {
+        saveResult.setValue(null);
     }
 }

@@ -6,6 +6,13 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 
 final class DatabaseMigrations {
 
+    static final Migration MIGRATION_7_8 = new Migration(7, 8) {
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase db) {
+            db.execSQL("ALTER TABLE `devices` ADD COLUMN `image_path` TEXT");
+        }
+    };
+
     static final Migration MIGRATION_6_7 = new Migration(6, 7) {
         @Override
         public void migrate(@NonNull SupportSQLiteDatabase db) {

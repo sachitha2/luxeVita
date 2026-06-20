@@ -38,6 +38,13 @@ public final class PhotoUtils {
         return savePhotoFromUri(context, uri, "tip_images", fileName);
     }
 
+    public static String saveDeviceImageFromUri(Context context, int deviceId, Uri uri) throws IOException {
+        String fileName = deviceId > 0
+                ? "device_" + deviceId + ".jpg"
+                : "device_" + System.currentTimeMillis() + ".jpg";
+        return savePhotoFromUri(context, uri, "device_images", fileName);
+    }
+
     public static void bindImage(ImageView imageView, String path) {
         if (path != null && !path.isEmpty()) {
             File file = new File(path);

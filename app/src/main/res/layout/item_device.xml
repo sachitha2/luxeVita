@@ -50,6 +50,18 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvDeviceLabel" />
 
+        <ImageView
+            android:id="@+id/ivDeviceImage"
+            android:layout_width="0dp"
+            android:layout_height="160dp"
+            android:layout_marginTop="@dimen/spacing_md"
+            android:contentDescription="@string/label_device_image"
+            android:scaleType="centerCrop"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvDeviceMeta" />
+
         <Button
             android:id="@+id/btnEdit"
             style="@style/TechCare.SecondaryButton"
@@ -62,7 +74,7 @@
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintHorizontal_weight="1"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvDeviceMeta" />
+            app:layout_constraintTop_toBottomOf="@id/ivDeviceImage" />
 
         <Button
             android:id="@+id/btnDelete"
@@ -76,7 +88,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_weight="1"
             app:layout_constraintStart_toEndOf="@id/btnEdit"
-            app:layout_constraintTop_toBottomOf="@id/tvDeviceMeta"
+            app:layout_constraintTop_toBottomOf="@id/ivDeviceImage"
             app:strokeColor="@color/state_error" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

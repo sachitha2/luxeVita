@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ecostay.R;
 import com.example.ecostay.data.entity.DeviceEntity;
+import com.example.ecostay.util.PhotoUtils;
 import com.example.ecostay.util.StatusUiUtils;
 
 import java.util.ArrayList;
@@ -53,6 +55,7 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.ViewHolder
         StatusUiUtils.applyStatusChip(holder.tvDeviceType, device.deviceType);
         holder.tvDeviceLabel.setText(device.brand);
         holder.tvDeviceMeta.setText(device.model);
+        PhotoUtils.bindImage(holder.ivDeviceImage, device.imagePath);
         holder.btnEdit.setOnClickListener(v -> listener.onEdit(device));
         holder.btnDelete.setOnClickListener(v -> listener.onDelete(device));
     }
@@ -66,6 +69,7 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.ViewHolder
         final TextView tvDeviceLabel;
         final TextView tvDeviceType;
         final TextView tvDeviceMeta;
+        final ImageView ivDeviceImage;
         final Button btnEdit;
         final Button btnDelete;
 
@@ -74,6 +78,7 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.ViewHolder
             tvDeviceLabel = itemView.findViewById(R.id.tvDeviceLabel);
             tvDeviceType = itemView.findViewById(R.id.tvDeviceType);
             tvDeviceMeta = itemView.findViewById(R.id.tvDeviceMeta);
+            ivDeviceImage = itemView.findViewById(R.id.ivDeviceImage);
             btnEdit = itemView.findViewById(R.id.btnEdit);
             btnDelete = itemView.findViewById(R.id.btnDelete);
         }

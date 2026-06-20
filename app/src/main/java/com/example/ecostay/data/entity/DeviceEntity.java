@@ -33,4 +33,7 @@ public class DeviceEntity {
 
     @NonNull
     public String model;
+
+    @ColumnInfo(name = "image_path")
+    public String imagePath;
 }

@@ -48,4 +48,8 @@ public class DeviceViewModel extends AndroidViewModel {
     public void loadDevice(int deviceId, MutableLiveData<DeviceEntity> liveData) {
         deviceRepository.getDeviceById(deviceId, liveData);
     }
+
+    public void clearSaveResult() {
+        deviceRepository.clearSaveResult();
+    }
 }
