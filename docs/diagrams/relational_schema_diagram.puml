@@ -1,0 +1,173 @@
+@startuml TechCare_Relational_Schema_Diagram
+skinparam linetype polyline
+skinparam shadowing false
+skinparam classAttributeIconSize 0
+skinparam classFontSize 9
+
+title TechCare Services — Normalized Relational Schema (3NF, Chen Notation)\nDatabase: techcare.db
+
+' ── users ──
+class users
+class "userId" as tu_pk << (E,#FFE082) >>
+class "fullName" as tu_fn << (E,#FEF9E7) >>
+class "email" as tu_em << (E,#FEF9E7) >>
+class "phone" as tu_ph << (E,#FEF9E7) >>
+class "password" as tu_pw << (E,#FEF9E7) >>
+class "password_salt" as tu_sa << (E,#FEF9E7) >>
+class "address" as tu_ad << (E,#FEF9E7) >>
+class "role" as tu_rl << (E,#FEF9E7) >>
+users --- tu_pk
+users --- tu_fn
+users --- tu_em
+users --- tu_ph
+users --- tu_pw
+users --- tu_sa
+users --- tu_ad
+users --- tu_rl
+
+' ── devices ──
+class devices
+class "deviceId" as td_pk << (E,#FFE082) >>
+class "userId" as td_fk << (E,#BBDEFB) >>
+class "deviceType" as td_dt << (E,#FEF9E7) >>
+class "brand" as td_br << (E,#FEF9E7) >>
+class "model" as td_md << (E,#FEF9E7) >>
+devices --- td_pk
+devices --- td_fk
+devices --- td_dt
+devices --- td_br
+devices --- td_md
+
+' ── services ──
+class services
+class "serviceId" as ts_pk << (E,#FFE082) >>
+class "deviceType" as ts_dt << (E,#FEF9E7) >>
+class "serviceName" as ts_sn << (E,#FEF9E7) >>
+class "description" as ts_ds << (E,#FEF9E7) >>
+class "estimatedPrice" as ts_pr << (E,#FEF9E7) >>
+services --- ts_pk
+services --- ts_dt
+services --- ts_sn
+services --- ts_ds
+services --- ts_pr
+
+' ── bookings ──
+class bookings
+class "bookingId" as tb_pk << (E,#FFE082) >>
+class "userId" as tb_u << (E,#BBDEFB) >>
+class "deviceId" as tb_d << (E,#BBDEFB) >>
+class "serviceId" as tb_s << (E,#BBDEFB) >>
+class "issueDescription" as tb_is << (E,#FEF9E7) >>
+class "serviceMethod" as tb_sm << (E,#FEF9E7) >>
+class "preferredDate" as tb_pd << (E,#FEF9E7) >>
+class "preferredTime" as tb_pt << (E,#FEF9E7) >>
+class "status" as tb_st << (E,#FEF9E7) >>
+class "technicianName" as tb_tn << (E,#FEF9E7) >>
+class "estimatedCompletion" as tb_ec << (E,#FEF9E7) >>
+class "createdAt" as tb_ca << (E,#FEF9E7) >>
+class "photoPath" as tb_pp << (E,#FEF9E7) >>
+class "adminRemarks" as tb_ar << (E,#FEF9E7) >>
+bookings --- tb_pk
+bookings --- tb_u
+bookings --- tb_d
+bookings --- tb_s
+bookings --- tb_is
+bookings --- tb_sm
+bookings --- tb_pd
+bookings --- tb_pt
+bookings --- tb_st
+bookings --- tb_tn
+bookings --- tb_ec
+bookings --- tb_ca
+bookings --- tb_pp
+bookings --- tb_ar
+
+' ── repair_status ──
+class repair_status
+class "statusId" as tr_pk << (E,#FFE082) >>
+class "bookingId" as tr_fk << (E,#BBDEFB) >>
+class "status" as tr_st << (E,#FEF9E7) >>
+class "remarks" as tr_rm << (E,#FEF9E7) >>
+class "updatedAt" as tr_ua << (E,#FEF9E7) >>
+class "updatedBy" as tr_ub << (E,#FEF9E7) >>
+repair_status --- tr_pk
+repair_status --- tr_fk
+repair_status --- tr_st
+repair_status --- tr_rm
+repair_status --- tr_ua
+repair_status --- tr_ub
+
+' ── faqs ──
+class faqs
+class "faqId" as tf_pk << (E,#FFE082) >>
+class "question" as tf_q << (E,#FEF9E7) >>
+class "answer" as tf_a << (E,#FEF9E7) >>
+faqs --- tf_pk
+faqs --- tf_q
+faqs --- tf_a
+
+' ── maintenance_tips ──
+class maintenance_tips
+class "tipId" as tt_pk << (E,#FFE082) >>
+class "deviceType" as tt_dt << (E,#FEF9E7) >>
+class "title" as tt_tl << (E,#FEF9E7) >>
+class "description" as tt_ds << (E,#FEF9E7) >>
+maintenance_tips --- tt_pk
+maintenance_tips --- tt_dt
+maintenance_tips --- tt_tl
+maintenance_tips --- tt_ds
+
+' ── support_messages ──
+class support_messages
+class "messageId" as tm_pk << (E,#FFE082) >>
+class "userId" as tm_fk << (E,#BBDEFB) >>
+class "userName" as tm_un << (E,#FEF9E7) >>
+class "message" as tm_ms << (E,#FEF9E7) >>
+class "createdAt" as tm_ca << (E,#FEF9E7) >>
+support_messages --- tm_pk
+support_messages --- tm_fk
+support_messages --- tm_un
+support_messages --- tm_ms
+support_messages --- tm_ca
+
+' ── FK relationships (diamonds) ──
+class "userId FK" as rel1 << (D,#F5EEF8) >>
+class "userId FK" as rel2 << (D,#F5EEF8) >>
+class "deviceId FK" as rel3 << (D,#F5EEF8) >>
+class "serviceId FK" as rel4 << (D,#F5EEF8) >>
+class "bookingId FK" as rel5 << (D,#F5EEF8) >>
+class "userId FK" as rel6 << (D,#F5EEF8) >>
+
+users --- rel1 : 1
+rel1 --- devices : N
+
+users --- rel2 : 1
+rel2 --- bookings : N
+
+devices --- rel3 : 1
+rel3 --- bookings : N
+
+services --- rel4 : 1
+rel4 --- bookings : N
+
+bookings --- rel5 : 1
+rel5 --- repair_status : N
+
+users --- rel6 : 1
+rel6 --- support_messages : N
+
+faqs -[hidden]right- maintenance_tips
+services -[hidden]left- users
+
+legend bottom left
+  |= Shape |= Meaning |
+  | Rectangle | Relation (table) |
+  | Oval | Column |
+  | Yellow oval | Primary Key |
+  | Blue oval | Foreign Key |
+  | Diamond | Referential link |
+  --
+  3NF — ON DELETE CASCADE on all FKs.
+endlegend
+
+@enduml

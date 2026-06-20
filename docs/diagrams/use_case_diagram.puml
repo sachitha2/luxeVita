@@ -1,0 +1,105 @@
+@startuml TechCare_Use_Case_Diagram
+left to right direction
+skinparam packageStyle rectangle
+skinparam actorStyle awesome
+
+title TechCare Services — Use Case Diagram
+
+actor Customer as customer
+actor Admin as admin
+actor "System" as system <<system>>
+
+rectangle "TechCare Services App" {
+
+  package "Authentication" {
+    usecase "Register Account" as UC_Register
+    usecase "Login" as UC_Login
+    usecase "Logout" as UC_Logout
+    usecase "Admin Login" as UC_AdminLogin
+    usecase "Admin Logout" as UC_AdminLogout
+  }
+
+  package "Device Management" {
+    usecase "Add Device" as UC_AddDevice
+    usecase "Edit Device" as UC_EditDevice
+    usecase "Delete Device" as UC_DeleteDevice
+    usecase "View Devices" as UC_ViewDevices
+  }
+
+  package "Repair Services" {
+    usecase "Browse Services" as UC_BrowseServices
+    usecase "Submit Repair Request" as UC_SubmitRepair
+    usecase "View My Bookings" as UC_ViewBookings
+    usecase "View Booking Details" as UC_BookingDetails
+    usecase "Advance Booking Status" as UC_AdvanceStatus
+  }
+
+  package "Information & Support" {
+    usecase "Read FAQs" as UC_ReadFaqs
+    usecase "Read Maintenance Tips" as UC_ReadTips
+    usecase "Send Support Message" as UC_Support
+  }
+
+  package "Admin Portal" {
+    usecase "View Dashboard Stats" as UC_Dashboard
+    usecase "List & Filter Bookings" as UC_AdminBookings
+    usecase "View Booking Detail" as UC_AdminBookingDetail
+    usecase "Update Booking Status" as UC_UpdateStatus
+    usecase "Manage Services (CRUD)" as UC_ManageServices
+    usecase "Manage FAQs (CRUD)" as UC_ManageFaqs
+    usecase "Manage Tips (CRUD)" as UC_ManageTips
+    usecase "View Support Messages" as UC_AdminSupport
+  }
+
+  package "System Operations" {
+    usecase "Seed Catalog Data" as UC_Seed
+    usecase "Auto-assign Technician" as UC_AssignTech
+    usecase "Record Status History" as UC_RecordStatus
+  }
+}
+
+' Customer associations
+customer --> UC_Register
+customer --> UC_Login
+customer --> UC_Logout
+customer --> UC_AddDevice
+customer --> UC_EditDevice
+customer --> UC_DeleteDevice
+customer --> UC_ViewDevices
+customer --> UC_BrowseServices
+customer --> UC_SubmitRepair
+customer --> UC_ViewBookings
+customer --> UC_BookingDetails
+customer --> UC_AdvanceStatus
+customer --> UC_ReadFaqs
+customer --> UC_ReadTips
+customer --> UC_Support
+
+' Admin associations
+admin --> UC_AdminLogin
+admin --> UC_AdminLogout
+admin --> UC_Dashboard
+admin --> UC_AdminBookings
+admin --> UC_AdminBookingDetail
+admin --> UC_UpdateStatus
+admin --> UC_ManageServices
+admin --> UC_ManageFaqs
+admin --> UC_ManageTips
+admin --> UC_AdminSupport
+
+' System associations
+system --> UC_Seed
+system --> UC_AssignTech
+system --> UC_RecordStatus
+
+' Include relationships
+UC_SubmitRepair ..> UC_ViewDevices : <<include>>
+UC_SubmitRepair ..> UC_BrowseServices : <<include>>
+UC_BookingDetails ..> UC_ViewBookings : <<include>>
+UC_AdminBookingDetail ..> UC_AdminBookings : <<include>>
+UC_UpdateStatus ..> UC_RecordStatus : <<include>>
+UC_SubmitRepair ..> UC_AssignTech : <<include>>
+UC_SubmitRepair ..> UC_RecordStatus : <<include>>
+UC_AdvanceStatus ..> UC_RecordStatus : <<include>>
+
+@enduml

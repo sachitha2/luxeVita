@@ -328,6 +328,23 @@
                 android:layout_height="wrap_content" />
         </com.google.android.material.card.MaterialCardView>
 
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardSupport"
+            style="@style/TechCare.NavCard"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_md"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cardTips">
+
+            <include
+                android:id="@+id/navSupport"
+                layout="@layout/item_dashboard_nav_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </com.google.android.material.card.MaterialCardView>
+
         <Button
             android:id="@+id/btnLogout"
             style="@style/TechCare.SecondaryButton"
@@ -339,7 +356,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/cardTips" />
+            app:layout_constraintTop_toBottomOf="@id/cardSupport" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

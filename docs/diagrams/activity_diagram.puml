@@ -1,0 +1,97 @@
+@startuml TechCare_Activity_Diagram
+skinparam activity {
+  BackgroundColor #F8F9FA
+  BorderColor #2C3E50
+  FontSize 12
+}
+
+title TechCare Services — Repair Booking Activity Diagram
+
+|Customer|
+start
+:Splash Screen;
+if (Session exists?) then (yes)
+  if (Role?) then (CUSTOMER)
+    :Open Dashboard;
+  else (ADMIN)
+    :Open Admin Dashboard;
+    stop
+  endif
+else (no)
+  :Login Screen;
+endif
+
+:Dashboard;
+fork
+  :Browse Services;
+  :Filter by device type;
+  :Select service;
+fork again
+  :My Devices;
+  if (Device exists?) then (no)
+    :Add Device\n(type, brand, model);
+  else (yes)
+    :Select existing device;
+  endif
+fork again
+  :FAQs & Tips;
+end fork
+
+:Submit Repair Request;
+:Enter issue description;
+:Choose service method\n(Pickup / Drop-off);
+:Select preferred date & time;
+if (Attach photo?) then (yes)
+  :Capture / select photo;
+endif
+
+:Validate form;
+
+if (Valid?) then (no)
+  :Show validation errors;
+  stop
+else (yes)
+endif
+
+|System|
+:Auto-assign technician\n(based on device type);
+:Set status = "Received";
+:Save booking to database;
+:Create initial repair_status record;
+:Estimate completion date;
+
+|Customer|
+:Show confirmation;
+:My Bookings list;
+
+repeat
+  :View booking details;
+  :Display status timeline;
+  if (Advance status demo?) then (yes)
+    |System|
+    :Update booking status;
+    :Append repair_status history;
+    |Customer|
+  else (no)
+  endif
+repeat while (Status != Completed?) is (yes)
+->no;
+
+|Admin|
+:Admin views booking list;
+:Open booking detail;
+:Update status / technician / ETA / remarks;
+
+|System|
+:Append repair_status record;
+
+|Customer|
+if (Status = Completed?) then (yes)
+  :Booking complete;
+  stop
+else (Cancelled)
+  :Booking cancelled;
+  stop
+endif
+
+@enduml

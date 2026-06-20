@@ -1,0 +1,159 @@
+@startuml TechCare_ER_Diagram
+skinparam linetype polyline
+skinparam shadowing false
+skinparam classAttributeIconSize 0
+skinparam classFontSize 10
+
+title TechCare Services — Entity-Relationship Diagram (Chen Notation)
+
+' Entities (rectangles)
+class USER
+class DEVICE
+class SERVICE
+class BOOKING
+class REPAIR_STATUS
+class FAQ
+class MAINTENANCE_TIP
+class SUPPORT_MESSAGE
+
+' USER attributes (ellipses)
+class "userId" as u_pk << (E,#FFE082) >>
+class "fullName" as u_fn << (E,#FEF9E7) >>
+class "email" as u_em << (E,#FEF9E7) >>
+class "phone" as u_ph << (E,#FEF9E7) >>
+class "address" as u_ad << (E,#FEF9E7) >>
+class "role" as u_rl << (E,#FEF9E7) >>
+
+' DEVICE attributes
+class "deviceId" as d_pk << (E,#FFE082) >>
+class "deviceType" as d_tp << (E,#FEF9E7) >>
+class "brand" as d_br << (E,#FEF9E7) >>
+class "model" as d_md << (E,#FEF9E7) >>
+
+' SERVICE attributes
+class "serviceId" as s_pk << (E,#FFE082) >>
+class "deviceType" as s_tp << (E,#FEF9E7) >>
+class "serviceName" as s_nm << (E,#FEF9E7) >>
+class "estimatedPrice" as s_pr << (E,#FEF9E7) >>
+
+' BOOKING attributes
+class "bookingId" as b_pk << (E,#FFE082) >>
+class "issueDescription" as b_is << (E,#FEF9E7) >>
+class "serviceMethod" as b_sm << (E,#FEF9E7) >>
+class "preferredDate" as b_pd << (E,#FEF9E7) >>
+class "status" as b_st << (E,#FEF9E7) >>
+class "technicianName" as b_tn << (E,#FEF9E7) >>
+class "createdAt" as b_ca << (E,#FEF9E7) >>
+
+' REPAIR_STATUS attributes
+class "statusId" as rs_pk << (E,#FFE082) >>
+class "status" as rs_st << (E,#FEF9E7) >>
+class "remarks" as rs_rm << (E,#FEF9E7) >>
+class "updatedAt" as rs_ua << (E,#FEF9E7) >>
+class "updatedBy" as rs_ub << (E,#FEF9E7) >>
+
+' FAQ attributes
+class "faqId" as f_pk << (E,#FFE082) >>
+class "question" as f_q << (E,#FEF9E7) >>
+class "answer" as f_a << (E,#FEF9E7) >>
+
+' MAINTENANCE_TIP attributes
+class "tipId" as t_pk << (E,#FFE082) >>
+class "deviceType" as t_tp << (E,#FEF9E7) >>
+class "title" as t_tl << (E,#FEF9E7) >>
+class "description" as t_ds << (E,#FEF9E7) >>
+
+' SUPPORT_MESSAGE attributes
+class "messageId" as m_pk << (E,#FFE082) >>
+class "userName" as m_un << (E,#FEF9E7) >>
+class "message" as m_ms << (E,#FEF9E7) >>
+class "createdAt" as m_ca << (E,#FEF9E7) >>
+
+' Relationships (diamonds)
+class "Owns" as r_owns << (D,#FDEDEC) >>
+class "Places" as r_places << (D,#FDEDEC) >>
+class "Uses" as r_uses << (D,#FDEDEC) >>
+class "Selects" as r_selects << (D,#FDEDEC) >>
+class "Tracks" as r_tracks << (D,#FDEDEC) >>
+class "Sends" as r_sends << (D,#FDEDEC) >>
+
+' Entity — attribute links
+USER --- u_pk
+USER --- u_fn
+USER --- u_em
+USER --- u_ph
+USER --- u_ad
+USER --- u_rl
+
+DEVICE --- d_pk
+DEVICE --- d_tp
+DEVICE --- d_br
+DEVICE --- d_md
+
+SERVICE --- s_pk
+SERVICE --- s_tp
+SERVICE --- s_nm
+SERVICE --- s_pr
+
+BOOKING --- b_pk
+BOOKING --- b_is
+BOOKING --- b_sm
+BOOKING --- b_pd
+BOOKING --- b_st
+BOOKING --- b_tn
+BOOKING --- b_ca
+
+REPAIR_STATUS --- rs_pk
+REPAIR_STATUS --- rs_st
+REPAIR_STATUS --- rs_rm
+REPAIR_STATUS --- rs_ua
+REPAIR_STATUS --- rs_ub
+
+FAQ --- f_pk
+FAQ --- f_q
+FAQ --- f_a
+
+MAINTENANCE_TIP --- t_pk
+MAINTENANCE_TIP --- t_tp
+MAINTENANCE_TIP --- t_tl
+MAINTENANCE_TIP --- t_ds
+
+SUPPORT_MESSAGE --- m_pk
+SUPPORT_MESSAGE --- m_un
+SUPPORT_MESSAGE --- m_ms
+SUPPORT_MESSAGE --- m_ca
+
+' Entity — relationship — entity links (1:N)
+USER --- r_owns : 1
+r_owns --- DEVICE : N
+
+USER --- r_places : 1
+r_places --- BOOKING : N
+
+DEVICE --- r_uses : 1
+r_uses --- BOOKING : N
+
+SERVICE --- r_selects : 1
+r_selects --- BOOKING : N
+
+BOOKING --- r_tracks : 1
+r_tracks --- REPAIR_STATUS : N
+
+USER --- r_sends : 1
+r_sends --- SUPPORT_MESSAGE : N
+
+' Layout
+FAQ -[hidden]right- MAINTENANCE_TIP
+SERVICE -[hidden]left- USER
+
+legend bottom left
+  |= Shape |= Meaning |
+  | Rectangle | Entity |
+  | Oval | Attribute |
+  | Diamond | Relationship |
+  | Yellow oval | Primary Key |
+  --
+  FAQ and MAINTENANCE_TIP are standalone entities.
+endlegend
+
+@enduml

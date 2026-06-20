@@ -1,0 +1,243 @@
+@startuml TechCare_Class_Diagram
+skinparam classAttributeIconSize 0
+skinparam packageStyle rectangle
+
+title TechCare Services — Class Diagram (MVVM + Room)
+
+package "UI Layer" <<Rectangle>> {
+  class SplashActivity
+  class LoginActivity
+  class RegisterActivity
+  class DashboardActivity
+  class BrowseServicesActivity
+  class DeviceListActivity
+  class AddDeviceActivity
+  class SubmitRepairRequestActivity
+  class MyBookingsActivity
+  class BookingDetailsActivity
+  class FaqTipsActivity
+  class SupportActivity
+  class AdminLoginActivity
+  class AdminDashboardActivity
+  class AdminBookingListActivity
+  class AdminBookingDetailsActivity
+  class ManageServicesActivity
+  class ManageFaqActivity
+  class ManageTipsActivity
+  class ManageSupportMessagesActivity
+}
+
+package "ViewModel Layer" <<Rectangle>> {
+  class AuthViewModel
+  class AdminAuthViewModel
+  class DeviceViewModel
+  class ServiceViewModel
+  class BookingViewModel
+  class FaqTipsViewModel
+  class SupportViewModel
+  class AdminDashboardViewModel
+  class AdminBookingViewModel
+  class AdminServiceViewModel
+  class AdminFaqViewModel
+  class AdminTipViewModel
+  class AdminSupportViewModel
+}
+
+package "Repository Layer" <<Rectangle>> {
+  class UserRepository
+  class DeviceRepository
+  class ServiceRepository
+  class BookingRepository
+  class FaqRepository
+  class MaintenanceTipRepository
+  class SupportMessageRepository
+}
+
+package "Data Access Layer" <<Rectangle>> {
+  class AppDatabase {
+    +getInstance()
+    +userDao()
+    +deviceDao()
+    +serviceDao()
+    +bookingDao()
+    +repairStatusDao()
+    +faqDao()
+    +maintenanceTipDao()
+    +supportMessageDao()
+  }
+  interface UserDao
+  interface DeviceDao
+  interface ServiceDao
+  interface BookingDao
+  interface RepairStatusDao
+  interface FaqDao
+  interface MaintenanceTipDao
+  interface SupportMessageDao
+}
+
+package "Entity Layer" <<Rectangle>> {
+  class UserEntity {
+    +userId: int
+    +fullName: String
+    +email: String
+    +phone: String
+    +password: String
+    +passwordSalt: String
+    +address: String
+    +role: String
+  }
+  class DeviceEntity {
+    +deviceId: int
+    +userId: int
+    +deviceType: String
+    +brand: String
+    +model: String
+  }
+  class ServiceEntity {
+    +serviceId: int
+    +deviceType: String
+    +serviceName: String
+    +description: String
+    +estimatedPrice: double
+  }
+  class BookingEntity {
+    +bookingId: int
+    +userId: int
+    +deviceId: int
+    +serviceId: int
+    +issueDescription: String
+    +serviceMethod: String
+    +preferredDate: String
+    +preferredTime: String
+    +status: String
+    +technicianName: String
+    +estimatedCompletion: String
+    +createdAt: String
+    +photoPath: String
+    +adminRemarks: String
+  }
+  class RepairStatusEntity {
+    +statusId: int
+    +bookingId: int
+    +status: String
+    +remarks: String
+    +updatedAt: String
+    +updatedBy: String
+  }
+  class FaqEntity {
+    +faqId: int
+    +question: String
+    +answer: String
+  }
+  class MaintenanceTipEntity {
+    +tipId: int
+    +deviceType: String
+    +title: String
+    +description: String
+  }
+  class SupportMessageEntity {
+    +messageId: int
+    +userId: int
+    +userName: String
+    +message: String
+    +createdAt: String
+  }
+}
+
+package "Session & Utilities" <<Rectangle>> {
+  class SessionManager {
+    +ROLE_CUSTOMER
+    +ROLE_ADMIN
+    +saveSession()
+    +clearSession()
+    +isLoggedIn()
+  }
+  class PasswordUtils
+  class TechnicianUtils
+  class ValidationUtils
+  class PhotoUtils
+  class DateTimeUtils
+}
+
+' UI -> ViewModel
+LoginActivity --> AuthViewModel
+RegisterActivity --> AuthViewModel
+AdminLoginActivity --> AdminAuthViewModel
+DeviceListActivity --> DeviceViewModel
+AddDeviceActivity --> DeviceViewModel
+BrowseServicesActivity --> ServiceViewModel
+SubmitRepairRequestActivity --> DeviceViewModel
+SubmitRepairRequestActivity --> ServiceViewModel
+SubmitRepairRequestActivity --> BookingViewModel
+MyBookingsActivity --> BookingViewModel
+BookingDetailsActivity --> BookingViewModel
+FaqTipsActivity --> FaqTipsViewModel
+SupportActivity --> SupportViewModel
+AdminDashboardActivity --> AdminDashboardViewModel
+AdminBookingListActivity --> AdminBookingViewModel
+AdminBookingDetailsActivity --> AdminBookingViewModel
+ManageServicesActivity --> AdminServiceViewModel
+ManageFaqActivity --> AdminFaqViewModel
+ManageTipsActivity --> AdminTipViewModel
+ManageSupportMessagesActivity --> AdminSupportViewModel
+
+' ViewModel -> Repository
+AuthViewModel --> UserRepository
+AdminAuthViewModel --> UserRepository
+DeviceViewModel --> DeviceRepository
+ServiceViewModel --> ServiceRepository
+BookingViewModel --> BookingRepository
+FaqTipsViewModel --> FaqRepository
+FaqTipsViewModel --> MaintenanceTipRepository
+SupportViewModel --> SupportMessageRepository
+AdminDashboardViewModel --> BookingRepository
+AdminBookingViewModel --> BookingRepository
+AdminServiceViewModel --> ServiceRepository
+AdminFaqViewModel --> FaqRepository
+AdminTipViewModel --> MaintenanceTipRepository
+AdminSupportViewModel --> SupportMessageRepository
+
+' Repository -> DAO
+UserRepository --> UserDao
+DeviceRepository --> DeviceDao
+ServiceRepository --> ServiceDao
+BookingRepository --> BookingDao
+BookingRepository --> RepairStatusDao
+FaqRepository --> FaqDao
+MaintenanceTipRepository --> MaintenanceTipDao
+SupportMessageRepository --> SupportMessageDao
+
+' DAO -> Database & Entities
+AppDatabase --> UserDao
+AppDatabase --> DeviceDao
+AppDatabase --> ServiceDao
+AppDatabase --> BookingDao
+AppDatabase --> RepairStatusDao
+AppDatabase --> FaqDao
+AppDatabase --> MaintenanceTipDao
+AppDatabase --> SupportMessageDao
+
+UserDao ..> UserEntity
+DeviceDao ..> DeviceEntity
+ServiceDao ..> ServiceEntity
+BookingDao ..> BookingEntity
+RepairStatusDao ..> RepairStatusEntity
+FaqDao ..> FaqEntity
+MaintenanceTipDao ..> MaintenanceTipEntity
+SupportMessageDao ..> SupportMessageEntity
+
+' Entity relationships
+UserEntity "1" -- "0..*" DeviceEntity : owns >
+UserEntity "1" -- "0..*" BookingEntity : places >
+UserEntity "1" -- "0..*" SupportMessageEntity : sends >
+DeviceEntity "1" -- "0..*" BookingEntity : used in >
+ServiceEntity "1" -- "0..*" BookingEntity : selected for >
+BookingEntity "1" -- "0..*" RepairStatusEntity : has history >
+
+AuthViewModel ..> SessionManager
+AdminAuthViewModel ..> SessionManager
+UserRepository ..> PasswordUtils
+BookingRepository ..> TechnicianUtils
+BookingRepository ..> DateTimeUtils
+
+@enduml

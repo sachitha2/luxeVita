@@ -116,6 +116,7 @@
     <string name="hint_message">Message</string>
     <string name="action_send_message">Send Message</string>
     <string name="support_success">Message sent. Our team will contact you shortly.</string>
+    <string name="support_submit_error">Failed to send message. Please try again.</string>
 
     <string name="error_empty_fields">Please fill in all required fields.</string>
     <string name="error_valid_email">Enter a valid email address.</string>
@@ -124,6 +125,7 @@
     <string name="error_email_registered">Email already registered.</string>
     <string name="error_phone_registered">Phone number already registered.</string>
     <string name="error_account_not_found">No account found. Please register.</string>
+    <string name="error_session_expired">Your session has expired. Please log in again.</string>
     <string name="error_incorrect_password">Incorrect password.</string>
     <string name="error_login_failed">Login failed. Please try again.</string>
     <string name="error_register_failed">Registration failed. Please try again.</string>
@@ -184,6 +186,8 @@
     <string name="admin_card_faqs_desc">Update frequently asked questions</string>
     <string name="admin_card_tips">Manage Maintenance Tips</string>
     <string name="admin_card_tips_desc">Update device care tips</string>
+    <string name="admin_card_support">Support Messages</string>
+    <string name="admin_card_support_desc">View messages submitted by customers</string>
     <string name="admin_bookings_title">All Bookings</string>
     <string name="admin_bookings_subtitle">Filter and search repair bookings across all customers</string>
     <string name="admin_bookings_filter_title">Filter &amp; search</string>
@@ -231,6 +235,14 @@
     <string name="hint_tip_title">Title</string>
     <string name="hint_tip_description">Description</string>
     <string name="tips_admin_empty">No maintenance tips available.</string>
+    <string name="manage_support_title">Support Messages</string>
+    <string name="manage_support_subtitle">Messages submitted through the contact support form</string>
+    <string name="support_messages_empty">No support messages yet.</string>
+    <string name="support_message_details_title">Support Message</string>
+    <string name="label_message_from">From: %1$s</string>
+    <string name="label_message_date">Sent: %1$s</string>
+    <string name="label_contact_email">Email: %1$s</string>
+    <string name="label_contact_phone">Phone: %1$s</string>
     <string name="tip_saved">Tip saved.</string>
     <string name="tip_deleted">Tip deleted.</string>
     <string name="delete_tip_confirm">Delete this tip?</string>

@@ -47,6 +47,9 @@ public class AdminDashboardActivity extends AppCompatActivity {
         setupNavCard(R.id.cardTips, R.id.navTips,
                 R.drawable.ic_lightbulb_tip, R.string.admin_card_tips,
                 R.string.admin_card_tips_desc, ManageTipsActivity.class);
+        setupNavCard(R.id.cardSupport, R.id.navSupport,
+                R.drawable.ic_nav_support, R.string.admin_card_support,
+                R.string.admin_card_support_desc, ManageSupportMessagesActivity.class);
 
         dashboardViewModel.getDashboardStats().observe(this, this::showStats);
         dashboardViewModel.loadDashboardStats();

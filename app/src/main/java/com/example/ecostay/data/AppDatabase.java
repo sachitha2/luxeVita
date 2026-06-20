@@ -14,6 +14,7 @@ import com.example.ecostay.data.dao.FaqDao;
 import com.example.ecostay.data.dao.MaintenanceTipDao;
 import com.example.ecostay.data.dao.RepairStatusDao;
 import com.example.ecostay.data.dao.ServiceDao;
+import com.example.ecostay.data.dao.SupportMessageDao;
 import com.example.ecostay.data.dao.UserDao;
 import com.example.ecostay.data.entity.BookingEntity;
 import com.example.ecostay.data.entity.DeviceEntity;
@@ -21,6 +22,7 @@ import com.example.ecostay.data.entity.FaqEntity;
 import com.example.ecostay.data.entity.MaintenanceTipEntity;
 import com.example.ecostay.data.entity.RepairStatusEntity;
 import com.example.ecostay.data.entity.ServiceEntity;
+import com.example.ecostay.data.entity.SupportMessageEntity;
 import com.example.ecostay.data.entity.UserEntity;
 
 import java.util.concurrent.ExecutorService;
@@ -34,9 +36,10 @@ import java.util.concurrent.Executors;
                 BookingEntity.class,
                 RepairStatusEntity.class,
                 FaqEntity.class,
-                MaintenanceTipEntity.class
+                MaintenanceTipEntity.class,
+                SupportMessageEntity.class
         },
-        version = 3,
+        version = 5,
         exportSchema = false
 )
 public abstract class AppDatabase extends RoomDatabase {
@@ -60,6 +63,8 @@ public abstract class AppDatabase extends RoomDatabase {
 
     public abstract MaintenanceTipDao maintenanceTipDao();
 
+    public abstract SupportMessageDao supportMessageDao();
+
     public static ExecutorService getWriteExecutor() {
         return DATABASE_WRITE_EXECUTOR;
     }
@@ -73,6 +78,7 @@ public abstract class AppDatabase extends RoomDatabase {
                                     AppDatabase.class,
                                     DB_NAME
                             )
+                            .addMigrations(DatabaseMigrations.MIGRATION_4_5)
                             .fallbackToDestructiveMigration()
                             .addCallback(new Callback() {
                                 @Override
