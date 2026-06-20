@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ecostay.R;
 import com.example.ecostay.data.entity.FaqEntity;
+import com.example.ecostay.util.PhotoUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,6 +48,11 @@ public class FaqAdapter extends RecyclerView.Adapter<FaqAdapter.ViewHolder> {
         holder.tvAnswer.setVisibility(expanded ? View.VISIBLE : View.GONE);
         holder.dividerAnswer.setVisibility(expanded ? View.VISIBLE : View.GONE);
         holder.ivExpand.setRotation(expanded ? 180f : 0f);
+        if (expanded) {
+            PhotoUtils.bindImage(holder.ivFaqImage, faq.imagePath);
+        } else {
+            holder.ivFaqImage.setVisibility(View.GONE);
+        }
 
         holder.itemView.setOnClickListener(v -> {
             int adapterPosition = holder.getBindingAdapterPosition();
@@ -72,6 +78,7 @@ public class FaqAdapter extends RecyclerView.Adapter<FaqAdapter.ViewHolder> {
         final TextView tvAnswer;
         final View dividerAnswer;
         final ImageView ivExpand;
+        final ImageView ivFaqImage;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -79,6 +86,7 @@ public class FaqAdapter extends RecyclerView.Adapter<FaqAdapter.ViewHolder> {
             tvAnswer = itemView.findViewById(R.id.tvAnswer);
             dividerAnswer = itemView.findViewById(R.id.dividerAnswer);
             ivExpand = itemView.findViewById(R.id.ivExpand);
+            ivFaqImage = itemView.findViewById(R.id.ivFaqImage);
         }
     }
 }

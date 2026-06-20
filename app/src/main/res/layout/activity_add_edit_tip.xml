@@ -55,6 +55,8 @@
                 android:minLines="4" />
         </com.google.android.material.textfield.TextInputLayout>
 
+        <include layout="@layout/include_optional_content_image" />
+
         <Button
             android:id="@+id/btnSave"
             style="@style/TechCare.PrimaryButton"

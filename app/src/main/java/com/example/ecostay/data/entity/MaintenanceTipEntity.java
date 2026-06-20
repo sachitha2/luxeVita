@@ -20,4 +20,7 @@ public class MaintenanceTipEntity {
 
     @NonNull
     public String description;
+
+    @ColumnInfo(name = "image_path")
+    public String imagePath;
 }

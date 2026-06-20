@@ -1,7 +1,10 @@
 package com.example.ecostay.util;
 
 import android.content.Context;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.view.View;
+import android.widget.ImageView;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -19,6 +22,33 @@ public final class PhotoUtils {
 
     public static String saveProfilePhotoFromUri(Context context, int userId, Uri uri) throws IOException {
         return savePhotoFromUri(context, uri, "profile_photos", "profile_" + userId + ".jpg");
+    }
+
+    public static String saveFaqImageFromUri(Context context, int faqId, Uri uri) throws IOException {
+        String fileName = faqId > 0
+                ? "faq_" + faqId + ".jpg"
+                : "faq_" + System.currentTimeMillis() + ".jpg";
+        return savePhotoFromUri(context, uri, "faq_images", fileName);
+    }
+
+    public static String saveTipImageFromUri(Context context, int tipId, Uri uri) throws IOException {
+        String fileName = tipId > 0
+                ? "tip_" + tipId + ".jpg"
+                : "tip_" + System.currentTimeMillis() + ".jpg";
+        return savePhotoFromUri(context, uri, "tip_images", fileName);
+    }
+
+    public static void bindImage(ImageView imageView, String path) {
+        if (path != null && !path.isEmpty()) {
+            File file = new File(path);
+            if (file.exists()) {
+                imageView.setVisibility(View.VISIBLE);
+                imageView.setImageBitmap(BitmapFactory.decodeFile(path));
+                return;
+            }
+        }
+        imageView.setVisibility(View.GONE);
+        imageView.setImageDrawable(null);
     }
 
     private static String savePhotoFromUri(Context context, Uri uri, String folderName,

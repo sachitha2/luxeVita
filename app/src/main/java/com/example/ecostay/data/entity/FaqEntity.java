@@ -17,4 +17,7 @@ public class FaqEntity {
 
     @NonNull
     public String answer;
+
+    @ColumnInfo(name = "image_path")
+    public String imagePath;
 }

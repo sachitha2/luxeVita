@@ -8,6 +8,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.example.ecostay.data.AppDatabase;
 import com.example.ecostay.data.dao.FaqDao;
 import com.example.ecostay.data.entity.FaqEntity;
+import com.example.ecostay.util.PhotoUtils;
 
 import java.util.List;
 
@@ -73,6 +74,7 @@ public class FaqRepository {
     public void deleteFaq(FaqEntity faq) {
         AppDatabase.getWriteExecutor().execute(() -> {
             try {
+                PhotoUtils.deletePhotoFile(faq.imagePath);
                 faqDao.delete(faq);
                 deleteResult.postValue(new OperationResult(true, "FAQ deleted"));
                 faqs.postValue(faqDao.getAll());

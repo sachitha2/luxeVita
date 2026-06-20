@@ -8,6 +8,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.example.ecostay.data.AppDatabase;
 import com.example.ecostay.data.dao.MaintenanceTipDao;
 import com.example.ecostay.data.entity.MaintenanceTipEntity;
+import com.example.ecostay.util.PhotoUtils;
 
 import java.util.List;
 
@@ -83,6 +84,7 @@ public class MaintenanceTipRepository {
     public void deleteTip(MaintenanceTipEntity tip) {
         AppDatabase.getWriteExecutor().execute(() -> {
             try {
+                PhotoUtils.deletePhotoFile(tip.imagePath);
                 tipDao.delete(tip);
                 deleteResult.postValue(new OperationResult(true, "Tip deleted"));
                 tips.postValue(tipDao.getAll());

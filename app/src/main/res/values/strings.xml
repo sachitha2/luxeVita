@@ -81,6 +81,9 @@
     <string name="photo_attach_hint">Tap to attach a photo of the issue</string>
     <string name="photo_attached">Photo attached</string>
     <string name="action_remove_photo">Remove photo</string>
+    <string name="label_optional_content_image">Optional image</string>
+    <string name="label_content_image">Illustration</string>
+    <string name="content_image_attach_hint">Tap to attach a helpful image</string>
     <string name="error_photo_save">Could not save the selected photo. Please try again.</string>
     <string name="action_submit_request">Submit Request</string>
     <string name="hint_select_device">Select device</string>

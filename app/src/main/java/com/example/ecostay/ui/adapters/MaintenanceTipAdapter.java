@@ -3,6 +3,7 @@ package com.example.ecostay.ui.adapters;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -10,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ecostay.R;
 import com.example.ecostay.data.entity.MaintenanceTipEntity;
+import com.example.ecostay.util.PhotoUtils;
 import com.example.ecostay.util.StatusUiUtils;
 
 import java.util.ArrayList;
@@ -41,6 +43,7 @@ public class MaintenanceTipAdapter extends RecyclerView.Adapter<MaintenanceTipAd
         StatusUiUtils.applyStatusChip(holder.tvDeviceType, tip.deviceType);
         holder.tvTitle.setText(tip.title);
         holder.tvDescription.setText(tip.description);
+        PhotoUtils.bindImage(holder.ivTipImage, tip.imagePath);
     }
 
     @Override
@@ -52,12 +55,14 @@ public class MaintenanceTipAdapter extends RecyclerView.Adapter<MaintenanceTipAd
         final TextView tvDeviceType;
         final TextView tvTitle;
         final TextView tvDescription;
+        final ImageView ivTipImage;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
             tvDeviceType = itemView.findViewById(R.id.tvDeviceType);
             tvTitle = itemView.findViewById(R.id.tvTitle);
             tvDescription = itemView.findViewById(R.id.tvDescription);
+            ivTipImage = itemView.findViewById(R.id.ivTipImage);
         }
     }
 }
