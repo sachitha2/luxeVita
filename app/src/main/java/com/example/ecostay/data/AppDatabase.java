@@ -14,6 +14,7 @@ import com.example.ecostay.data.dao.FaqDao;
 import com.example.ecostay.data.dao.MaintenanceTipDao;
 import com.example.ecostay.data.dao.RepairStatusDao;
 import com.example.ecostay.data.dao.ServiceDao;
+import com.example.ecostay.data.dao.SlideshowDao;
 import com.example.ecostay.data.dao.SupportMessageDao;
 import com.example.ecostay.data.dao.UserDao;
 import com.example.ecostay.data.entity.BookingEntity;
@@ -22,6 +23,7 @@ import com.example.ecostay.data.entity.FaqEntity;
 import com.example.ecostay.data.entity.MaintenanceTipEntity;
 import com.example.ecostay.data.entity.RepairStatusEntity;
 import com.example.ecostay.data.entity.ServiceEntity;
+import com.example.ecostay.data.entity.SlideshowSlideEntity;
 import com.example.ecostay.data.entity.SupportMessageEntity;
 import com.example.ecostay.data.entity.UserEntity;
 
@@ -37,9 +39,10 @@ import java.util.concurrent.Executors;
                 RepairStatusEntity.class,
                 FaqEntity.class,
                 MaintenanceTipEntity.class,
-                SupportMessageEntity.class
+                SupportMessageEntity.class,
+                SlideshowSlideEntity.class
         },
-        version = 8,
+        version = 9,
         exportSchema = false
 )
 public abstract class AppDatabase extends RoomDatabase {
@@ -65,6 +68,8 @@ public abstract class AppDatabase extends RoomDatabase {
 
     public abstract SupportMessageDao supportMessageDao();
 
+    public abstract SlideshowDao slideshowDao();
+
     public static ExecutorService getWriteExecutor() {
         return DATABASE_WRITE_EXECUTOR;
     }
@@ -82,7 +87,8 @@ public abstract class AppDatabase extends RoomDatabase {
                                     DatabaseMigrations.MIGRATION_4_5,
                                     DatabaseMigrations.MIGRATION_5_6,
                                     DatabaseMigrations.MIGRATION_6_7,
-                                    DatabaseMigrations.MIGRATION_7_8
+                                    DatabaseMigrations.MIGRATION_7_8,
+                                    DatabaseMigrations.MIGRATION_8_9
                             )
                             .fallbackToDestructiveMigration()
                             .addCallback(new Callback() {

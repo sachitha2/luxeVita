@@ -45,6 +45,13 @@ public final class PhotoUtils {
         return savePhotoFromUri(context, uri, "device_images", fileName);
     }
 
+    public static String saveSlideImageFromUri(Context context, int slideId, Uri uri) throws IOException {
+        String fileName = slideId > 0
+                ? "slide_" + slideId + ".jpg"
+                : "slide_" + System.currentTimeMillis() + ".jpg";
+        return savePhotoFromUri(context, uri, "slide_images", fileName);
+    }
+
     public static void bindImage(ImageView imageView, String path) {
         if (path != null && !path.isEmpty()) {
             File file = new File(path);

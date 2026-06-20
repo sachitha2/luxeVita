@@ -2,16 +2,49 @@ package com.example.ecostay.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.ecostay.R;
+import com.example.ecostay.data.entity.SlideshowSlideEntity;
 import com.example.ecostay.session.SessionManager;
+import com.example.ecostay.ui.adapters.SlideshowAdapter;
+import com.example.ecostay.ui.viewmodel.DashboardViewModel;
+import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
+
+import java.util.List;
 
 public class DashboardActivity extends AppCompatActivity {
+
+    private static final long SLIDE_INTERVAL_MS = 4000L;
+
+    private DashboardViewModel dashboardViewModel;
+    private View slideshowContainer;
+    private ViewPager2 viewPagerSlideshow;
+    private TabLayout tabSlideshowDots;
+    private SlideshowAdapter slideshowAdapter;
+    private TabLayoutMediator tabLayoutMediator;
+    private final Handler slideHandler = new Handler(Looper.getMainLooper());
+    private final Runnable slideRunnable = new Runnable() {
+        @Override
+        public void run() {
+            if (viewPagerSlideshow == null || slideshowAdapter.getItemCount() <= 1) {
+                return;
+            }
+            int next = (viewPagerSlideshow.getCurrentItem() + 1) % slideshowAdapter.getItemCount();
+            viewPagerSlideshow.setCurrentItem(next, true);
+            slideHandler.postDelayed(this, SLIDE_INTERVAL_MS);
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,10 +63,25 @@ public class DashboardActivity extends AppCompatActivity {
         }
 
         setContentView(R.layout.activity_dashboard);
+        dashboardViewModel = new ViewModelProvider(this).get(DashboardViewModel.class);
 
         TextView tvGreeting = findViewById(R.id.tvGreeting);
         String name = SessionManager.getUserName(this);
         tvGreeting.setText(getString(R.string.dashboard_greeting, name));
+
+        slideshowContainer = findViewById(R.id.slideshowContainer);
+        viewPagerSlideshow = findViewById(R.id.viewPagerSlideshow);
+        tabSlideshowDots = findViewById(R.id.tabSlideshowDots);
+        slideshowAdapter = new SlideshowAdapter();
+        viewPagerSlideshow.setAdapter(slideshowAdapter);
+        viewPagerSlideshow.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override
+            public void onPageSelected(int position) {
+                resetAutoScroll();
+            }
+        });
+
+        dashboardViewModel.getActiveSlides().observe(this, this::showSlideshow);
 
         setupNavCard(R.id.cardBrowseServices, R.id.navBrowseServices,
                 R.drawable.ic_nav_services, R.drawable.bg_nav_icon_services,
@@ -68,6 +116,78 @@ public class DashboardActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         });
+
+        dashboardViewModel.loadActiveSlides();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (dashboardViewModel != null) {
+            dashboardViewModel.loadActiveSlides();
+        }
+        startAutoScroll();
+    }
+
+    @Override
+    protected void onPause() {
+        stopAutoScroll();
+        super.onPause();
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (tabLayoutMediator != null) {
+            tabLayoutMediator.detach();
+        }
+        stopAutoScroll();
+        super.onDestroy();
+    }
+
+    private void showSlideshow(List<SlideshowSlideEntity> slides) {
+        boolean hasSlides = slides != null && !slides.isEmpty();
+        slideshowContainer.setVisibility(hasSlides ? View.VISIBLE : View.GONE);
+        if (!hasSlides) {
+            stopAutoScroll();
+            return;
+        }
+
+        slideshowAdapter.setSlides(slides);
+        attachTabDots(slides.size());
+        viewPagerSlideshow.setCurrentItem(0, false);
+        resetAutoScroll();
+    }
+
+    private void attachTabDots(int count) {
+        if (tabLayoutMediator != null) {
+            tabLayoutMediator.detach();
+        }
+        tabSlideshowDots.removeAllTabs();
+        if (count <= 1) {
+            tabSlideshowDots.setVisibility(View.GONE);
+        } else {
+            tabSlideshowDots.setVisibility(View.VISIBLE);
+            tabLayoutMediator = new TabLayoutMediator(tabSlideshowDots, viewPagerSlideshow,
+                    (tab, position) -> { });
+            tabLayoutMediator.attach();
+        }
+    }
+
+    private void startAutoScroll() {
+        if (slideshowAdapter == null || slideshowAdapter.getItemCount() <= 1) {
+            return;
+        }
+        slideHandler.removeCallbacks(slideRunnable);
+        slideHandler.postDelayed(slideRunnable, SLIDE_INTERVAL_MS);
+    }
+
+    private void resetAutoScroll() {
+        stopAutoScroll();
+        startAutoScroll();
+    }
+
+    private void stopAutoScroll() {
+        slideHandler.removeCallbacks(slideRunnable);
     }
 
     private void setupNavCard(int cardId, int contentRootId, int iconRes, int iconBgRes,

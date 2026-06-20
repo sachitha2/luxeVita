@@ -55,6 +55,40 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <com.google.android.material.card.MaterialCardView
+            android:id="@+id/slideshowContainer"
+            style="@style/TechCare.NavCard"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_lg"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/heroCard">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/viewPagerSlideshow"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp" />
+
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/tabSlideshowDots"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    app:tabBackground="@drawable/tab_slideshow_dot"
+                    app:tabGravity="center"
+                    app:tabIndicatorHeight="0dp"
+                    app:tabMaxWidth="16dp"
+                    app:tabMinWidth="8dp" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
             android:id="@+id/cardBrowseServices"
             style="@style/TechCare.NavCard"
             android:layout_width="0dp"
@@ -65,7 +99,7 @@
             android:foreground="?attr/selectableItemBackground"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/heroCard">
+            app:layout_constraintTop_toBottomOf="@id/slideshowContainer">
 
             <include
                 android:id="@+id/navBrowseServices"

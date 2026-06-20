@@ -6,6 +6,22 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 
 final class DatabaseMigrations {
 
+    static final Migration MIGRATION_8_9 = new Migration(8, 9) {
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase db) {
+            db.execSQL(
+                    "CREATE TABLE IF NOT EXISTS `slideshow_slides` (" +
+                            "`slideId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
+                            "`title` TEXT NOT NULL, " +
+                            "`caption` TEXT, " +
+                            "`image_path` TEXT, " +
+                            "`sort_order` INTEGER NOT NULL, " +
+                            "`is_active` INTEGER NOT NULL" +
+                            ")"
+            );
+        }
+    };
+
     static final Migration MIGRATION_7_8 = new Migration(7, 8) {
         @Override
         public void migrate(@NonNull SupportSQLiteDatabase db) {

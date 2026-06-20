@@ -78,6 +78,12 @@
             android:name=".ui.admin.AddEditFaqActivity"
             android:exported="false" />
         <activity
+            android:name=".ui.admin.ManageSlideshowActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.admin.AddEditSlideActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.admin.ManageTipsActivity"
             android:exported="false" />
         <activity

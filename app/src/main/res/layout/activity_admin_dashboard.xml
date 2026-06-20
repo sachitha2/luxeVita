@@ -295,7 +295,7 @@
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.card.MaterialCardView
-            android:id="@+id/cardFaqs"
+            android:id="@+id/cardSlideshow"
             style="@style/TechCare.NavCard"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -303,6 +303,23 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/cardServices">
+
+            <include
+                android:id="@+id/navSlideshow"
+                layout="@layout/item_dashboard_nav_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardFaqs"
+            style="@style/TechCare.NavCard"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_md"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cardSlideshow">
 
             <include
                 android:id="@+id/navFaqs"

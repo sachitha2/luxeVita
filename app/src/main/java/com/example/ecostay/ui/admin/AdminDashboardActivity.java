@@ -41,6 +41,9 @@ public class AdminDashboardActivity extends AppCompatActivity {
         setupNavCard(R.id.cardServices, R.id.navServices,
                 R.drawable.ic_nav_services, R.string.admin_card_services,
                 R.string.admin_card_services_desc, ManageServicesActivity.class);
+        setupNavCard(R.id.cardSlideshow, R.id.navSlideshow,
+                R.drawable.ic_camera, R.string.admin_card_slideshow,
+                R.string.admin_card_slideshow_desc, ManageSlideshowActivity.class);
         setupNavCard(R.id.cardFaqs, R.id.navFaqs,
                 R.drawable.ic_nav_faq, R.string.admin_card_faqs,
                 R.string.admin_card_faqs_desc, ManageFaqActivity.class);
