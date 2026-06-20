@@ -51,6 +51,9 @@
             android:name=".ui.SupportActivity"
             android:exported="false" />
         <activity
+            android:name=".ui.EditProfileActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.admin.AdminLoginActivity"
             android:exported="false" />
         <activity

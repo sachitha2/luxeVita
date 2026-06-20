@@ -31,6 +31,13 @@ public final class SessionManager {
                 .apply();
     }
 
+    public static void updateUserName(Context context, String fullName) {
+        SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        prefs.edit()
+                .putString(KEY_USER_NAME, fullName != null ? fullName : "")
+                .apply();
+    }
+
     public static boolean isLoggedIn(Context context) {
         SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
         return prefs.getBoolean(KEY_IS_LOGGED_IN, false);

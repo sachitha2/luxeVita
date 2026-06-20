@@ -55,6 +55,10 @@ public class DashboardActivity extends AppCompatActivity {
                 R.drawable.ic_nav_support, R.string.card_support,
                 R.string.card_support_desc,
                 SupportActivity.class);
+        setupNavCard(R.id.cardMyProfile, R.id.navMyProfile,
+                R.drawable.ic_nav_profile, R.string.card_my_profile,
+                R.string.card_my_profile_desc,
+                EditProfileActivity.class);
 
         Button btnLogout = findViewById(R.id.btnLogout);
         btnLogout.setOnClickListener(v -> {

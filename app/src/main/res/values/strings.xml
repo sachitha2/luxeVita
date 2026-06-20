@@ -32,6 +32,8 @@
     <string name="card_faqs_tips_desc">Help articles and maintenance advice</string>
     <string name="card_support">Support</string>
     <string name="card_support_desc">Get in touch with our team</string>
+    <string name="card_my_profile">My Profile</string>
+    <string name="card_my_profile_desc">Update your details and profile photo</string>
     <string name="action_logout">Logout</string>
 
     <string name="browse_services_title">Browse Repair Services</string>
@@ -140,6 +142,14 @@
     <string name="progress_saving_device">Saving device…</string>
     <string name="progress_logging_in">Signing you in…</string>
     <string name="progress_registering">Creating your account…</string>
+    <string name="progress_saving_profile">Saving profile…</string>
+    <string name="profile_title">My Profile</string>
+    <string name="profile_subtitle">Update your personal details and profile photo</string>
+    <string name="profile_photo_hint">Tap to upload a profile photo</string>
+    <string name="profile_photo_content_desc">Profile photo</string>
+    <string name="profile_saved">Profile updated successfully.</string>
+    <string name="error_profile_load">Unable to load your profile. Please try again.</string>
+    <string name="error_profile_save">Failed to save profile. Please try again.</string>
     <string name="booking_submitted">Repair request submitted successfully.</string>
     <string name="status_updated">Booking status updated.</string>
     <string name="delete_device_confirm">Delete this device?</string>

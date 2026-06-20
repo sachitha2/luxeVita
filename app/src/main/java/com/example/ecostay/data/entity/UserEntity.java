@@ -40,4 +40,7 @@ public class UserEntity {
 
     @NonNull
     public String role = "CUSTOMER";
+
+    @ColumnInfo(name = "profile_image_path")
+    public String profileImagePath;
 }

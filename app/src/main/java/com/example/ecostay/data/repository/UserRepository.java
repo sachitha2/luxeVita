@@ -180,4 +180,106 @@ public class UserRepository {
             liveData.postValue(userDao.getById(userId));
         });
     }
+
+    public enum ProfileError {
+        EMPTY_FIELDS,
+        INVALID_EMAIL,
+        INVALID_PHONE,
+        EMAIL_EXISTS,
+        PHONE_EXISTS,
+        USER_NOT_FOUND,
+        UNKNOWN
+    }
+
+    public static final class ProfileUpdateResult {
+        public final boolean success;
+        public final ProfileError error;
+        public final UserEntity user;
+
+        private ProfileUpdateResult(boolean success, ProfileError error, UserEntity user) {
+            this.success = success;
+            this.error = error;
+            this.user = user;
+        }
+
+        public static ProfileUpdateResult ok(UserEntity user) {
+            return new ProfileUpdateResult(true, null, user);
+        }
+
+        public static ProfileUpdateResult fail(ProfileError error) {
+            return new ProfileUpdateResult(false, error, null);
+        }
+    }
+
+    private final MutableLiveData<ProfileUpdateResult> profileUpdateResult = new MutableLiveData<>();
+    private final MutableLiveData<UserEntity> profileUser = new MutableLiveData<>();
+
+    public LiveData<ProfileUpdateResult> getProfileUpdateResult() {
+        return profileUpdateResult;
+    }
+
+    public LiveData<UserEntity> getProfileUser() {
+        return profileUser;
+    }
+
+    public void clearProfileUpdateResult() {
+        profileUpdateResult.postValue(null);
+    }
+
+    public void loadProfile(int userId) {
+        AppDatabase.getWriteExecutor().execute(() -> {
+            profileUser.postValue(userDao.getById(userId));
+        });
+    }
+
+    public void updateProfile(int userId, String fullName, String email, String phone,
+                            String address, String profileImagePath, boolean removeProfileImage) {
+        if (ValidationUtils.isEmpty(fullName) || ValidationUtils.isEmpty(email)
+                || ValidationUtils.isEmpty(phone) || ValidationUtils.isEmpty(address)) {
+            profileUpdateResult.postValue(ProfileUpdateResult.fail(ProfileError.EMPTY_FIELDS));
+            return;
+        }
+        if (!ValidationUtils.isValidEmail(email)) {
+            profileUpdateResult.postValue(ProfileUpdateResult.fail(ProfileError.INVALID_EMAIL));
+            return;
+        }
+        if (!ValidationUtils.isValidPhone(phone)) {
+            profileUpdateResult.postValue(ProfileUpdateResult.fail(ProfileError.INVALID_PHONE));
+            return;
+        }
+        AppDatabase.getWriteExecutor().execute(() -> {
+            try {
+                UserEntity user = userDao.getById(userId);
+                if (user == null) {
+                    profileUpdateResult.postValue(ProfileUpdateResult.fail(ProfileError.USER_NOT_FOUND));
+                    return;
+                }
+                String normalizedEmail = email.trim();
+                String normalizedPhone = phone.trim();
+                UserEntity emailMatch = userDao.findByEmail(normalizedEmail);
+                if (emailMatch != null && emailMatch.userId != userId) {
+                    profileUpdateResult.postValue(ProfileUpdateResult.fail(ProfileError.EMAIL_EXISTS));
+                    return;
+                }
+                UserEntity phoneMatch = userDao.findByPhone(normalizedPhone);
+                if (phoneMatch != null && phoneMatch.userId != userId) {
+                    profileUpdateResult.postValue(ProfileUpdateResult.fail(ProfileError.PHONE_EXISTS));
+                    return;
+                }
+                user.fullName = fullName.trim();
+                user.email = normalizedEmail;
+                user.phone = normalizedPhone;
+                user.address = address.trim();
+                if (removeProfileImage) {
+                    user.profileImagePath = null;
+                } else if (profileImagePath != null) {
+                    user.profileImagePath = profileImagePath;
+                }
+                userDao.update(user);
+                profileUpdateResult.postValue(ProfileUpdateResult.ok(user));
+            } catch (Exception e) {
+                profileUpdateResult.postValue(ProfileUpdateResult.fail(ProfileError.UNKNOWN));
+            }
+        });
+    }
 }

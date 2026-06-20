@@ -14,12 +14,21 @@ public final class PhotoUtils {
     }
 
     public static String savePhotoFromUri(Context context, Uri uri) throws IOException {
-        File directory = new File(context.getFilesDir(), "repair_photos");
+        return savePhotoFromUri(context, uri, "repair_photos", "repair_" + System.currentTimeMillis() + ".jpg");
+    }
+
+    public static String saveProfilePhotoFromUri(Context context, int userId, Uri uri) throws IOException {
+        return savePhotoFromUri(context, uri, "profile_photos", "profile_" + userId + ".jpg");
+    }
+
+    private static String savePhotoFromUri(Context context, Uri uri, String folderName,
+                                           String fileName) throws IOException {
+        File directory = new File(context.getFilesDir(), folderName);
         if (!directory.exists() && !directory.mkdirs()) {
             throw new IOException("Unable to create photo directory");
         }
 
-        File output = new File(directory, "repair_" + System.currentTimeMillis() + ".jpg");
+        File output = new File(directory, fileName);
         try (InputStream input = context.getContentResolver().openInputStream(uri);
              FileOutputStream outputStream = new FileOutputStream(output)) {
             if (input == null) {
@@ -32,5 +41,15 @@ public final class PhotoUtils {
             }
         }
         return output.getAbsolutePath();
+    }
+
+    public static void deletePhotoFile(String path) {
+        if (path == null || path.isEmpty()) {
+            return;
+        }
+        File file = new File(path);
+        if (file.exists()) {
+            file.delete();
+        }
     }
 }
